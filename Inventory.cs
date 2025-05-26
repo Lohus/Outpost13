@@ -11,14 +11,17 @@ public class Inventory : MonoBehaviour
     [SerializeField] GameObject slotPrefab;
     int countSlots = 8;
     Transform parentPanel;
-    Image[] inventoryObjects;
     PlayerController playerController;
+
+    [SerializeField] GameObject itemPrefab;
     void Start()
     {
         closeButton = transform.Find("Close").GetComponent<Button>();
         closeButton.onClick.AddListener(TestClick);
-        parentPanel = transform.Find("InventorySlots");
+        parentPanel = transform.Find("GridSlots");
+        playerController = GameObject.FindWithTag("Player").GetComponent<PlayerController>();
         CreateSlots();
+        FillSlots();
     }
 
     // Update is called once per frame
@@ -34,6 +37,20 @@ public class Inventory : MonoBehaviour
         for (int i = 0; i < countSlots; i++)
         {
             Instantiate(slotPrefab, parentPanel);
+        }
+
+    }
+
+    void FillSlots()
+    {
+        if (playerController.inventory.Count != 0)
+        {
+            foreach (var resources in playerController.inventory.Keys)
+            {
+                var _image = Instantiate(itemPrefab, transform.Find("GridItems")).GetComponent<Image>();
+                _image.sprite = Resources.Load<Sprite>($"Sprites/{resources}");
+                _image.color = Color.white;
+            }
         }
 
     }
