@@ -15,14 +15,14 @@ public class InventoryResources : MonoBehaviour
     void Start()
     {
         playerController = GameObject.FindWithTag("Player").GetComponent<PlayerController>();
-        CreateSlots();
+        FillSlots();
     }
 
     // Update is called once per frame
     void Update()
     {
     }
-    void CreateSlots()
+    void FillSlots()
     {
         if (playerController.inventory.Count != 0)
         {

@@ -3,14 +3,12 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
-using System.Security.Cryptography.X509Certificates;
-//using UnityEngine.UIElements;
-//using UnityEngine.UIElements;
+
 
 public class Inventory : MonoBehaviour
 {
     Button closeButton;
-    public GameObject slotPrefab;
+    [SerializeField] GameObject slotPrefab;
     int countSlots = 8;
     Transform parentPanel;
     Image[] inventoryObjects;
