@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
+using Unity.VisualScripting;
+using System.Security.Cryptography.X509Certificates;
 
 
 public class Inventory : MonoBehaviour
@@ -10,14 +12,15 @@ public class Inventory : MonoBehaviour
     Button closeButton;
     [SerializeField] GameObject slotPrefab;
     int countSlots = 8;
-    Transform parentPanel;
+    Transform parentPanel; // Canvas
     PlayerController playerController;
+    [SerializeField] TextMeshProUGUI description;
 
     [SerializeField] GameObject itemPrefab;
     void Start()
     {
         closeButton = transform.Find("Close").GetComponent<Button>();
-        closeButton.onClick.AddListener(TestClick);
+        closeButton.onClick.AddListener(CloseInventory);
         parentPanel = transform.Find("GridSlots");
         playerController = GameObject.FindWithTag("Player").GetComponent<PlayerController>();
         CreateSlots();
@@ -28,7 +31,7 @@ public class Inventory : MonoBehaviour
     void Update()
     {
     }
-    public void TestClick()
+    public void CloseInventory()
     {
         Destroy(gameObject);
     }
@@ -45,13 +48,21 @@ public class Inventory : MonoBehaviour
     {
         if (playerController.inventory.Count != 0)
         {
+            Transform _GridItems = transform.Find("GridItems");
             foreach (var resources in playerController.inventory.Keys)
             {
-                var _image = Instantiate(itemPrefab, transform.Find("GridItems")).GetComponent<Image>();
-                _image.sprite = Resources.Load<Sprite>($"Sprites/{resources}");
-                _image.color = Color.white;
+                var _image = Instantiate(itemPrefab, _GridItems);
+                _image.GetComponent<Image>().sprite = Resources.Load<Sprite>($"Sprites/{resources}");
+                _image.GetComponent<Button>().onClick.AddListener(() => ShowItemDescription(resources));
+
             }
         }
 
+    }
+
+    public void ShowItemDescription(string res)
+    {
+        transform.Find("Description").GetComponentInChildren<TextMeshProUGUI>().text = res + ' ' + playerController.inventory[res];
+        Debug.Log("Item is cliked");
     }
 }
