@@ -22,7 +22,7 @@ public class ExtractionResources : MonoBehaviour
 
     void ChangeWidthScale()
     {
-        extractionProgress.SetSizeWithCurrentAnchors(RectTransform.Axis.Horizontal, extractionProgress.sizeDelta.x - 30 * Time.deltaTime);
+        extractionProgress.SetSizeWithCurrentAnchors(RectTransform.Axis.Horizontal, extractionProgress.sizeDelta.x - 80 * Time.deltaTime);
         if (extractionProgress.sizeDelta.x < 1)
         {
             AddResources();
