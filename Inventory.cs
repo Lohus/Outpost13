@@ -63,6 +63,5 @@ public class Inventory : MonoBehaviour
     public void ShowItemDescription(string res)
     {
         transform.Find("Description").GetComponentInChildren<TextMeshProUGUI>().text = res + ' ' + playerController.inventory[res];
-        Debug.Log("Item is cliked");
     }
 }
