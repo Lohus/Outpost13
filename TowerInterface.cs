@@ -24,7 +24,7 @@ public class TowerInterface : MonoBehaviour
     {
 
     }
-    
+
     void FillSlots()
     {
         var _inv = PlayerController.instance.inventory;
@@ -34,10 +34,14 @@ public class TowerInterface : MonoBehaviour
             {
                 var _image = Instantiate(itemPrefab, gridResources);
                 _image.GetComponent<Image>().sprite = Resources.Load<Sprite>($"Sprites/{resources}");
-               // _image.GetComponent<Button>().onClick.AddListener(() => ShowItemDescription(resources));
+                // _image.GetComponent<Button>().onClick.AddListener(() => ShowItemDescription(resources));
 
             }
         }
 
+    }
+    public void CloseInventory()
+    {
+        Destroy(gameObject);
     }
 }
