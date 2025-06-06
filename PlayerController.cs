@@ -9,11 +9,23 @@ using UnityEngine;
 
 public class PlayerController : MonoBehaviour
 {
+    public static PlayerController instance;
     public bool playerIsMove = false;
     Rigidbody playerRb;
     public Dictionary<string, int> inventory = new Dictionary<string, int> { };
 
     Vector3 forwardDirection;
+    void Awake()
+    {
+        if (instance == null)
+        {
+            instance = this;
+        }
+        else
+        {
+            Destroy(gameObject);
+        }
+    }
     void Start()
     {
         playerRb = gameObject.GetComponent<Rigidbody>();

@@ -11,9 +11,9 @@ public class Tower : MonoBehaviour
     public Transform parentPanel;
     public GameObject buttonPrefabs;
     public GameObject inventoryPrefabs;
-    string nameButtonInventory;
-    string nameInventoryTower;
-    int levelTower = 1;
+    string nameButtonTower;
+    string nameTowerWindow;
+    Dictionary<string, int> quantityMaterial = new Dictionary<string, int> { {"biomass", 0} };
 
     void Start()
     {
@@ -30,45 +30,42 @@ public class Tower : MonoBehaviour
     {
         if (other.gameObject.name == "Player")
         {
-            nameButtonInventory = CreateInventoryButton();
+            nameButtonTower = CreateTowerButton();
         }
     }
     void OnTriggerExit(Collider other)
     {
         if (other.gameObject.name == "Player")
         {
-            Destroy(GameObject.Find(nameButtonInventory));
-            Destroy(GameObject.Find(nameInventoryTower));
+            Destroy(GameObject.Find(nameButtonTower));
+            Destroy(GameObject.Find(nameTowerWindow));
         }
     }
     public void OnButtonClick()
     {
-        CreateInventoryWindow();
+        CreateTowerWindow();
     }
-    string CreateInventoryButton()
+    string CreateTowerButton()
     {
         // Уместить в одну строчку без доп. переменных
         GameObject button = Instantiate(buttonPrefabs, parentPanel);
-        button.GetComponent<RectTransform>().anchorMin = new Vector2(0, 1);
-        button.GetComponent<RectTransform>().anchorMax = new Vector2(0, 1);
-        button.GetComponent<RectTransform>().anchoredPosition = new Vector2(100, -20);
         TextMeshProUGUI buttonText = button.GetComponentInChildren<TextMeshProUGUI>();
-        buttonText.text = "Inventory";
+        buttonText.text = "Tower";
         Button buttonComponent = button.GetComponent<Button>();
         buttonComponent.onClick.AddListener(OnButtonClick);
         return button.name;
     }
-    void CreateInventoryWindow()
+    void CreateTowerWindow()
     {
 
-        if (nameInventoryTower == null)
+        if (nameTowerWindow == null)
         {
-            nameInventoryTower = Instantiate(inventoryPrefabs, parentPanel).name;
+            nameTowerWindow = Instantiate(inventoryPrefabs, parentPanel).name;
         }
 
-        else if (!parentPanel.transform.Find(nameInventoryTower))
+        else if (!parentPanel.transform.Find(nameTowerWindow))
         {
-            nameInventoryTower = Instantiate(inventoryPrefabs, parentPanel).name;
+            nameTowerWindow = Instantiate(inventoryPrefabs, parentPanel).name;
         }
     }
 }
