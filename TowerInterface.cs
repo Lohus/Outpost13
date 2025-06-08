@@ -14,7 +14,7 @@ public class TowerInterface : MonoBehaviour
     [SerializeField] GameObject isotopeProgress;
     [SerializeField] Transform gridResources;
     [SerializeField] GameObject itemPrefab;
-    [HideInInspector] public GameObject selectItem;
+    [HideInInspector] public ResourceItem selectItem;
     public void Awake()
     {
         if (instance == null)
@@ -47,8 +47,8 @@ public class TowerInterface : MonoBehaviour
             foreach (var resources in _inv.Keys)
             {
                 var _item = Instantiate(itemPrefab, gridResources);
-                _item.GetComponent<Image>().sprite = Resources.Load<Sprite>($"Sprites/{resources}");
-                _item.GetComponent<Button>().onClick.AddListener(() => SelectItem(_item));
+                _item.GetComponent<Image>().sprite = resources.icon;
+                _item.GetComponent<Button>().onClick.AddListener(() => SelectItem(resources));
 
             }
         }
@@ -65,13 +65,13 @@ public class TowerInterface : MonoBehaviour
     }
     void ResycleResources()
     {
-        
+
     }
     // Select resouces from window Tower Interface
-    public void SelectItem(GameObject gO)
+    public void SelectItem(ResourceItem resource)
     {
-        TowerInterface.instance.selectItem = gO;
-        Debug.Log(selectItem);
+        TowerInterface.instance.selectItem = resource;
+        Debug.Log(selectItem.name);
     }
 
 

@@ -50,17 +50,17 @@ public class Inventory : MonoBehaviour
             Transform _GridItems = transform.Find("GridItems");
             foreach (var resources in playerController.inventory.Keys)
             {
-                var _image = Instantiate(itemPrefab, _GridItems);
-                _image.GetComponent<Image>().sprite = Resources.Load<Sprite>($"Sprites/{resources}");
-                _image.GetComponent<Button>().onClick.AddListener(() => ShowItemDescription(resources));
+                var _item = Instantiate(itemPrefab, _GridItems);
+                _item.GetComponent<Image>().sprite = resources.icon;
+                _item.GetComponent<Button>().onClick.AddListener(() => ShowItemDescription(resources));
 
             }
         }
 
     }
 
-    public void ShowItemDescription(string res)
+    public void ShowItemDescription(ResourceItem res)
     {
-        transform.Find("Description").GetComponentInChildren<TextMeshProUGUI>().text = res + ' ' + playerController.inventory[res];
+        transform.Find("Description").GetComponentInChildren<TextMeshProUGUI>().text = res.description;
     }
 }

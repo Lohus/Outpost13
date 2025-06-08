@@ -6,6 +6,7 @@ public class ExtractionResources : MonoBehaviour
 {
     RectTransform extractionProgress;
     PlayerController playerController;
+    public ResourceItem wood;
     float width;
     void Start()
     {
@@ -37,13 +38,13 @@ public class ExtractionResources : MonoBehaviour
 
     void AddResources()
     {
-        if (playerController.inventory.ContainsKey("wood"))
+        if (playerController.inventory.ContainsKey(wood))
         {
-            playerController.inventory["wood"] += 10;
+            playerController.inventory[wood] += 10;
         }
         else
         {
-            playerController.inventory.Add("wood", 10);
+            playerController.inventory.Add(wood, 10);
         }
     }
     // Написать дестурктор для получения ресурсов от добычи

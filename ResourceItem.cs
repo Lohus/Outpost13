@@ -5,4 +5,5 @@ public class ResourceItem : ScriptableObject
 {
     public string resourceName;
     public Sprite icon;
+    public string description; 
 }
