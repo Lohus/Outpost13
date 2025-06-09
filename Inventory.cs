@@ -61,6 +61,6 @@ public class Inventory : MonoBehaviour
 
     public void ShowItemDescription(ResourceItem res)
     {
-        transform.Find("Description").GetComponentInChildren<TextMeshProUGUI>().text = res.description;
+        transform.Find("Description").GetComponentInChildren<TextMeshProUGUI>().text = playerController.inventory[res] + "/n" + res.description;
     }
 }
