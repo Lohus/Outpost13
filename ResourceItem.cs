@@ -5,5 +5,7 @@ public class ResourceItem : ScriptableObject
 {
     public string resourceName;
     public Sprite icon;
-    public string description; 
+    public string description;
+    public float multiplie = 1;
+    public string resycleRes;
 }
