@@ -8,13 +8,25 @@ using UnityEditor.SceneManagement;
 // Взаимодествие с форпостом
 public class Tower : MonoBehaviour
 {
+    public static Tower instance;
     public Transform parentPanel;
     public GameObject buttonPrefabs;
     public GameObject inventoryPrefabs;
     string nameButtonTower;
     string nameTowerWindow;
-    Dictionary<string, int> quantityMaterial = new Dictionary<string, int> { {"biomass", 0} };
+    public Dictionary<string, float> quantityMaterial = new Dictionary<string, float> {{"biomass", 0}, {"metal", 0}, {"poly", 0}, {"iso", 0}};
 
+    void Awake()
+    {
+        if (instance == null)
+        {
+            instance = this;
+        }
+        else
+        {
+            Destroy(gameObject);
+        }
+    }
     void Start()
     {
 
