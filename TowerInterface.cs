@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Security.Cryptography;
 using TMPro;
 using Unity.VisualScripting;
 using UnityEngine;
@@ -7,14 +8,11 @@ using UnityEngine.UI;
 
 public class TowerInterface : MonoBehaviour
 {
-    public static TowerInterface instance;
-    [SerializeField] GameObject biomassProgress;
-    [SerializeField] GameObject metalProgress;
-    [SerializeField] GameObject polycristalProgress;
-    [SerializeField] GameObject isotopeProgress;
     [SerializeField] Transform gridResources;
     [SerializeField] GameObject itemPrefab;
+    public static TowerInterface instance;
     [HideInInspector] public ResourceItem selectItem;
+    [SerializeField] List<GameObject> progress = new List<GameObject> { };
     public void Awake()
     {
         if (instance == null)
@@ -30,7 +28,9 @@ public class TowerInterface : MonoBehaviour
     void Start()
     {
         transform.Find("Close").GetComponent<Button>().onClick.AddListener(CloseInventory);
+        transform.Find("Resycle").GetComponent<Button>().onClick.AddListener(ResycleResources);
         FillSlots();
+        ShowProgressOfResources();
     }
 
     // Update is called once per frame
@@ -61,17 +61,42 @@ public class TowerInterface : MonoBehaviour
     // Show quantity of resources in window Tower Interface 
     void ShowProgressOfResources()
     {
-
+        var _quantity = Tower.instance.quantityMaterial;
+        foreach (var res in progress)
+        {
+            var _trans = res.GetComponent<RectTransform>();
+            _trans.SetSizeWithCurrentAnchors(RectTransform.Axis.Horizontal, 144 * _quantity[res.name] / 100);
+        } 
     }
     void ResycleResources()
     {
+        if (selectItem != null)
+        {
+            Tower.instance.quantityMaterial[selectItem.resycleRes] += selectItem.multiplie * PlayerController.instance.inventory[selectItem];
+            PlayerController.instance.inventory.Remove(selectItem);
+            selectItem = null;
+            CleanItems();
+            FillSlots();
+            ShowProgressOfResources();
+        }
+        else
+        {
+            return;
+        }  
+    }
 
+    // Clean grid resources from all items in window
+    void CleanItems()
+    {
+        foreach (Transform child in gridResources)
+        {
+            Destroy(child.gameObject);
+        }
     }
     // Select resouces from window Tower Interface
     public void SelectItem(ResourceItem resource)
     {
         TowerInterface.instance.selectItem = resource;
-        Debug.Log(selectItem.name);
     }
 
 
