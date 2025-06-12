@@ -1,8 +1,7 @@
-using System.Collections;
+
 using System.Collections.Generic;
-using Unity.VisualScripting;
-using UnityEditor;
-using UnityEditor.Callbacks;
+
+
 using UnityEngine;
 
 // Управление персонажем
@@ -30,7 +29,6 @@ public class PlayerController : MonoBehaviour
     {
         playerRb = gameObject.GetComponent<Rigidbody>();
         forwardDirection = Vector3.forward;
-        Debug.Log(inventory.Count);
     }
     void Update()
     {
