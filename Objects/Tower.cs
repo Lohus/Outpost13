@@ -1,0 +1,82 @@
+
+using System.Collections.Generic;
+using UnityEngine;
+using UnityEngine.UI;
+using TMPro;
+
+// Взаимодествие с форпостом
+public class Tower : MonoBehaviour
+{
+    public static Tower instance;
+    public Transform parentPanel;
+    public GameObject buttonPrefabs;
+    public GameObject inventoryPrefabs;
+    string nameButtonTower;
+    string nameTowerWindow;
+    public Dictionary<string, float> quantityMaterial = new Dictionary<string, float> {{"biomass", 0}, {"metal", 0}, {"poly", 0}, {"iso", 0}};
+
+    void Awake()
+    {
+        if (instance == null)
+        {
+            instance = this;
+        }
+        else
+        {
+            Destroy(gameObject);
+        }
+    }
+    void Start()
+    {
+
+    }
+
+    // Update is called once per frame
+    void Update()
+    {
+
+    }
+
+    void OnTriggerEnter(Collider other)
+    {
+        if (other.gameObject.name == "Player")
+        {
+            nameButtonTower = CreateTowerButton();
+        }
+    }
+    void OnTriggerExit(Collider other)
+    {
+        if (other.gameObject.name == "Player")
+        {
+            Destroy(GameObject.Find(nameButtonTower));
+            Destroy(GameObject.Find(nameTowerWindow));
+        }
+    }
+    public void OnButtonClick()
+    {
+        CreateTowerWindow();
+    }
+    string CreateTowerButton()
+    {
+        // Уместить в одну строчку без доп. переменных
+        GameObject button = Instantiate(buttonPrefabs, parentPanel);
+        TextMeshProUGUI buttonText = button.GetComponentInChildren<TextMeshProUGUI>();
+        buttonText.text = "Tower";
+        Button buttonComponent = button.GetComponent<Button>();
+        buttonComponent.onClick.AddListener(OnButtonClick);
+        return button.name;
+    }
+    void CreateTowerWindow()
+    {
+
+        if (nameTowerWindow == null)
+        {
+            nameTowerWindow = Instantiate(inventoryPrefabs, parentPanel).name;
+        }
+
+        else if (!parentPanel.transform.Find(nameTowerWindow))
+        {
+            nameTowerWindow = Instantiate(inventoryPrefabs, parentPanel).name;
+        }
+    }
+}
