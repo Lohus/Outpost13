@@ -9,7 +9,6 @@ public class PlayerController : MonoBehaviour
     public static PlayerController instance;
     public bool playerIsMove = false;
     Rigidbody playerRb;
-    public Dictionary<ResourceItem, int> inventory = new Dictionary<ResourceItem, int> { };
 
     Vector3 forwardDirection;
     void Awake()
@@ -22,10 +21,10 @@ public class PlayerController : MonoBehaviour
         {
             Destroy(gameObject);
         }
+        playerRb = gameObject.GetComponent<Rigidbody>();
     }
     void Start()
     {
-        playerRb = gameObject.GetComponent<Rigidbody>();
         forwardDirection = Vector3.forward;
     }
     void Update()

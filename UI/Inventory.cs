@@ -12,16 +12,19 @@ public class Inventory : MonoBehaviour
     [SerializeField] GameObject slotPrefab;
     int countSlots = 8;
     Transform parentPanel; // Canvas
-    PlayerController playerController;
+    PlayerInventory playerInventory;
     [SerializeField] TextMeshProUGUI description;
 
     [SerializeField] GameObject itemPrefab;
+    void Awake()
+    {
+        playerInventory = PlayerInventory.instance;
+    }
     void Start()
     {
         closeButton = transform.Find("Close").GetComponent<Button>();
         closeButton.onClick.AddListener(CloseInventory);
         parentPanel = transform.Find("GridSlots");
-        playerController = GameObject.FindWithTag("Player").GetComponent<PlayerController>();
         CreateSlots();
         FillSlots();
     }
@@ -45,10 +48,10 @@ public class Inventory : MonoBehaviour
 
     void FillSlots()
     {
-        if (playerController.inventory.Count != 0)
+        if (playerInventory.inventory.Count != 0)
         {
             Transform _GridItems = transform.Find("GridItems");
-            foreach (var resources in playerController.inventory.Keys)
+            foreach (var resources in playerInventory.inventory.Keys)
             {
                 var _item = Instantiate(itemPrefab, _GridItems);
                 _item.GetComponent<Image>().sprite = resources.icon;
@@ -61,6 +64,6 @@ public class Inventory : MonoBehaviour
 
     public void ShowItemDescription(ResourceItem res)
     {
-        transform.Find("Description").GetComponentInChildren<TextMeshProUGUI>().text = playerController.inventory[res] + "/n" + res.description;
+        transform.Find("Description").GetComponentInChildren<TextMeshProUGUI>().text = playerInventory.inventory[res] + "\n" + res.description;
     }
 }

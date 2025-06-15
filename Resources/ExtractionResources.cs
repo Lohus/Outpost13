@@ -7,6 +7,7 @@ public class ExtractionResources : MonoBehaviour
     RectTransform extractionProgress;
     PlayerController playerController;
     public ResourceItem wood;
+    int quantityResources = 10;
     float width;
     void Start()
     {
@@ -26,7 +27,7 @@ public class ExtractionResources : MonoBehaviour
         extractionProgress.SetSizeWithCurrentAnchors(RectTransform.Axis.Horizontal, extractionProgress.sizeDelta.x - 80 * Time.deltaTime);
         if (extractionProgress.sizeDelta.x < 1)
         {
-            AddResources();
+            AddResources(wood, quantityResources);
             extractionProgress.SetSizeWithCurrentAnchors(RectTransform.Axis.Horizontal, width);
         }
     }
@@ -36,16 +37,5 @@ public class ExtractionResources : MonoBehaviour
             Destroy(gameObject);
     }
 
-    void AddResources()
-    {
-        if (playerController.inventory.ContainsKey(wood))
-        {
-            playerController.inventory[wood] += 10;
-        }
-        else
-        {
-            playerController.inventory.Add(wood, 10);
-        }
-    }
-    // Написать дестурктор для получения ресурсов от добычи
+    void AddResources(ResourceItem resource, int count) => PlayerInventory.instance.AddResourcesToInvetory(resource, count);
 }

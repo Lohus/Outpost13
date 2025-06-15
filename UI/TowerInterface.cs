@@ -41,7 +41,7 @@ public class TowerInterface : MonoBehaviour
 
     void FillSlots()
     {
-        var _inv = PlayerController.instance.inventory;
+        var _inv = PlayerInventory.instance.inventory;
         if (_inv.Count != 0)
         {
             foreach (var resources in _inv.Keys)
@@ -72,8 +72,8 @@ public class TowerInterface : MonoBehaviour
     {
         if (selectItem != null)
         {
-            Tower.instance.quantityMaterial[selectItem.resycleRes] += selectItem.multiplie * PlayerController.instance.inventory[selectItem];
-            PlayerController.instance.inventory.Remove(selectItem);
+            Tower.instance.quantityMaterial[selectItem.resycleRes] += selectItem.multiplie * PlayerInventory.instance.inventory[selectItem];
+            PlayerInventory.instance.inventory.Remove(selectItem);
             selectItem = null;
             CleanItems();
             FillSlots();
