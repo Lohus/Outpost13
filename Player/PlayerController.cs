@@ -1,7 +1,5 @@
 
 using System.Collections.Generic;
-
-
 using UnityEngine;
 
 // Управление персонажем
@@ -67,6 +65,12 @@ public class PlayerController : MonoBehaviour
             playerIsMove = false;
         }
     }
-    // Прекращение добычи при движении игрок
+    // Rotate player to some object
+    public void RotateTo(Transform objectTransform)
+    {
+        Vector3 forwardToObj = (gameObject.transform.position - objectTransform.position);
+        forwardToObj.y = 0f;
+        gameObject.transform.forward = forwardToObj;
+    }
 
 }

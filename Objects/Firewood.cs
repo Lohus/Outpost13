@@ -1,6 +1,4 @@
-using System.Collections;
-using System.Collections.Generic;
-using Unity.VisualScripting;
+
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
@@ -55,15 +53,9 @@ public class Firewood : MonoBehaviour
         return button.name;
     }
 
-    void RotatePlayerTo()
-    {
-        // Изменить на поиск по тэгу
-        Transform playerPosition = GameObject.Find("Player").transform;
-        Vector3 playerForward = (playerPosition.position - gameObject.transform.position);
-        playerForward.y = 0f;
-        playerPosition.transform.forward = playerForward;
-    }
-        string ExtractionResources()
+    void RotatePlayerTo() => PlayerController.instance.RotateTo(gameObject.transform);
+
+    string ExtractionResources()
     {
         return Instantiate(extractionUIPrefab, GameObject.FindGameObjectWithTag("MainUI").transform).name;
 
