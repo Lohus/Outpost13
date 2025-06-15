@@ -3,19 +3,31 @@ using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 using UnityEngine.UI;
+using System;
 
-
+// Add to Canvas on scene
 public class Interface : MonoBehaviour
 {
-    public Transform parentPanel; // Canvas on scene
+    public static Interface instance;
+    public Transform mainUI; // Canvas on scene
     public GameObject buttonPrefabs;
     public GameObject inventoryPrefabs;
-    string nameButtonInventory;
     string nameInventoryTower;
 
+    void Awake()
+    {
+        if (instance == null)
+        {
+            instance = this;
+        }
+        else
+        {
+            Destroy(gameObject);
+        }
+        mainUI = gameObject.transform;
+    }
     void Start()
     {
-        parentPanel = gameObject.transform;
         CreateInventoryButton();
     }
 
@@ -27,7 +39,7 @@ public class Interface : MonoBehaviour
     string CreateInventoryButton()
     {
         // Уместить в одну строчку без доп. переменных
-        GameObject button = Instantiate(buttonPrefabs, parentPanel);
+        GameObject button = Instantiate(buttonPrefabs, mainUI);
         button.GetComponent<RectTransform>().anchorMin = new Vector2(0, 1);
         button.GetComponent<RectTransform>().anchorMax = new Vector2(0, 1);
         button.GetComponent<RectTransform>().anchoredPosition = new Vector2(100, -20);
@@ -44,12 +56,22 @@ public class Interface : MonoBehaviour
 
         if (nameInventoryTower == null)
         {
-            nameInventoryTower = Instantiate(inventoryPrefabs, parentPanel).name;
+            nameInventoryTower = Instantiate(inventoryPrefabs, mainUI).name;
         }
 
-        else if (!parentPanel.transform.Find(nameInventoryTower))
+        else if (!mainUI.transform.Find(nameInventoryTower))
         {
-            nameInventoryTower = Instantiate(inventoryPrefabs, parentPanel).name;
+            nameInventoryTower = Instantiate(inventoryPrefabs, mainUI).name;
         }
+    }
+
+    public GameObject CreateButton(string textOnButton, Action OnButtonClick)
+    {
+        GameObject button = Instantiate(buttonPrefabs, mainUI);
+        TextMeshProUGUI buttonText = button.GetComponentInChildren<TextMeshProUGUI>();
+        buttonText.text = textOnButton;
+        Button buttonComponent = button.GetComponent<Button>();
+        buttonComponent.onClick.AddListener(() => OnButtonClick?.Invoke());
+        return button;
     }
 }
