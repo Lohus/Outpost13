@@ -5,16 +5,16 @@ using UnityEngine;
 public class CameraControll : MonoBehaviour
 {
     float offset = 15;
-    GameObject target;
+    Transform target;
     void Start()
     {
-        target = GameObject.Find("Player");
+        target = PlayerController.instance.GetComponent<Transform>();
     }
 
     // Update is called once per frame
     void LateUpdate()
     {
-        transform.position = target.transform.position + new Vector3(-offset, offset, offset);
-        transform.LookAt(target.transform);
+        transform.position = target.position + new Vector3(-offset, offset, offset);
+        transform.LookAt(target);
     }
 }
