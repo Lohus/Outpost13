@@ -9,10 +9,10 @@ using Unity.VisualScripting;
 // Add to Canvas on scene
 public class Interface : MonoBehaviour
 {
-    public static Interface instance;
-    public Transform mainUI; // Canvas on scene
-    public GameObject buttonPrefabs;
-    public GameObject inventoryPrefabs;
+    [HideInInspector]public static Interface instance;
+    Transform mainUI; // Canvas on scene
+    [SerializeField] GameObject buttonPrefabs;
+    [SerializeField] GameObject inventoryPrefabs;
     string nameInventoryTower;
     [SerializeField] GameObject progressBarPrefab;
 

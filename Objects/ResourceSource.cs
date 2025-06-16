@@ -7,13 +7,12 @@ using System.Collections;
 
 public class ResourceSource : MonoBehaviour
 {
+    [SerializeField] float interval = 2;
+    [SerializeField] int quantityResources;
+    [SerializeField] ResourceItem typeResource;
     GameObject extractionButton;
     GameObject extractionUI;
     Coroutine extractionRoutine;
-    [SerializeField] float interval = 2;
-    [SerializeField] ResourceItem typeResource;
-    [SerializeField] int quantityResources;
-
     void OnTriggerEnter(Collider other)
     {
         if (other.gameObject.name == "Player")
@@ -36,8 +35,8 @@ public class ResourceSource : MonoBehaviour
 
     }
     GameObject CreateButton() => Interface.instance.CreateButton("Extract", OnButtonClick);
-
     void RotatePlayerTo() => PlayerController.instance.RotateTo(gameObject.transform);
+    void AddResources(ResourceItem resource, int count) => PlayerInventory.instance.AddResourcesToInvetory(resource, count);
 
 
     IEnumerator ExtractionResource()
@@ -67,6 +66,4 @@ public class ResourceSource : MonoBehaviour
         Destroy(extractionUI);
         PlayerController.instance.playerIsMove.RemoveListener(() => StopExtraction(extractionRoutine));
     }
-    void AddResources(ResourceItem resource, int count) => PlayerInventory.instance.AddResourcesToInvetory(resource, count);
-
 }
