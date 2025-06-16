@@ -2,13 +2,18 @@
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
+using System.Collections;
 
 
 public class Firewood : MonoBehaviour
 {
     GameObject extractionButton;
-    string extraction;
-    [SerializeField] GameObject extractionUIPrefab;
+    GameObject extractionUI;
+    Coroutine extractionRoutine;
+    [SerializeField] GameObject extractionPrefab;
+    [SerializeField] float interval = 2;
+    [SerializeField] ResourceItem typeResource;
+    [SerializeField] int quantityResources;
 
     void OnTriggerEnter(Collider other)
     {
@@ -22,24 +27,47 @@ public class Firewood : MonoBehaviour
         if (other.gameObject.name == "Player")
         {
             Destroy(extractionButton);
-            Destroy(GameObject.Find(extraction));
         }
     }
     public void OnButtonClick()
     {
         Destroy(extractionButton);
         RotatePlayerTo();
-        extraction = ExtractionResources();
+        StartExtraction();
 
     }
     GameObject CreateButton() => Interface.instance.CreateButton("Extract", OnButtonClick);
 
     void RotatePlayerTo() => PlayerController.instance.RotateTo(gameObject.transform);
 
-    string ExtractionResources()
-    {
-        return Instantiate(extractionUIPrefab, GameObject.FindGameObjectWithTag("MainUI").transform).name;
 
+    IEnumerator ExtractionResource()
+    {
+        float timer = 0;
+        while (true)
+        {
+            timer += Time.deltaTime;
+            if (timer >= interval)
+            {
+                AddResources(typeResource, quantityResources);
+                timer = 0f;
+            }
+            yield return null;
+        }
     }
+
+    void StartExtraction()
+    {
+        extractionRoutine = StartCoroutine(ExtractionResource());
+        extractionUI = Interface.instance.CreateProgressBar(extractionPrefab, interval);
+        PlayerController.instance.playerIsMove.AddListener(() => StopExtraction(extractionRoutine));
+    }
+    void StopExtraction(Coroutine cor)
+    {
+        StopCoroutine(cor);
+        Destroy(extractionUI);
+        PlayerController.instance.playerIsMove.RemoveListener(() => StopExtraction(extractionRoutine));
+    }
+    void AddResources(ResourceItem resource, int count) => PlayerInventory.instance.AddResourcesToInvetory(resource, count);
 
 }

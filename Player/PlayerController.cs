@@ -1,13 +1,14 @@
 
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
 // Управление персонажем
 
 public class PlayerController : MonoBehaviour
 {
+    public UnityEvent playerIsMove = new UnityEvent();
     public static PlayerController instance;
-    public bool playerIsMove = false;
     Rigidbody playerRb;
 
     Vector3 forwardDirection;
@@ -57,11 +58,7 @@ public class PlayerController : MonoBehaviour
             if (forwardDirection != Vector3.zero)
                 transform.forward = forwardDirection;
             playerRb.MovePosition(playerRb.position - forwardDirection * Time.deltaTime * 6);
-            playerIsMove = true;
-        }
-        else
-        {
-            playerIsMove = false;
+            playerIsMove?.Invoke();
         }
     }
     // Rotate player to some object

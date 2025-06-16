@@ -4,6 +4,7 @@ using UnityEngine;
 using TMPro;
 using UnityEngine.UI;
 using System;
+using Unity.VisualScripting;
 
 // Add to Canvas on scene
 public class Interface : MonoBehaviour
@@ -73,5 +74,12 @@ public class Interface : MonoBehaviour
         Button buttonComponent = button.GetComponent<Button>();
         buttonComponent.onClick.AddListener(() => OnButtonClick?.Invoke());
         return button;
+    }
+
+    public GameObject CreateProgressBar(GameObject prefabProgress, float durationAnimation)
+    {
+        var _bar = Instantiate(prefabProgress, gameObject.transform);
+        _bar.GetComponent<ProgressBar>().Init(durationAnimation);
+        return _bar;
     }
 }
