@@ -5,12 +5,11 @@ using TMPro;
 using System.Collections;
 
 
-public class Firewood : MonoBehaviour
+public class ResourceSource : MonoBehaviour
 {
     GameObject extractionButton;
     GameObject extractionUI;
     Coroutine extractionRoutine;
-    [SerializeField] GameObject extractionPrefab;
     [SerializeField] float interval = 2;
     [SerializeField] ResourceItem typeResource;
     [SerializeField] int quantityResources;
@@ -59,7 +58,7 @@ public class Firewood : MonoBehaviour
     void StartExtraction()
     {
         extractionRoutine = StartCoroutine(ExtractionResource());
-        extractionUI = Interface.instance.CreateProgressBar(extractionPrefab, interval);
+        extractionUI = Interface.instance.CreateProgressBar(interval);
         PlayerController.instance.playerIsMove.AddListener(() => StopExtraction(extractionRoutine));
     }
     void StopExtraction(Coroutine cor)

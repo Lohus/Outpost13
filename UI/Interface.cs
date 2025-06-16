@@ -14,6 +14,7 @@ public class Interface : MonoBehaviour
     public GameObject buttonPrefabs;
     public GameObject inventoryPrefabs;
     string nameInventoryTower;
+    [SerializeField] GameObject progressBarPrefab;
 
     void Awake()
     {
@@ -76,9 +77,9 @@ public class Interface : MonoBehaviour
         return button;
     }
 
-    public GameObject CreateProgressBar(GameObject prefabProgress, float durationAnimation)
+    public GameObject CreateProgressBar(float durationAnimation)
     {
-        var _bar = Instantiate(prefabProgress, gameObject.transform);
+        var _bar = Instantiate(progressBarPrefab, gameObject.transform);
         _bar.GetComponent<ProgressBar>().Init(durationAnimation);
         return _bar;
     }
