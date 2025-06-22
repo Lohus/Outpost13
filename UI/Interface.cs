@@ -13,7 +13,6 @@ public class Interface : MonoBehaviour
     Transform mainUI; // Canvas on scene
     [SerializeField] GameObject buttonPrefabs;
     [SerializeField] GameObject inventoryPrefabs;
-    string nameInventoryTower;
     [SerializeField] GameObject prefabProgressBar;
     [SerializeField] GameObject prefabBasePanel;
     [SerializeField] GameObject prefabPlayerInventory;
@@ -34,12 +33,6 @@ public class Interface : MonoBehaviour
     {
         CreateInventoryButton();
     }
-
-    // Update is called once per frame
-    void Update()
-    {
-
-    }
     string CreateInventoryButton()
     {
         // Уместить в одну строчку без доп. переменных
@@ -50,7 +43,7 @@ public class Interface : MonoBehaviour
         TextMeshProUGUI buttonText = button.GetComponentInChildren<TextMeshProUGUI>();
         buttonText.text = "Inventory";
         Button buttonComponent = button.GetComponent<Button>();
-        buttonComponent.onClick.AddListener(() => CreateInventoryWindow(prefabPlayerInventory));
+        buttonComponent.onClick.AddListener(() => CreateCustomWindow(prefabPlayerInventory));
         button.name = "OpenInventory";
         return button.name;
     }
@@ -78,9 +71,10 @@ public class Interface : MonoBehaviour
         return _panel;
 
     }
-    GameObject CreateInventoryWindow(GameObject prefab)
+    public GameObject CreateCustomWindow(GameObject prefab)
     {
         var _panel = CreateBaseWindow();
-        return Instantiate(prefab, _panel.transform);
+        Instantiate(prefab, _panel.transform);
+        return _panel;
     }
 }

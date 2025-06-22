@@ -6,14 +6,15 @@ using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class TowerInterface : MonoBehaviour
+public class TowerResycle : MonoBehaviour
 {
+    public static TowerResycle instance;
     [SerializeField] Transform gridResources;
-    [SerializeField] GameObject itemPrefab;
-    public static TowerInterface instance;
-    [HideInInspector] public ResourceItem selectItem;
+    [SerializeField] GameObject prefabItem;
     [SerializeField] List<GameObject> progress = new List<GameObject> { };
-    public void Awake()
+    [SerializeField] Button buttonResycle;
+    ResourceItem selectItem;
+    void Awake()
     {
         if (instance == null)
         {
@@ -27,18 +28,10 @@ public class TowerInterface : MonoBehaviour
 
     void Start()
     {
-        transform.Find("Close").GetComponent<Button>().onClick.AddListener(CloseInventory);
-        transform.Find("Resycle").GetComponent<Button>().onClick.AddListener(ResycleResources);
+        buttonResycle.onClick.AddListener(ResycleResources);
         FillSlots();
         ShowProgressOfResources();
     }
-
-    // Update is called once per frame
-    void Update()
-    {
-
-    }
-
     void FillSlots()
     {
         var _inv = PlayerInventory.instance.inventory;
@@ -46,19 +39,14 @@ public class TowerInterface : MonoBehaviour
         {
             foreach (var resources in _inv.Keys)
             {
-                var _item = Instantiate(itemPrefab, gridResources);
+                var _item = Instantiate(prefabItem, gridResources);
                 _item.GetComponent<Image>().sprite = resources.icon;
                 _item.GetComponent<Button>().onClick.AddListener(() => SelectItem(resources));
 
             }
         }
-
     }
-    public void CloseInventory()
-    {
-        Destroy(gameObject);
-    }
-    // Show quantity of resources in window Tower Interface 
+    // Show quantity of resources in recyle window on TowerUI
     void ShowProgressOfResources()
     {
         var _quantity = TowerStorage.instance.quantityMaterial;
@@ -95,7 +83,7 @@ public class TowerInterface : MonoBehaviour
     // Select resouces from window Tower Interface
     public void SelectItem(ResourceItem resource)
     {
-        TowerInterface.instance.selectItem = resource;
+        TowerResycle.instance.selectItem = resource;
     }
 
 

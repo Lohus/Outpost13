@@ -1,18 +1,13 @@
-
-using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UI;
-using TMPro;
+using System.Collections.Generic;
 
-// Взаимодествие с форпостом
+// Interaction with Outpost
 public class Tower : MonoBehaviour
 {
-    public static Tower instance;
-    public Transform parentPanel;
-    public GameObject inventoryPrefabs;
-    GameObject buttonTower;
-    string nameTowerWindow;
-    public Dictionary<string, float> quantityMaterial = new Dictionary<string, float> {{"biomass", 0}, {"metal", 0}, {"poly", 0}, {"iso", 0}};
+    [HideInInspector] public static Tower instance;
+    [SerializeField] GameObject prefabMenu; // Prefab menu tower
+    GameObject buttonTower; // Button for open tower interface
+    GameObject towerUI; // Tower interface 
 
     void Awake()
     {
@@ -24,16 +19,6 @@ public class Tower : MonoBehaviour
         {
             Destroy(gameObject);
         }
-    }
-    void Start()
-    {
-
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-
     }
 
     void OnTriggerEnter(Collider other)
@@ -48,25 +33,16 @@ public class Tower : MonoBehaviour
         if (other.gameObject.name == "Player")
         {
             Destroy(buttonTower);
-            Destroy(GameObject.Find(nameTowerWindow));
+            Destroy(towerUI);
         }
     }
     public void OnButtonClick()
     {
-        CreateTowerWindow();
+        CreateTowerUI();
     }
     GameObject CreateTowerButton() => Interface.instance.CreateButton("Tower", OnButtonClick);
-    void CreateTowerWindow()
+    void CreateTowerUI()
     {
-
-        if (nameTowerWindow == null)
-        {
-            nameTowerWindow = Instantiate(inventoryPrefabs, parentPanel).name;
-        }
-
-        else if (!parentPanel.transform.Find(nameTowerWindow))
-        {
-            nameTowerWindow = Instantiate(inventoryPrefabs, parentPanel).name;
-        }
+        towerUI = Interface.instance.CreateCustomWindow(prefabMenu);
     }
 }
