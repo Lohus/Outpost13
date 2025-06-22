@@ -61,7 +61,7 @@ public class TowerInterface : MonoBehaviour
     // Show quantity of resources in window Tower Interface 
     void ShowProgressOfResources()
     {
-        var _quantity = Tower.instance.quantityMaterial;
+        var _quantity = TowerStorage.instance.quantityMaterial;
         foreach (var res in progress)
         {
             var _trans = res.GetComponent<RectTransform>();
@@ -72,8 +72,7 @@ public class TowerInterface : MonoBehaviour
     {
         if (selectItem != null)
         {
-            Tower.instance.quantityMaterial[selectItem.resycleRes] += selectItem.multiplie * PlayerInventory.instance.inventory[selectItem];
-            PlayerInventory.instance.inventory.Remove(selectItem);
+            TowerStorage.instance.AddResource(selectItem);
             selectItem = null;
             CleanItems();
             FillSlots();

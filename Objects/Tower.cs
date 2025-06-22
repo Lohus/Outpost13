@@ -9,9 +9,8 @@ public class Tower : MonoBehaviour
 {
     public static Tower instance;
     public Transform parentPanel;
-    public GameObject buttonPrefabs;
     public GameObject inventoryPrefabs;
-    string nameButtonTower;
+    GameObject buttonTower;
     string nameTowerWindow;
     public Dictionary<string, float> quantityMaterial = new Dictionary<string, float> {{"biomass", 0}, {"metal", 0}, {"poly", 0}, {"iso", 0}};
 
@@ -41,14 +40,14 @@ public class Tower : MonoBehaviour
     {
         if (other.gameObject.name == "Player")
         {
-            nameButtonTower = CreateTowerButton();
+            buttonTower = CreateTowerButton();
         }
     }
     void OnTriggerExit(Collider other)
     {
         if (other.gameObject.name == "Player")
         {
-            Destroy(GameObject.Find(nameButtonTower));
+            Destroy(buttonTower);
             Destroy(GameObject.Find(nameTowerWindow));
         }
     }
@@ -56,16 +55,7 @@ public class Tower : MonoBehaviour
     {
         CreateTowerWindow();
     }
-    string CreateTowerButton()
-    {
-        // Уместить в одну строчку без доп. переменных
-        GameObject button = Instantiate(buttonPrefabs, parentPanel);
-        TextMeshProUGUI buttonText = button.GetComponentInChildren<TextMeshProUGUI>();
-        buttonText.text = "Tower";
-        Button buttonComponent = button.GetComponent<Button>();
-        buttonComponent.onClick.AddListener(OnButtonClick);
-        return button.name;
-    }
+    GameObject CreateTowerButton() => Interface.instance.CreateButton("Tower", OnButtonClick);
     void CreateTowerWindow()
     {
 

@@ -9,12 +9,14 @@ using Unity.VisualScripting;
 // Add to Canvas on scene
 public class Interface : MonoBehaviour
 {
-    [HideInInspector]public static Interface instance;
+    [HideInInspector] public static Interface instance;
     Transform mainUI; // Canvas on scene
     [SerializeField] GameObject buttonPrefabs;
     [SerializeField] GameObject inventoryPrefabs;
     string nameInventoryTower;
-    [SerializeField] GameObject progressBarPrefab;
+    [SerializeField] GameObject prefabProgressBar;
+    [SerializeField] GameObject prefabBasePanel;
+    [SerializeField] GameObject prefabPlayerInventory;
 
     void Awake()
     {
@@ -48,23 +50,9 @@ public class Interface : MonoBehaviour
         TextMeshProUGUI buttonText = button.GetComponentInChildren<TextMeshProUGUI>();
         buttonText.text = "Inventory";
         Button buttonComponent = button.GetComponent<Button>();
-        buttonComponent.onClick.AddListener(CreateInventoryWindow);
+        buttonComponent.onClick.AddListener(() => CreateInventoryWindow(prefabPlayerInventory));
         button.name = "OpenInventory";
         return button.name;
-    }
-
-    public void CreateInventoryWindow()
-    {
-
-        if (nameInventoryTower == null)
-        {
-            nameInventoryTower = Instantiate(inventoryPrefabs, mainUI).name;
-        }
-
-        else if (!mainUI.transform.Find(nameInventoryTower))
-        {
-            nameInventoryTower = Instantiate(inventoryPrefabs, mainUI).name;
-        }
     }
 
     public GameObject CreateButton(string textOnButton, Action OnButtonClick)
@@ -79,8 +67,20 @@ public class Interface : MonoBehaviour
 
     public GameObject CreateProgressBar(float durationAnimation)
     {
-        var _bar = Instantiate(progressBarPrefab, gameObject.transform);
+        var _bar = Instantiate(prefabProgressBar, gameObject.transform);
         _bar.GetComponent<ProgressBar>().Init(durationAnimation);
         return _bar;
+    }
+    GameObject CreateBaseWindow()
+    {
+        var _panel = Instantiate(prefabBasePanel, gameObject.transform);
+        _panel.GetComponentInChildren<Button>().onClick.AddListener(() => Destroy(_panel));
+        return _panel;
+
+    }
+    GameObject CreateInventoryWindow(GameObject prefab)
+    {
+        var _panel = CreateBaseWindow();
+        return Instantiate(prefab, _panel.transform);
     }
 }

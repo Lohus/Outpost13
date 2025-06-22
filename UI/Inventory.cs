@@ -8,40 +8,40 @@ using Unity.VisualScripting;
 
 public class Inventory : MonoBehaviour
 {
-    Button closeButton;
-    [SerializeField] GameObject slotPrefab;
-    int countSlots = 8;
-    Transform parentPanel; // Canvas
+    static Inventory instance;
+    int countSlots = 8; // Count of slots
     PlayerInventory playerInventory;
-    [SerializeField] TextMeshProUGUI description;
-
+    [SerializeField] GameObject gridSlots;
+    [SerializeField] GameObject gridItems;
+    [SerializeField] GameObject slotPrefab;
     [SerializeField] GameObject itemPrefab;
+    [SerializeField] TextMeshProUGUI description;
     void Awake()
     {
+        if (instance == null)
+        {
+            instance = this;
+        }
+        else
+        {
+            Destroy(gameObject);
+        }
         playerInventory = PlayerInventory.instance;
     }
     void Start()
     {
-        closeButton = transform.Find("Close").GetComponent<Button>();
-        closeButton.onClick.AddListener(CloseInventory);
-        parentPanel = transform.Find("GridSlots");
         CreateSlots();
         FillSlots();
     }
 
-    // Update is called once per frame
     void Update()
     {
-    }
-    public void CloseInventory()
-    {
-        Destroy(gameObject);
     }
     void CreateSlots()
     {
         for (int i = 0; i < countSlots; i++)
         {
-            Instantiate(slotPrefab, parentPanel);
+            Instantiate(slotPrefab, gridSlots.transform);
         }
 
     }
@@ -50,19 +50,16 @@ public class Inventory : MonoBehaviour
     {
         if (playerInventory.inventory.Count != 0)
         {
-            Transform _GridItems = transform.Find("GridItems");
             foreach (var resources in playerInventory.inventory.Keys)
             {
-                var _item = Instantiate(itemPrefab, _GridItems);
+                var _item = Instantiate(itemPrefab, gridItems.transform);
                 _item.GetComponent<Image>().sprite = resources.icon;
                 _item.GetComponent<Button>().onClick.AddListener(() => ShowItemDescription(resources));
-
             }
         }
-
     }
 
-    public void ShowItemDescription(ResourceItem res)
+    void ShowItemDescription(ResourceItem res)
     {
         transform.Find("Description").GetComponentInChildren<TextMeshProUGUI>().text = playerInventory.inventory[res] + "\n" + res.description;
     }
