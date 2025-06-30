@@ -29,8 +29,8 @@ public class CraftUI : MonoBehaviour
         {
             GameObject _card = Instantiate(prefabPanel, cardWindow.transform);
             _card.transform.Find("Icon").GetComponent<Image>().sprite = item.icon;
-            _card.transform.Find("RightGroup/Description").GetComponent<TextMeshProUGUI>().text = item.itemName;
-            _card.transform.Find("RightGroup/Button").GetComponent<Button>().onClick.AddListener(() => PressButton(item.requirements));
+            _card.transform.Find("RightGroup/Description").GetComponent<TextMeshProUGUI>().text = item.nameItem;
+            _card.transform.Find("RightGroup/Button").GetComponent<Button>().onClick.AddListener(() => PressButton(item));
         }
     }
     void RefreshWindow()
@@ -42,9 +42,9 @@ public class CraftUI : MonoBehaviour
         ShowItems();
     }
 
-    void PressButton(ResourceRequire[] requires)
+    void PressButton(CraftItem item)
     {
-        Tower.instance.CraftItem(requires);
+        Tower.instance.CraftItem(item);
         RefreshWindow();
     }
 }

@@ -2,10 +2,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [CreateAssetMenu(fileName = "NewResource", menuName = "Data/CraftItem")]
-public class CraftItem : ScriptableObject
+public class CraftItem : Item
 {
-    public string itemName;
-    public Sprite icon;
-    public string description;
     public ResourceRequire[] requirements;
 }

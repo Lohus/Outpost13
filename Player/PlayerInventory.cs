@@ -6,7 +6,7 @@ using UnityEngine;
 public class PlayerInventory : MonoBehaviour
 {
     public static PlayerInventory instance;
-    public Dictionary<ResourceItem, int> inventory = new Dictionary<ResourceItem, int> { };
+    public Dictionary<Item, int> inventory = new Dictionary<Item, int> { };
 
     void Awake()
     {
@@ -17,7 +17,7 @@ public class PlayerInventory : MonoBehaviour
         else
         {
             Destroy(gameObject);
-        } 
+        }
     }
 
     public void AddResourcesToInvetory(ResourceItem resource, int amount)
@@ -29,6 +29,19 @@ public class PlayerInventory : MonoBehaviour
         else
         {
             inventory.Add(resource, amount);
+        }
+    }
+
+    public bool AddItem(CraftItem item)
+    {
+        if (inventory.ContainsKey(item))
+        {
+            return false;
+        }
+        else
+        {
+            inventory.Add(item, 1);
+            return true;
         }
     }
 }

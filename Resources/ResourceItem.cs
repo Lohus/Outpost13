@@ -1,11 +1,8 @@
 using UnityEngine;
 
 [CreateAssetMenu(fileName = "NewResource", menuName = "Data/Resource")]
-public class ResourceItem : ScriptableObject
+public class ResourceItem : Item
 {
-    public string resourceName;
-    public Sprite icon;
-    public string description;
     public float multiplie = 1;
     public string resycleRes;
 }

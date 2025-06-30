@@ -39,9 +39,12 @@ public class TowerResycle : MonoBehaviour
         {
             foreach (var resources in _inv.Keys)
             {
-                var _item = Instantiate(prefabItem, gridResources);
-                _item.GetComponent<Image>().sprite = resources.icon;
-                _item.GetComponent<Button>().onClick.AddListener(() => SelectItem(resources));
+                if (resources is ResourceItem)
+                {
+                    var _item = Instantiate(prefabItem, gridResources);
+                    _item.GetComponent<Image>().sprite = resources.icon;
+                    _item.GetComponent<Button>().onClick.AddListener(() => SelectItem(resources));
+                }
 
             }
         }
@@ -58,7 +61,7 @@ public class TowerResycle : MonoBehaviour
     }
     void ResycleResources()
     {
-        if (selectItem != null)
+        if (selectItem != null && selectItem is ResourceItem)
         {
             TowerStorage.instance.AddResource(selectItem);
             selectItem = null;
@@ -81,9 +84,12 @@ public class TowerResycle : MonoBehaviour
         }
     }
     // Select resouces from window Tower Interface
-    public void SelectItem(ResourceItem resource)
+    public void SelectItem(Item item)
     {
-        TowerResycle.instance.selectItem = resource;
+        if (item is ResourceItem resource)
+        {
+            TowerResycle.instance.selectItem = resource;
+        }
     }
 
 

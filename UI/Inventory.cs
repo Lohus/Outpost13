@@ -50,7 +50,7 @@ public class Inventory : MonoBehaviour
     {
         if (playerInventory.inventory.Count != 0)
         {
-            foreach (var resources in playerInventory.inventory.Keys)
+            foreach (Item resources in playerInventory.inventory.Keys)
             {
                 var _item = Instantiate(itemPrefab, gridItems.transform);
                 _item.GetComponent<Image>().sprite = resources.icon;
@@ -58,8 +58,7 @@ public class Inventory : MonoBehaviour
             }
         }
     }
-
-    void ShowItemDescription(ResourceItem res)
+    void ShowItemDescription(Item res)
     {
         transform.Find("Description").GetComponentInChildren<TextMeshProUGUI>().text = playerInventory.inventory[res] + "\n" + res.description;
     }
