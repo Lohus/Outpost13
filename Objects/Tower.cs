@@ -45,4 +45,20 @@ public class Tower : MonoBehaviour
     {
         towerUI = Interface.instance.CreateCustomWindow(prefabMenu);
     }
+    public void CraftItem(ResourceRequire[] requires)
+    {
+        foreach (ResourceRequire require in requires)
+        {
+            if (TowerStorage.instance.quantityMaterial[require.nameResource] < require.amount)
+            {
+                Debug.Log("Resource not enought");
+                return;
+            }
+        }
+        foreach (ResourceRequire require in requires)
+        {
+            TowerStorage.instance.quantityMaterial[require.nameResource] -= require.amount;
+        }
+        Debug.Log("Item is crafted");
+    }
 }
