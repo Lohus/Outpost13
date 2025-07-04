@@ -4,6 +4,6 @@ public class LevelBuildings
 {
     public int level;
     public Sprite icon;
-    public GameObject model;
+    public Mesh model;
     public ResourceRequire[] require;
 }
