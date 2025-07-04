@@ -6,7 +6,6 @@ public class UpgradeUI : MonoBehaviour
 {
     public static UpgradeUI instance;
     [SerializeField] GameObject prefabPanel;
-    [SerializeField] Database baseItems;
     [SerializeField] GameObject cardWindow;
     void Awake()
     {
@@ -25,12 +24,20 @@ public class UpgradeUI : MonoBehaviour
     }
     void ShowItems()
     {
-        foreach (CraftItem item in baseItems.allCraftItems)
+        var _buildList = Tower.instance.actualBuildings;
+        foreach (UpgradeBuildings typeBuilding in _buildList.Keys)
         {
-            GameObject _card = Instantiate(prefabPanel, cardWindow.transform);
-            _card.transform.Find("Icon").GetComponent<Image>().sprite = item.icon;
-            _card.transform.Find("RightGroup/Description").GetComponent<TextMeshProUGUI>().text = item.nameItem;
-            _card.transform.Find("RightGroup/Button").GetComponent<Button>().onClick.AddListener(() => PressButton(item));
+            foreach (LevelBuildings level in typeBuilding.chainUpgrade)
+            {
+                if (_buildList[typeBuilding] + 1 == level.level)
+                {
+                    GameObject _card = Instantiate(prefabPanel, cardWindow.transform);
+                    _card.transform.Find("Icon").GetComponent<Image>().sprite = level.icon;
+                    _card.transform.Find("RightGroup/Description").GetComponent<TextMeshProUGUI>().text = typeBuilding.nameBuildings;
+                    //_card.transform.Find("RightGroup/Button").GetComponent<Button>().onClick.AddListener(() => PressButton(item));
+
+                }
+            }
         }
     }
     void RefreshWindow()

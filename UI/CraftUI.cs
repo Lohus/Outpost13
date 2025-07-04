@@ -27,10 +27,13 @@ public class CraftUI : MonoBehaviour
     {
         foreach (CraftItem item in baseItems.allCraftItems)
         {
-            GameObject _card = Instantiate(prefabPanel, cardWindow.transform);
-            _card.transform.Find("Icon").GetComponent<Image>().sprite = item.icon;
-            _card.transform.Find("RightGroup/Description").GetComponent<TextMeshProUGUI>().text = item.nameItem;
-            _card.transform.Find("RightGroup/Button").GetComponent<Button>().onClick.AddListener(() => PressButton(item));
+            if (PlayerInventory.instance.CheckItem(item) == false)
+            {
+                GameObject _card = Instantiate(prefabPanel, cardWindow.transform);
+                _card.transform.Find("Icon").GetComponent<Image>().sprite = item.icon;
+                _card.transform.Find("RightGroup/Description").GetComponent<TextMeshProUGUI>().text = item.nameItem;
+                _card.transform.Find("RightGroup/Button").GetComponent<Button>().onClick.AddListener(() => PressButton(item));
+            }
         }
     }
     void RefreshWindow()

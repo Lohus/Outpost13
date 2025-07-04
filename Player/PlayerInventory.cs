@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Runtime.InteropServices.WindowsRuntime;
 using UnityEditor.PackageManager;
 using UnityEngine;
 
@@ -43,5 +44,9 @@ public class PlayerInventory : MonoBehaviour
             inventory.Add(item, 1);
             return true;
         }
+    }
+    public bool CheckItem(CraftItem item)
+    {
+        return inventory.ContainsKey(item);
     }
 }

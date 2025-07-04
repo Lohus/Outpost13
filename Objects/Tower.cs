@@ -1,11 +1,14 @@
 using UnityEngine;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 
-// Interaction with Outpost
+// Interaction with Tower
 public class Tower : MonoBehaviour
 {
     [HideInInspector] public static Tower instance;
     [SerializeField] GameObject prefabMenu; // Prefab menu tower
+    [SerializeField] List<UpgradeBuildings> serializeBuildings;
+    public Dictionary<UpgradeBuildings, int> actualBuildings = new();
     GameObject buttonTower; // Button for open tower interface
     GameObject towerUI; // Tower interface 
 
@@ -18,6 +21,20 @@ public class Tower : MonoBehaviour
         else
         {
             Destroy(gameObject);
+        }
+    }
+    void Start()
+    {
+        foreach (var build in serializeBuildings)
+        {
+            if (actualBuildings.ContainsKey(build))
+            {
+                actualBuildings[build] = 0;
+            }
+            else
+            {
+                actualBuildings.Add(build, 0);
+            }
         }
     }
 
@@ -47,19 +64,24 @@ public class Tower : MonoBehaviour
     }
     public void CraftItem(CraftItem item)
     {
-        foreach (ResourceRequire require in item.requirements)
-        {
-            if (TowerStorage.instance.quantityMaterial[require.nameResource] < require.amount)
-            {
-                return;
-            }
-        }
-        if (PlayerInventory.instance.AddItem(item))
+        if (PlayerInventory.instance.AddItem(item) && HashResources(item))
         {
             foreach (ResourceRequire require in item.requirements)
             {
                 TowerStorage.instance.quantityMaterial[require.nameResource] -= require.amount;
             }
         }
+    }
+
+    bool HashResources(CraftItem item)
+    {
+        foreach (ResourceRequire require in item.requirements)
+        {
+            if (TowerStorage.instance.quantityMaterial[require.nameResource] < require.amount)
+            {
+                return false;
+            }
+        }
+        return true;
     }
 }
