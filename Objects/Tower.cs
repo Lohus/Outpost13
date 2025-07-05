@@ -5,7 +5,7 @@ using Unity.VisualScripting;
 // Interaction with Tower
 public class Tower : MonoBehaviour
 {
-    [HideInInspector] public static Tower instance;
+    [HideInInspector] public static Tower instance; // Singletone
     [SerializeField] GameObject prefabMenu; // Prefab menu tower
     GameObject buttonTower; // Button for open tower interface
     GameObject towerUI; // Tower interface 
@@ -21,7 +21,7 @@ public class Tower : MonoBehaviour
             Destroy(gameObject);
         }
     }
-
+    // Show button of tower UI
     void OnTriggerEnter(Collider other)
     {
         if (other.gameObject.name == "Player")
@@ -29,6 +29,7 @@ public class Tower : MonoBehaviour
             buttonTower = CreateTowerButton();
         }
     }
+    // Destroy button and destroy Tower Interface
     void OnTriggerExit(Collider other)
     {
         if (other.gameObject.name == "Player")
@@ -37,43 +38,27 @@ public class Tower : MonoBehaviour
             Destroy(towerUI);
         }
     }
+    // Open Tower Interface
     public void OnButtonClick()
     {
         CreateTowerUI();
     }
+    // Create button that open tower interface
     GameObject CreateTowerButton() => Interface.instance.CreateButton("Tower", OnButtonClick);
+    // Open Tower Interface window in canvas on scene
     void CreateTowerUI()
     {
         towerUI = Interface.instance.CreateCustomWindow(prefabMenu);
     }
+    // Check resource, add item to player inventory and take resource from storage
     public void CraftItem(CraftItem item)
     {
-        if (HashResources(item.requirements))
+        if (TowerStorage.instance.HashResources(item.requirements))
         {
-           if (PlayerInventory.instance.AddItem(item))
+            if (PlayerInventory.instance.AddItem(item))
             {
-                TakeResources(item.requirements);
-            } 
-        }
-    }
-
-    public bool HashResources(ResourceRequire[] requirements)
-    {
-        foreach (ResourceRequire require in requirements)
-        {
-            if (TowerStorage.instance.quantityMaterial[require.nameResource] < require.amount)
-            {
-                return false;
+                TowerStorage.instance.TakeResources(item.requirements);
             }
-        }
-        return true;
-    }
-
-    public void TakeResources(ResourceRequire[] requirements)
-    {
-        foreach (ResourceRequire require in requirements)
-        {
-            TowerStorage.instance.quantityMaterial[require.nameResource] -= require.amount;
         }
     }
 }

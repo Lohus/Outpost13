@@ -3,12 +3,12 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 
-// Управление персонажем
+// Player control
 
 public class PlayerController : MonoBehaviour
 {
-    public UnityEvent playerIsMove = new UnityEvent();
-    public static PlayerController instance;
+    public UnityEvent playerIsMove = new UnityEvent(); // Event if player is move
+    [HideInInspector] public static PlayerController instance; // Singletone
     Rigidbody playerRb;
 
     Vector3 forwardDirection;
@@ -33,7 +33,7 @@ public class PlayerController : MonoBehaviour
         MovePLayer();
     }
 
-    // Передвижение игрока
+    // Movement player
     void MovePLayer()
     {
         if (Input.GetKey(KeyCode.A))

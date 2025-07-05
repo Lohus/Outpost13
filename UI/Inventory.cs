@@ -5,17 +5,17 @@ using UnityEngine.UI;
 using TMPro;
 using Unity.VisualScripting;
 
-
+// Player inventory
 public class Inventory : MonoBehaviour
 {
-    static Inventory instance;
+    static Inventory instance; // Singletone
     int countSlots = 8; // Count of slots
-    PlayerInventory playerInventory;
-    [SerializeField] GameObject gridSlots;
-    [SerializeField] GameObject gridItems;
-    [SerializeField] GameObject slotPrefab;
-    [SerializeField] GameObject itemPrefab;
-    [SerializeField] TextMeshProUGUI description;
+    PlayerInventory playerInventory; // Cache for player inventory
+    [SerializeField] GameObject gridSlots; // Grid for slots
+    [SerializeField] GameObject gridItems; // Grid for items
+    [SerializeField] GameObject slotPrefab; // Prefab for slots
+    [SerializeField] GameObject itemPrefab; // Prefab for items
+    [SerializeField] TextMeshProUGUI description; // Description of items
     void Awake()
     {
         if (instance == null)
@@ -28,15 +28,13 @@ public class Inventory : MonoBehaviour
         }
         playerInventory = PlayerInventory.instance;
     }
+    // Crate and fill slots
     void Start()
     {
         CreateSlots();
         FillSlots();
     }
-
-    void Update()
-    {
-    }
+    // Create slots in grid
     void CreateSlots()
     {
         for (int i = 0; i < countSlots; i++)
@@ -45,7 +43,7 @@ public class Inventory : MonoBehaviour
         }
 
     }
-
+    // Fill slots in grid
     void FillSlots()
     {
         if (playerInventory.inventory.Count != 0)
@@ -58,6 +56,7 @@ public class Inventory : MonoBehaviour
             }
         }
     }
+    // Show item description in panel
     void ShowItemDescription(Item res)
     {
         transform.Find("Description").GetComponentInChildren<TextMeshProUGUI>().text = playerInventory.inventory[res] + "\n" + res.description;

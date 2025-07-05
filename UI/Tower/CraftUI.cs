@@ -1,13 +1,13 @@
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
-
+// Craft interface
 public class CraftUI : MonoBehaviour
 {
-    public static CraftUI instance;
-    [SerializeField] GameObject prefabPanel;
-    [SerializeField] Database baseItems;
-    [SerializeField] GameObject cardWindow;
+    [HideInInspector] public static CraftUI instance; // Singletone
+    [SerializeField] GameObject prefabPanel; // Prefab panel where data is shown
+    [SerializeField] Database baseItems; // Base of all items that can be craft
+    [SerializeField] GameObject cardWindow; // Place where create prefabPanel
     void Awake()
     {
         if (instance == null)
@@ -19,10 +19,12 @@ public class CraftUI : MonoBehaviour
             Destroy(gameObject);
         }
     }
+    // Show all crafted item in card window
     void Start()
     {
         ShowItems();
     }
+    // Create panel with data
     void ShowItems()
     {
         foreach (CraftItem item in baseItems.allCraftItems)
@@ -36,6 +38,7 @@ public class CraftUI : MonoBehaviour
             }
         }
     }
+    // Refresh window with panel
     void RefreshWindow()
     {
         foreach (Transform child in cardWindow.transform)
@@ -44,7 +47,7 @@ public class CraftUI : MonoBehaviour
         }
         ShowItems();
     }
-
+    // Create item and refresh window
     void PressButton(CraftItem item)
     {
         Tower.instance.CraftItem(item);

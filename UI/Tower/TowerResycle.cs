@@ -5,15 +5,15 @@ using TMPro;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
-
+// Iterface where resource can be resycle
 public class TowerResycle : MonoBehaviour
 {
-    public static TowerResycle instance;
-    [SerializeField] Transform gridResources;
-    [SerializeField] GameObject prefabItem;
-    [SerializeField] List<GameObject> progress = new List<GameObject> { };
-    [SerializeField] Button buttonResycle;
-    ResourceItem selectItem;
+    [HideInInspector] public static TowerResycle instance; // Singletone
+    [SerializeField] Transform gridResources; // Grid where resource item is shown
+    [SerializeField] GameObject prefabItem; // Prefab item with icon
+    [SerializeField] List<GameObject> progress = new List<GameObject> { }; // Progressbar of each resycle resource
+    [SerializeField] Button buttonResycle; // Resycle button
+    ResourceItem selectItem; // Resource item that seleted for resycle
     void Awake()
     {
         if (instance == null)
@@ -25,13 +25,14 @@ public class TowerResycle : MonoBehaviour
             Destroy(gameObject);
         }
     }
-
+    // Fill resource slots and show progress of each resycle resource
     void Start()
     {
         buttonResycle.onClick.AddListener(ResycleResources);
         FillSlots();
         ShowProgressOfResources();
     }
+    // Fill slots resource item
     void FillSlots()
     {
         var _inv = PlayerInventory.instance.inventory;
@@ -59,6 +60,7 @@ public class TowerResycle : MonoBehaviour
             _trans.SetSizeWithCurrentAnchors(RectTransform.Axis.Horizontal, 144 * _quantity[res.name] / 100);
         } 
     }
+    // Add resource to Storage, refres window, remove item from player inventorys
     void ResycleResources()
     {
         if (selectItem != null && selectItem is ResourceItem)

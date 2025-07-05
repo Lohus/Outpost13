@@ -6,16 +6,15 @@ using UnityEngine.UI;
 using System;
 using Unity.VisualScripting;
 
-// Add to Canvas on scene
+// General interface to create UI element
 public class Interface : MonoBehaviour
 {
-    [HideInInspector] public static Interface instance;
+    [HideInInspector] public static Interface instance; // Singletone
     Transform mainUI; // Canvas on scene
-    [SerializeField] GameObject buttonPrefabs;
-    [SerializeField] GameObject inventoryPrefabs;
-    [SerializeField] GameObject prefabProgressBar;
-    [SerializeField] GameObject prefabBasePanel;
-    [SerializeField] GameObject prefabPlayerInventory;
+    [SerializeField] GameObject buttonPrefabs; // Base Button
+    [SerializeField] GameObject prefabProgressBar; // Progressbar
+    [SerializeField] GameObject prefabBasePanel; // Base panel
+    [SerializeField] GameObject prefabPlayerInventory; // Player inventory
 
     void Awake()
     {
@@ -29,10 +28,12 @@ public class Interface : MonoBehaviour
         }
         mainUI = gameObject.transform;
     }
+    // Create inventory button
     void Start()
     {
         CreateInventoryButton();
     }
+    // Button player inventory
     string CreateInventoryButton()
     {
         // Уместить в одну строчку без доп. переменных
@@ -47,7 +48,7 @@ public class Interface : MonoBehaviour
         button.name = "OpenInventory";
         return button.name;
     }
-
+    // Create base button with params
     public GameObject CreateButton(string textOnButton, Action OnButtonClick)
     {
         GameObject button = Instantiate(buttonPrefabs, mainUI);
@@ -57,13 +58,14 @@ public class Interface : MonoBehaviour
         buttonComponent.onClick.AddListener(() => OnButtonClick?.Invoke());
         return button;
     }
-
+    // Create progressbar with params
     public GameObject CreateProgressBar(float durationAnimation)
     {
         var _bar = Instantiate(prefabProgressBar, gameObject.transform);
         _bar.GetComponent<ProgressBar>().Init(durationAnimation);
         return _bar;
     }
+    // Create base window
     GameObject CreateBaseWindow()
     {
         var _panel = Instantiate(prefabBasePanel, gameObject.transform);
@@ -71,6 +73,7 @@ public class Interface : MonoBehaviour
         return _panel;
 
     }
+    // Create custom window from other UI
     public GameObject CreateCustomWindow(GameObject prefab)
     {
         var _panel = CreateBaseWindow();
