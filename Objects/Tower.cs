@@ -7,8 +7,6 @@ public class Tower : MonoBehaviour
 {
     [HideInInspector] public static Tower instance;
     [SerializeField] GameObject prefabMenu; // Prefab menu tower
-    [SerializeField] List<UpgradeBuildings> serializeBuildings;
-    public Dictionary<UpgradeBuildings, int> actualBuildings = new();
     GameObject buttonTower; // Button for open tower interface
     GameObject towerUI; // Tower interface 
 
@@ -21,20 +19,6 @@ public class Tower : MonoBehaviour
         else
         {
             Destroy(gameObject);
-        }
-    }
-    void Start()
-    {
-        foreach (var build in serializeBuildings)
-        {
-            if (actualBuildings.ContainsKey(build))
-            {
-                actualBuildings[build] = 0;
-            }
-            else
-            {
-                actualBuildings.Add(build, 0);
-            }
         }
     }
 
@@ -64,18 +48,18 @@ public class Tower : MonoBehaviour
     }
     public void CraftItem(CraftItem item)
     {
-        if (PlayerInventory.instance.AddItem(item) && HashResources(item))
+        if (HashResources(item.requirements))
         {
-            foreach (ResourceRequire require in item.requirements)
+           if (PlayerInventory.instance.AddItem(item))
             {
-                TowerStorage.instance.quantityMaterial[require.nameResource] -= require.amount;
-            }
+                TakeResources(item.requirements);
+            } 
         }
     }
 
-    bool HashResources(CraftItem item)
+    public bool HashResources(ResourceRequire[] requirements)
     {
-        foreach (ResourceRequire require in item.requirements)
+        foreach (ResourceRequire require in requirements)
         {
             if (TowerStorage.instance.quantityMaterial[require.nameResource] < require.amount)
             {
@@ -83,5 +67,13 @@ public class Tower : MonoBehaviour
             }
         }
         return true;
+    }
+
+    public void TakeResources(ResourceRequire[] requirements)
+    {
+        foreach (ResourceRequire require in requirements)
+        {
+            TowerStorage.instance.quantityMaterial[require.nameResource] -= require.amount;
+        }
     }
 }

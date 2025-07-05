@@ -4,4 +4,5 @@ using UnityEngine;
 public class Database : ScriptableObject
 {
     public CraftItem[] allCraftItems;
+    public GameObject[] allBuildings;
 }

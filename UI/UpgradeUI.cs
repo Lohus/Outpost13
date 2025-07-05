@@ -1,12 +1,15 @@
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
+using System.Linq;
+using System.Collections.Generic;
 
 public class UpgradeUI : MonoBehaviour
 {
     public static UpgradeUI instance;
     [SerializeField] GameObject prefabPanel;
     [SerializeField] GameObject cardWindow;
+    BuildingBase[] buildings;
     void Awake()
     {
         if (instance == null)
@@ -20,21 +23,21 @@ public class UpgradeUI : MonoBehaviour
     }
     void Start()
     {
-        ShowItems();
+        buildings = GameObject.FindGameObjectsWithTag("Building").Select(go => go.GetComponent<BuildingBase>()).ToArray();
+        ShowUpgrade();
     }
-    void ShowItems()
+    void ShowUpgrade()
     {
-        var _buildList = Tower.instance.actualBuildings;
-        foreach (UpgradeBuildings typeBuilding in _buildList.Keys)
+        foreach (BuildingBase building in buildings)
         {
-            foreach (LevelBuildings level in typeBuilding.chainUpgrade)
+            foreach (LevelBuildings level in building.chainUpgrade)
             {
-                if (_buildList[typeBuilding] + 1 == level.level)
+                if (building.actualLevel + 1 == level.level)
                 {
                     GameObject _card = Instantiate(prefabPanel, cardWindow.transform);
                     _card.transform.Find("Icon").GetComponent<Image>().sprite = level.icon;
-                    _card.transform.Find("RightGroup/Description").GetComponent<TextMeshProUGUI>().text = typeBuilding.nameBuildings;
-                    //_card.transform.Find("RightGroup/Button").GetComponent<Button>().onClick.AddListener(() => PressButton(item));
+                    _card.transform.Find("RightGroup/Description").GetComponent<TextMeshProUGUI>().text = building.nameBuilding;
+                    _card.transform.Find("RightGroup/Button").GetComponent<Button>().onClick.AddListener(() => building.LevelUP(level));
 
                 }
             }
@@ -46,7 +49,7 @@ public class UpgradeUI : MonoBehaviour
         {
             Destroy(child.gameObject);
         }
-        ShowItems();
+        ShowUpgrade();
     }
 
     void PressButton(CraftItem item)
