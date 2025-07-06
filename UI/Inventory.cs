@@ -59,6 +59,11 @@ public class Inventory : MonoBehaviour
     // Show item description in panel
     void ShowItemDescription(Item res)
     {
-        transform.Find("Description").GetComponentInChildren<TextMeshProUGUI>().text = playerInventory.inventory[res] + "\n" + res.description;
+        string descriptionString = "";
+        if (playerInventory.inventory[res] >= 2)
+        {
+            descriptionString += playerInventory.inventory[res] + "\n";
+        }
+        transform.Find("Description").GetComponentInChildren<TextMeshProUGUI>().text = descriptionString + res.description;
     }
 }
