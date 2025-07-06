@@ -3,6 +3,6 @@ using UnityEngine;
 // Resource after resycle resource
 public class ResycleResource : ScriptableObject
 {
-    public string typeResource;
-    public Color colorProgressbar;
+    public string typeResource; // Type resource after resycle
+    public Color colorProgressbar; // Color of progressbar in tower resycle
 }

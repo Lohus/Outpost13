@@ -3,6 +3,6 @@ using UnityEngine;
 // Resycle resource in storage
 public class ResourceAmount
 {
-    public ResycleResource resource;
-    public float amount;
+    public ResycleResource resource; // Resycle resource
+    public float amount; // Resource quantity
 }

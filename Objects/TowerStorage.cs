@@ -7,8 +7,7 @@ using TMPro;
 public class TowerStorage : MonoBehaviour
 {
     [HideInInspector] public static TowerStorage instance; // Singletone
-    // Type of resource and amount
-    public List<ResourceAmount> storage;
+    public List<ResourceAmount> storage; // Resource quantity
     void Awake()
     {
         if (instance == null)
@@ -46,6 +45,7 @@ public class TowerStorage : MonoBehaviour
             storage.Find(res => res.resource == require.resource).amount -= require.amount;
         }
     }
+    // Return actual resourcce quantity
     public float AmountOfResource(ResycleResource resycleResource)
     {
         return storage.Find(res => res.resource == resycleResource).amount;

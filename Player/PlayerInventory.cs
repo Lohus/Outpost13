@@ -1,7 +1,5 @@
-using System.Collections;
+
 using System.Collections.Generic;
-using System.Runtime.InteropServices.WindowsRuntime;
-using UnityEditor.PackageManager;
 using UnityEngine;
 // Player inventory
 public class PlayerInventory : MonoBehaviour
