@@ -11,7 +11,7 @@ public class TowerResycle : MonoBehaviour
     [HideInInspector] public static TowerResycle instance; // Singletone
     [SerializeField] Transform gridResources; // Grid where resource item is shown
     [SerializeField] GameObject prefabItem; // Prefab item with icon
-    [SerializeField] List<GameObject> progress = new List<GameObject> { }; // Progressbar of each resycle resource
+    [SerializeField] List<ScaleBar> progress; // Progressbar of each resycle resource
     [SerializeField] Button buttonResycle; // Resycle button
     ResourceItem selectItem; // Resource item that seleted for resycle
     void Awake()
@@ -53,11 +53,10 @@ public class TowerResycle : MonoBehaviour
     // Show quantity of resources in recyle window on TowerUI
     void ShowProgressOfResources()
     {
-        var _quantity = TowerStorage.instance.quantityMaterial;
-        foreach (var res in progress)
+        var _quantity = TowerStorage.instance.storage;
+        foreach (var scale in progress)
         {
-            var _trans = res.GetComponent<RectTransform>();
-            _trans.SetSizeWithCurrentAnchors(RectTransform.Axis.Horizontal, 144 * _quantity[res.name] / 100);
+            scale.SetSize(TowerStorage.instance.AmountOfResource(scale.resource));
         } 
     }
     // Add resource to Storage, refres window, remove item from player inventorys

@@ -4,5 +4,5 @@ using UnityEngine;
 public class ResourceAmount
 {
     public ResycleResource resource;
-    public int amount;
+    public float amount;
 }
