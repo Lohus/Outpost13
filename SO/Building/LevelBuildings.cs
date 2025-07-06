@@ -6,5 +6,6 @@ public class LevelBuildings
     public int level;
     public Sprite icon;
     public Mesh model;
-    public ResourceRequire[] require;
+    public ResourceRequire[] requireRes;
+    public BuildingRequire[] requireBuild;
 }
