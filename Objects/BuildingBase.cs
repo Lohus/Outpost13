@@ -8,24 +8,11 @@ public class BuildingBase : MonoBehaviour
     public List<LevelBuildings> chainUpgrade;
     public void LevelUP(LevelBuildings building)
     {
-        if (TowerStorage.instance.HashResources(building.requireRes) && CheckRequireBuilding(building.requireBuild))
+        if (TowerStorage.instance.HashResources(building.requireRes) && TowerStorage.instance.CheckRequireBuilding(building.requireBuild))
         {
             TowerStorage.instance.TakeResources(building.requireRes);
             gameObject.GetComponent<MeshFilter>().mesh = building.model;
             actualLevel.level += 1;
         }
-    }
-
-    bool CheckRequireBuilding(BuildingRequire[] buildings)
-    {
-        List<BuildingRequire> _buildings = GameObject.FindGameObjectsWithTag("Building").Select(go => go.GetComponent<BuildingBase>().actualLevel).ToList();
-        foreach (var requireBuild in buildings)
-        {
-            if (_buildings.Find(b => b.type == requireBuild.type).level != requireBuild.level)
-            {
-                return false;
-            }
-        }
-        return true;
     }
 }
