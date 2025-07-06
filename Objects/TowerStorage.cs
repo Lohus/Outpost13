@@ -8,8 +8,7 @@ public class TowerStorage : MonoBehaviour
 {
     [HideInInspector] public static TowerStorage instance; // Singletone
     // Type of resource and amount
-    public Dictionary<string, float> quantityMaterial = new Dictionary<string, float> { { "biomass", 0 }, { "metal", 0 }, { "poly", 0 }, { "iso", 0 } };
-
+    public List<ResourceAmount> storage;
     void Awake()
     {
         if (instance == null)
@@ -24,7 +23,7 @@ public class TowerStorage : MonoBehaviour
     // Add resource to storage
     public void AddResource(ResourceItem resource)
     {
-        quantityMaterial[resource.resycleRes] += resource.multiplie * PlayerInventory.instance.inventory[resource];
+        storage.Find(res => res.resource == resource.resycleRes).amount += resource.multiplie * PlayerInventory.instance.inventory[resource];
         PlayerInventory.instance.inventory.Remove(resource);
     }
     // Сhecks if there are enough resources to create item
@@ -32,7 +31,7 @@ public class TowerStorage : MonoBehaviour
     {
         foreach (ResourceRequire require in requirements)
         {
-            if (quantityMaterial[require.nameResource] < require.amount)
+            if (storage.Find(res => res.resource == require.resource).amount < require.amount)
             {
                 return false;
             }
@@ -44,7 +43,11 @@ public class TowerStorage : MonoBehaviour
     {
         foreach (ResourceRequire require in requirements)
         {
-            quantityMaterial[require.nameResource] -= require.amount;
+            storage.Find(res => res.resource == require.resource).amount -= require.amount;
         }
+    }
+    public float AmountOfResource(ResycleResource resycleResource)
+    {
+        return storage.Find(res => res.resource == resycleResource).amount;
     }
 }

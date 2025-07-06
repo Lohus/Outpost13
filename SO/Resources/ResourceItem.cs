@@ -5,5 +5,5 @@ using UnityEngine;
 public class ResourceItem : Item
 {
     public float multiplie = 1; // Coefficient of resycle
-    public string resycleRes; // Resource that be after resycle
+    public ResycleResource resycleRes; // Resource that be after resycle
 }
