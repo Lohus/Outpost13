@@ -7,11 +7,17 @@ public class DangerZone : MonoBehaviour, IInteraction
     Coroutine routine;
     public void Interact(PlayerController player)
     {
-        routine = StartCoroutine(DealingDamage(player));
+        if (!player.activeEffects.Contains(typeEffect))
+        {
+            routine = StartCoroutine(DealingDamage(player));
+        }
     }
     public void EndInteract(PlayerController player)
     {
-        StopCoroutine(routine);
+        if (routine != null)
+        {
+            StopCoroutine(routine);
+        }
     }
     IEnumerator DealingDamage(PlayerController player)
     {
