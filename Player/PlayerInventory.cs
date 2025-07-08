@@ -40,6 +40,7 @@ public class PlayerInventory : MonoBehaviour
         }
         else
         {
+            item.Apply(PlayerController.instance);
             inventory.Add(item, 1);
             return true;
         }

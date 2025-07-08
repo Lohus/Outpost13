@@ -60,7 +60,7 @@ public class TowerStorage : MonoBehaviour
         List<BuildingRequire> _buildings = GameObject.FindGameObjectsWithTag("Building").Select(go => go.GetComponent<BuildingBase>().actualLevel).ToList();
         foreach (var requireBuild in buildings)
         {
-            if (_buildings.Find(b => b.type == requireBuild.type).level != requireBuild.level)
+            if (_buildings.Find(b => b.type == requireBuild.type).level < requireBuild.level)
             {
                 return false;
             }
