@@ -1,5 +1,6 @@
 
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Events;
 
@@ -12,6 +13,8 @@ public class PlayerController : MonoBehaviour
     Rigidbody playerRb;
     Vector3 forwardDirection;
     public List<Effect> activeEffects = new();
+    public float maxHealth = 100;
+    public float actualHealth = 100;
 
     void Awake()
     {
@@ -68,6 +71,22 @@ public class PlayerController : MonoBehaviour
         Vector3 forwardToObj = (gameObject.transform.position - objectTransform.position);
         forwardToObj.y = 0f;
         gameObject.transform.forward = forwardToObj;
+    }
+    void OnTriggerEnter(Collider other)
+    {
+        IInteraction objectInteraction = other.GetComponent<IInteraction>();
+        if (objectInteraction != null)
+        {
+            objectInteraction.Interact(this);
+        }
+    }
+    void OnTriggerExit(Collider other)
+    {
+        IInteraction objectInteraction = other.GetComponent<IInteraction>();
+        if (objectInteraction != null)
+        {
+            objectInteraction.EndInteract(this);
+        }
     }
 
 }

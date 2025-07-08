@@ -5,6 +5,7 @@ using TMPro;
 using UnityEngine.UI;
 using System;
 using Unity.VisualScripting;
+using UnityEditor.Search;
 
 // General interface to create UI element
 public class Interface : MonoBehaviour
@@ -15,6 +16,7 @@ public class Interface : MonoBehaviour
     [SerializeField] GameObject prefabProgressBar; // Progressbar
     [SerializeField] GameObject prefabBasePanel; // Base panel
     [SerializeField] GameObject prefabPlayerInventory; // Player inventory
+    [SerializeField] Image healthBar;
 
     void Awake()
     {
@@ -79,5 +81,9 @@ public class Interface : MonoBehaviour
         var _panel = CreateBaseWindow();
         Instantiate(prefab, _panel.transform);
         return _panel;
+    }
+    public void UpdateHealthBar()
+    {
+        healthBar.fillAmount = PlayerController.instance.actualHealth / PlayerController.instance.maxHealth;
     }
 }
