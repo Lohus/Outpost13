@@ -7,11 +7,12 @@ using UnityEngine.Events;
 
 public class PlayerController : MonoBehaviour
 {
-    public UnityEvent playerIsMove = new UnityEvent(); // Event if player is move
     [HideInInspector] public static PlayerController instance; // Singletone
+    public UnityEvent playerIsMove = new UnityEvent(); // Event if player is move
     Rigidbody playerRb;
-
     Vector3 forwardDirection;
+    public List<Effect> activeEffects = new();
+
     void Awake()
     {
         if (instance == null)
