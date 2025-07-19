@@ -14,7 +14,7 @@ public class CameraControll : MonoBehaviour
     // Change camera position
     void LateUpdate()
     {
-        transform.position = target.position + new Vector3(-offset, offset, offset);
+        transform.position = target.position + new Vector3(offset, offset, offset);
         transform.LookAt(target);
     }
 }
