@@ -1,11 +1,7 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 using UnityEngine.UI;
 using System;
-using Unity.VisualScripting;
-using UnityEditor.Search;
 
 // General interface to create UI element
 public class Interface : MonoBehaviour
