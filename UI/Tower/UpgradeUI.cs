@@ -38,7 +38,7 @@ public class UpgradeUI : MonoBehaviour
                 {
                     GameObject _card = Instantiate(prefabPanel, cardWindow.transform);
                     _card.transform.Find("Icon").GetComponent<Image>().sprite = level.icon;
-                    _card.transform.Find("RightGroup/Description").GetComponent<TextMeshProUGUI>().text = building.actualLevel.type.name;
+                    _card.transform.Find("RightGroup/Name").GetComponent<TextMeshProUGUI>().text = building.actualLevel.type.name;
                     _card.transform.Find("RightGroup/Button").GetComponent<Button>().onClick.AddListener(() => building.LevelUP(level));
                     _card.transform.Find("RightGroup/Button").GetComponent<Button>().onClick.AddListener(() => RefreshWindow());
                 }

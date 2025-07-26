@@ -33,7 +33,7 @@ public class CraftUI : MonoBehaviour
             {
                 GameObject _card = Instantiate(prefabPanel, cardWindow.transform);
                 _card.transform.Find("Icon").GetComponent<Image>().sprite = item.icon;
-                _card.transform.Find("RightGroup/Description").GetComponent<TextMeshProUGUI>().text = item.nameItem;
+                _card.transform.Find("RightGroup/Name").GetComponent<TextMeshProUGUI>().text = item.nameItem;
                 _card.transform.Find("RightGroup/Button").GetComponent<Button>().onClick.AddListener(() => PressButton(item));
             }
         }

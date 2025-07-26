@@ -9,7 +9,7 @@ public class ScaleBar : MonoBehaviour
 
     void Start()
     {
-        SetColor(resource.colorProgressbar);
+       // SetColor(resource.colorProgressbar);
         SetText(resource.name);
     }
     public void SetSize(float width)

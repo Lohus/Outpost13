@@ -8,7 +8,7 @@ public class Interface : MonoBehaviour
 {
     [HideInInspector] public static Interface instance; // Singletone
     Transform mainUI; // Canvas on scene
-    [SerializeField] GameObject buttonPrefabs; // Base Button
+    [SerializeField] GameObject buttonWindow; // Base Button
     [SerializeField] GameObject prefabProgressBar; // Progressbar
     [SerializeField] GameObject prefabBasePanel; // Base panel
     [SerializeField] GameObject prefabPlayerInventory; // Player inventory
@@ -35,7 +35,7 @@ public class Interface : MonoBehaviour
     string CreateInventoryButton()
     {
         // Уместить в одну строчку без доп. переменных
-        GameObject button = Instantiate(buttonPrefabs, mainUI);
+        GameObject button = Instantiate(buttonWindow, mainUI);
         button.GetComponent<RectTransform>().anchorMin = new Vector2(0, 1);
         button.GetComponent<RectTransform>().anchorMax = new Vector2(0, 1);
         button.GetComponent<RectTransform>().anchoredPosition = new Vector2(100, -20);
@@ -49,7 +49,7 @@ public class Interface : MonoBehaviour
     // Create base button with params
     public GameObject CreateButton(string textOnButton, Action OnButtonClick)
     {
-        GameObject button = Instantiate(buttonPrefabs, mainUI);
+        GameObject button = Instantiate(buttonWindow, mainUI);
         TextMeshProUGUI buttonText = button.GetComponentInChildren<TextMeshProUGUI>();
         buttonText.text = textOnButton;
         Button buttonComponent = button.GetComponent<Button>();

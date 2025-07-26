@@ -4,5 +4,5 @@ using UnityEngine;
 public class ResycleResource : ScriptableObject
 {
     public string typeResource; // Type resource after resycle
-    public Color colorProgressbar; // Color of progressbar in tower resycle
+    public Sprite icon; // Color of progressbar in tower resycle
 }

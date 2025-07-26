@@ -10,9 +10,11 @@ public class TowerResycle : MonoBehaviour
 {
     [HideInInspector] public static TowerResycle instance; // Singletone
     [SerializeField] Transform gridResources; // Grid where resource item is shown
+    [SerializeField] Transform quantityResources; // Grid where show amount of resource
     [SerializeField] GameObject prefabItem; // Prefab item with icon
-    [SerializeField] List<ScaleBar> progress; // Progressbar of each resycle resource
+    [SerializeField] GameObject countResourcePrefab; // Prefab for icon and amount 
     [SerializeField] Button buttonResycle; // Resycle button
+    [SerializeField] TextMeshProUGUI buildRequire;
     ResourceItem selectItem; // Resource item that seleted for resycle
     void Awake()
     {
@@ -45,19 +47,18 @@ public class TowerResycle : MonoBehaviour
                     var _item = Instantiate(prefabItem, gridResources);
                     _item.GetComponent<Image>().sprite = resources.icon;
                     _item.GetComponent<Button>().onClick.AddListener(() => SelectItem(resources));
+                    _item.GetComponent<Button>().onClick.AddListener(() => ShowBuildRequire(resources)); 
                 }
-
             }
         }
     }
     // Show quantity of resources in recyle window on TowerUI
     void ShowProgressOfResources()
     {
-        var _quantity = TowerStorage.instance.storage;
-        foreach (var scale in progress)
+        foreach (ResourceAmount res in TowerStorage.instance.storage)
         {
-            scale.SetSize(TowerStorage.instance.AmountOfResource(scale.resource));
-        } 
+            Instantiate(countResourcePrefab, quantityResources).GetComponent<AmountResource>().SetParams(res.resource.icon, res.amount.ToString());
+        }
     }
     // Add resource to Storage, refres window, remove item from player inventorys
     void ResycleResources()
@@ -73,13 +74,17 @@ public class TowerResycle : MonoBehaviour
         else
         {
             return;
-        }  
+        }
     }
 
     // Clean grid resources from all items in window
     void CleanItems()
     {
         foreach (Transform child in gridResources)
+        {
+            Destroy(child.gameObject);
+        }
+        foreach (Transform child in quantityResources)
         {
             Destroy(child.gameObject);
         }
@@ -92,6 +97,21 @@ public class TowerResycle : MonoBehaviour
             TowerResycle.instance.selectItem = resource;
         }
     }
-
+    void ShowBuildRequire(Item item)
+    {
+        if (item is ResourceItem resource)
+        {
+            if (TowerStorage.instance.CheckRequireBuilding(resource.buildRequire))
+            {
+                buildRequire.color = new Color32(81, 205, 81, 255);
+                buildRequire.text = "All buildings is exist";
+            }
+            else
+            {
+                buildRequire.color = new Color32(205, 81, 81, 255);
+                buildRequire.text = "Not all buildings is exist!";
+            }
+        }
+    }
 
 }
