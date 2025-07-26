@@ -25,7 +25,8 @@ public class TowerUI : MonoBehaviour
     {
         menuResycle.onClick.AddListener(() => OpenPrefab(prefabResycle));
         menuCraft.onClick.AddListener(() => OpenPrefab(prefabCraft));   
-        menuUpgrade.onClick.AddListener(() => OpenPrefab(prefabUpgrade));   
+        menuUpgrade.onClick.AddListener(() => OpenPrefab(prefabUpgrade));
+        menuResycle.Select();   
         existPrefab = Instantiate(prefabResycle, transform.parent);   
     }
     // Open resycle prefab

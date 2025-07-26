@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using System.Security.Cryptography;
 using TMPro;
 using Unity.VisualScripting;
@@ -8,7 +9,6 @@ using UnityEngine.UI;
 // Iterface where resource can be resycle
 public class TowerResycle : MonoBehaviour
 {
-    [HideInInspector] public static TowerResycle instance; // Singletone
     [SerializeField] Transform gridResources; // Grid where resource item is shown
     [SerializeField] Transform quantityResources; // Grid where show amount of resource
     [SerializeField] GameObject prefabItem; // Prefab item with icon
@@ -16,17 +16,6 @@ public class TowerResycle : MonoBehaviour
     [SerializeField] Button buttonResycle; // Resycle button
     [SerializeField] TextMeshProUGUI buildRequire;
     ResourceItem selectItem; // Resource item that seleted for resycle
-    void Awake()
-    {
-        if (instance == null)
-        {
-            instance = this;
-        }
-        else
-        {
-            Destroy(gameObject);
-        }
-    }
     // Fill resource slots and show progress of each resycle resource
     void Start()
     {
@@ -94,22 +83,28 @@ public class TowerResycle : MonoBehaviour
     {
         if (item is ResourceItem resource)
         {
-            TowerResycle.instance.selectItem = resource;
+            selectItem = resource;
         }
     }
     void ShowBuildRequire(Item item)
     {
         if (item is ResourceItem resource)
         {
-            if (TowerStorage.instance.CheckRequireBuilding(resource.buildRequire))
+            List<BuildingRequire> _list = TowerStorage.instance.ReturnRequireBuildings(resource.buildRequire);
+            if (_list.Count == 0)
             {
                 buildRequire.color = new Color32(81, 205, 81, 255);
                 buildRequire.text = "All buildings is exist";
+                buttonResycle.interactable = true;
             }
             else
             {
                 buildRequire.color = new Color32(205, 81, 81, 255);
-                buildRequire.text = "Not all buildings is exist!";
+                foreach (var build in _list)
+                {
+                    buildRequire.text = build.type.name + " " + build.level + " level s" + "not exist!\n";
+                }
+                buttonResycle.interactable = false;
             }
         }
     }

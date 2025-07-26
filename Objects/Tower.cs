@@ -50,15 +50,4 @@ public class Tower : MonoBehaviour
     {
         towerUI = Interface.instance.CreateCustomWindow(prefabMenu);
     }
-    // Check resource, add item to player inventory and take resource from storage
-    public void CraftItem(CraftItem item)
-    {
-        if (TowerStorage.instance.HashResources(item.requirements))
-        {
-            if (PlayerInventory.instance.AddItem(item))
-            {
-                TowerStorage.instance.TakeResources(item.requirements);
-            }
-        }
-    }
 }

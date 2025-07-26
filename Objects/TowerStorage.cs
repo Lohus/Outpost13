@@ -67,4 +67,29 @@ public class TowerStorage : MonoBehaviour
         }
         return true;
     }
+    // Check resource, add item to player inventory and take resource from storage
+    public void CraftItem(CraftItem item)
+    {
+        if (HashResources(item.requirements))
+        {
+            if (PlayerInventory.instance.AddItem(item))
+            {
+                TakeResources(item.requirements);
+            }
+        }
+    }
+    // Return list of buildings that do not meet the conditions
+    public List<BuildingRequire> ReturnRequireBuildings(BuildingRequire[] buildings)
+    {
+        List<BuildingRequire> returnBuildings = new();
+        List<BuildingRequire> _buildings = GameObject.FindGameObjectsWithTag("Building").Select(go => go.GetComponent<BuildingBase>().actualLevel).ToList();
+        foreach (var requireBuild in buildings)
+        {
+            if (_buildings.Find(b => b.type == requireBuild.type).level < requireBuild.level)
+            {
+                returnBuildings.Add(requireBuild);
+            }
+        }
+        return returnBuildings;
+    }
 }
