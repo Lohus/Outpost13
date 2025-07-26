@@ -46,7 +46,7 @@ public class TowerResycle : MonoBehaviour
     {
         foreach (ResourceAmount res in TowerStorage.instance.storage)
         {
-            Instantiate(countResourcePrefab, quantityResources).GetComponent<AmountResource>().SetParams(res.resource.icon, res.amount.ToString());
+            Instantiate(countResourcePrefab, quantityResources).GetComponent<AmountResource>().SetParams(res);
         }
     }
     // Add resource to Storage, refres window, remove item from player inventorys

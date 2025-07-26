@@ -31,17 +31,7 @@ public class Inventory : MonoBehaviour
     // Crate and fill slots
     void Start()
     {
-        CreateSlots();
         FillSlots();
-    }
-    // Create slots in grid
-    void CreateSlots()
-    {
-        for (int i = 0; i < countSlots; i++)
-        {
-            Instantiate(slotPrefab, gridSlots.transform);
-        }
-
     }
     // Fill slots in grid
     void FillSlots()

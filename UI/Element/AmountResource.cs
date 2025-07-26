@@ -8,9 +8,9 @@ public class AmountResource : MonoBehaviour
     [SerializeField] Image icon;
     [SerializeField] TextMeshProUGUI amount;
 
-    public void SetParams(Sprite image, string text)
+    public void SetParams(ResourceAmount res)
     {
-        icon.sprite = image;
-        amount.text = text;
+        icon.sprite = res.resource.icon;
+        amount.text = res.amount.ToString();
     }
 }

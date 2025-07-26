@@ -4,21 +4,9 @@ using TMPro;
 // Craft interface
 public class CraftUI : MonoBehaviour
 {
-    [HideInInspector] public static CraftUI instance; // Singletone
     [SerializeField] GameObject prefabPanel; // Prefab panel where data is shown
     [SerializeField] Database baseItems; // Base of all items that can be craft
     [SerializeField] GameObject cardWindow; // Place where create prefabPanel
-    void Awake()
-    {
-        if (instance == null)
-        {
-            instance = this;
-        }
-        else
-        {
-            Destroy(gameObject);
-        }
-    }
     // Show all crafted item in card window
     void Start()
     {
@@ -31,11 +19,7 @@ public class CraftUI : MonoBehaviour
         {
             if (PlayerInventory.instance.CheckItem(item) == false)
             {
-                GameObject _card = Instantiate(prefabPanel, cardWindow.transform);
-                _card.transform.Find("Icon").GetComponent<Image>().sprite = item.icon;
-                _card.transform.Find("RightGroup/Name").GetComponent<TextMeshProUGUI>().text = item.nameItem;
-
-                _card.transform.Find("RightGroup/Button").GetComponent<Button>().onClick.AddListener(() => PressButton(item));
+                Instantiate(prefabPanel, cardWindow.transform).GetComponent<ItemPanel>().SetItem(item);
             }
         }
     }
