@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using System.Linq;
+using UnityEngine.Events;
 // Building that can be upgrade
 public class BuildingBase : MonoBehaviour
 {
@@ -10,9 +11,12 @@ public class BuildingBase : MonoBehaviour
     {
         if (TowerStorage.instance.HashResources(building.requireRes) && TowerStorage.instance.CheckRequireBuilding(building.requireBuild))
         {
-            TowerStorage.instance.TakeResources(building.requireRes);
-            gameObject.GetComponent<MeshFilter>().mesh = building.model;
             actualLevel.level += 1;
+            TowerStorage.instance.TakeResources(building.requireRes);
+            if (building.model != null)
+            {
+                gameObject.GetComponent<MeshFilter>().mesh = building.model;
+            }
         }
     }
 }

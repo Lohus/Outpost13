@@ -6,21 +6,9 @@ using System.Collections.Generic;
 // Upgrade building interface
 public class UpgradeUI : MonoBehaviour
 {
-    [HideInInspector] public static UpgradeUI instance; // Singletone
-    [SerializeField] GameObject prefabPanel; // Prefab panel where data is shown
+    [SerializeField] GameObject buildingPanel; // Prefab panel where data is shown
     [SerializeField] GameObject cardWindow; // Place where create prefabPanel
     BuildingBase[] buildings; // All buildings that can be upgrade on scene
-    void Awake()
-    {
-        if (instance == null)
-        {
-            instance = this;
-        }
-        else
-        {
-            Destroy(gameObject);
-        }
-    }
     // Find all buildings on scene and show panel
     void Start()
     {
@@ -36,22 +24,9 @@ public class UpgradeUI : MonoBehaviour
             {
                 if (building.actualLevel.level + 1 == level.level)
                 {
-                    GameObject _card = Instantiate(prefabPanel, cardWindow.transform);
-                    _card.transform.Find("Icon").GetComponent<Image>().sprite = level.icon;
-                    _card.transform.Find("RightGroup/Name").GetComponent<TextMeshProUGUI>().text = building.actualLevel.type.name;
-                    _card.transform.Find("RightGroup/Button").GetComponent<Button>().onClick.AddListener(() => building.LevelUP(level));
-                    _card.transform.Find("RightGroup/Button").GetComponent<Button>().onClick.AddListener(() => RefreshWindow());
+                    Instantiate(buildingPanel, cardWindow.transform).GetComponent<BuildingPanel>().SetBuild(building, level);
                 }
             }
         }
-    }
-    // Refresh window 
-    void RefreshWindow()
-    {
-        foreach (Transform child in cardWindow.transform)
-        {
-            Destroy(child.gameObject);
-        }
-        ShowUpgrade();
     }
 }
