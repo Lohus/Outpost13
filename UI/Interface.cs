@@ -13,6 +13,7 @@ public class Interface : MonoBehaviour
     [SerializeField] GameObject prefabBasePanel; // Base panel
     [SerializeField] GameObject prefabPlayerInventory; // Player inventory
     [SerializeField] Image healthBar;
+    GameObject inventoryPanel;
 
     void Awake()
     {
@@ -66,10 +67,10 @@ public class Interface : MonoBehaviour
     // Create base window
     GameObject CreateBaseWindow()
     {
-        var _panel = Instantiate(prefabBasePanel, gameObject.transform);
-        _panel.GetComponentInChildren<Button>().onClick.AddListener(() => Destroy(_panel));
-        return _panel;
 
+        var basePanel = Instantiate(prefabBasePanel, gameObject.transform);
+        basePanel.GetComponentInChildren<Button>().onClick.AddListener(() => Destroy(basePanel));
+        return basePanel;
     }
     // Create custom window from other UI
     public GameObject CreateCustomWindow(GameObject prefab)

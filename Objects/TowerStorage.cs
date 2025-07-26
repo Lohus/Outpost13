@@ -3,11 +3,14 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 using System.Linq;
+using System;
+using UnityEngine.Events;
 
 // Tower Storage
 public class TowerStorage : MonoBehaviour
 {
     [HideInInspector] public static TowerStorage instance; // Singletone
+    public UnityEvent changeRes;
     public List<ResourceAmount> storage; // Resource quantity
     void Awake()
     {
@@ -48,6 +51,7 @@ public class TowerStorage : MonoBehaviour
         {
             storage.Find(res => res.resource == require.resource).amount -= require.amount;
         }
+        changeRes?.Invoke();
     }
     // Return actual resourcce quantity
     public float AmountOfResource(ResycleResource resycleResource)
