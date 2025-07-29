@@ -102,7 +102,7 @@ public class TowerResycle : MonoBehaviour
                 buildRequire.color = new Color32(205, 81, 81, 255);
                 foreach (var build in _list)
                 {
-                    buildRequire.text = build.type.name + " " + build.level + " level s" + "not exist!\n";
+                    buildRequire.text = $"{build.type.name} {build.level} level is not exist!\n";
                 }
                 buttonResycle.interactable = false;
             }

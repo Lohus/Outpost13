@@ -9,7 +9,6 @@ using Unity.VisualScripting;
 public class Inventory : MonoBehaviour
 {
     static Inventory instance; // Singletone
-    int countSlots = 8; // Count of slots
     PlayerInventory playerInventory; // Cache for player inventory
     [SerializeField] GameObject gridSlots; // Grid for slots
     [SerializeField] GameObject gridItems; // Grid for items
