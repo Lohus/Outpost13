@@ -3,6 +3,6 @@ using UnityEngine;
 // Require resource for craft
 public class ResourceRequire
 {
-    public ResycleResource resource; // Type of resycle rsource
+    public RecycleResource resource; // Type of resycle rsource
     public int amount;
 }

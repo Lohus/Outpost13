@@ -51,7 +51,7 @@ public class Inventory : MonoBehaviour
         string descriptionString = "";
         if (playerInventory.inventory[res] >= 2)
         {
-            descriptionString += playerInventory.inventory[res] + "\n";
+            descriptionString += $"Amount of resource: {playerInventory.inventory[res]}\n";
         }
         transform.Find("Description").GetComponentInChildren<TextMeshProUGUI>().text = descriptionString + res.description;
     }

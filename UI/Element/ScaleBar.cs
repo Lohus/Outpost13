@@ -5,7 +5,7 @@ public class ScaleBar : MonoBehaviour
 {
     [SerializeField] TextMeshProUGUI nameResource;
     [SerializeField] GameObject bar;
-    [SerializeField] public ResycleResource resource;
+    [SerializeField] public RecycleResource resource;
 
     void Start()
     {

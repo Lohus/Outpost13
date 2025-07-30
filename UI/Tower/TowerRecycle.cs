@@ -7,19 +7,19 @@ using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
 // Iterface where resource can be resycle
-public class TowerResycle : MonoBehaviour
+public class TowerRecycle : MonoBehaviour
 {
     [SerializeField] Transform gridResources; // Grid where resource item is shown
     [SerializeField] Transform quantityResources; // Grid where show amount of resource
     [SerializeField] GameObject prefabItem; // Prefab item with icon
     [SerializeField] GameObject countResourcePrefab; // Prefab for icon and amount 
-    [SerializeField] Button buttonResycle; // Resycle button
+    [SerializeField] Button buttonRecycle; // Resycle button
     [SerializeField] TextMeshProUGUI buildRequire;
     ResourceItem selectItem; // Resource item that seleted for resycle
     // Fill resource slots and show progress of each resycle resource
     void Start()
     {
-        buttonResycle.onClick.AddListener(ResycleResources);
+        buttonRecycle.onClick.AddListener(ResycleResources);
         FillSlots();
         ShowProgressOfResources();
     }
@@ -95,7 +95,7 @@ public class TowerResycle : MonoBehaviour
             {
                 buildRequire.color = new Color32(81, 205, 81, 255);
                 buildRequire.text = "All buildings is exist";
-                buttonResycle.interactable = true;
+                buttonRecycle.interactable = true;
             }
             else
             {
@@ -104,7 +104,7 @@ public class TowerResycle : MonoBehaviour
                 {
                     buildRequire.text = $"{build.type.name} {build.level} level is not exist!\n";
                 }
-                buttonResycle.interactable = false;
+                buttonRecycle.interactable = false;
             }
         }
     }

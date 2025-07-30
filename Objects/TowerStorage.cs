@@ -54,7 +54,7 @@ public class TowerStorage : MonoBehaviour
         changeRes?.Invoke();
     }
     // Return actual resourcce quantity
-    public float AmountOfResource(ResycleResource resycleResource)
+    public float AmountOfResource(RecycleResource resycleResource)
     {
         return storage.Find(res => res.resource == resycleResource).amount;
     }
