@@ -13,8 +13,8 @@ public class PlayerController : MonoBehaviour
     Rigidbody playerRb;
     Vector3 forwardDirection;
     public List<Effect> activeEffects = new();
-    public float maxHealth = 100;
-    public float actualHealth = 100;
+    public float maxHealth = 20;
+    public float actualHealth = 20;
 
     void Awake()
     {
@@ -35,6 +35,7 @@ public class PlayerController : MonoBehaviour
     void Update()
     {
         MovePLayer();
+        CheckHealth();
     }
 
     // Movement player
@@ -86,6 +87,15 @@ public class PlayerController : MonoBehaviour
         if (objectInteraction != null)
         {
             objectInteraction.EndInteract(this);
+        }
+    }
+
+    void CheckHealth()
+    {
+        if (actualHealth <= 0)
+        {
+            playerRb.position = new Vector3(6, 0, -4);
+            actualHealth = maxHealth;
         }
     }
 

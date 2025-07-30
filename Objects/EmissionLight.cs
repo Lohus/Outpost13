@@ -4,14 +4,21 @@ using UnityEngine;
 class EmissionLight : MonoBehaviour
 {
     [SerializeField] Light lightScene;
-    [SerializeField] float emission, speed = 0.1f;
+    [SerializeField] float emission, speed = 30f;
 
 
- void OnTriggerEnter(Collider other)
+void OnTriggerEnter(Collider other)
     {
         if (other.gameObject == PlayerController.instance.gameObject)
         {
             StartCoroutine(LightEqual());
+        }
+    }
+void OnTriggerExit(Collider other)
+    {
+        if (other.gameObject == PlayerController.instance.gameObject)
+        {
+            StopCoroutine(LightEqual());
         }
     }
 
