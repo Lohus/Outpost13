@@ -35,7 +35,7 @@ public class PlayerController : MonoBehaviour
     void Update()
     {
         MovePLayer();
-        CheckHealth();
+        //CheckHealth();
     }
 
     // Movement player

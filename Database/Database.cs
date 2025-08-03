@@ -1,7 +1,8 @@
+using System.Collections.Generic;
 using UnityEngine;
 
 [CreateAssetMenu(fileName = "Database", menuName = "Data/Database")]
 public class Database : ScriptableObject
 {
-    public CraftItem[] allCraftItems;
+    public List<CraftItem> allCraftItems;
 }
