@@ -20,14 +20,10 @@ public class SettingsUI : MonoBehaviour
             choseLanguage.options.Add(new TMP_Dropdown.OptionData(locale.Identifier.CultureInfo.NativeName));
         }
 
-        // Устанавливаем текущий язык в dropdown
         var currentLocale = LocalizationSettings.SelectedLocale;
         int index = LocalizationSettings.AvailableLocales.Locales.IndexOf(currentLocale);
         choseLanguage.value = index;
         choseLanguage.RefreshShownValue();
-
-        // Подписка на изменение
-        //choseLanguage.onValueChanged.AddListener(ChangeLanguage);
     }
     void ApplySettings()
     {
