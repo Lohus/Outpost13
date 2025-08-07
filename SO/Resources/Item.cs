@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.Localization;
 
 [CreateAssetMenu(fileName = "NewItem", menuName = "Data/Item")]
 // Simple item
