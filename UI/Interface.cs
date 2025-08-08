@@ -2,6 +2,7 @@ using UnityEngine;
 using TMPro;
 using UnityEngine.UI;
 using System;
+using UnityEngine.Localization;
 
 // General interface to create UI element
 public class Interface : MonoBehaviour
@@ -14,6 +15,7 @@ public class Interface : MonoBehaviour
     [SerializeField] GameObject prefabPlayerInventory; // Player inventory
     [SerializeField] Image healthBar;
     GameObject inventoryPanel;
+    [SerializeField] LocalizedString inventoryLocalized;
 
     void Awake()
     {
@@ -41,7 +43,11 @@ public class Interface : MonoBehaviour
         button.GetComponent<RectTransform>().anchorMax = new Vector2(0, 1);
         button.GetComponent<RectTransform>().anchoredPosition = new Vector2(100, -20);
         TextMeshProUGUI buttonText = button.GetComponentInChildren<TextMeshProUGUI>();
-        buttonText.text = "Inventory";
+        inventoryLocalized.StringChanged += (localizedText) =>
+            {
+                buttonText.text = localizedText;
+            };
+        //buttonText.text = "Inventory";
         Button buttonComponent = button.GetComponent<Button>();
         buttonComponent.onClick.AddListener(() => CreateCustomWindow(prefabPlayerInventory));
         button.name = "OpenInventory";

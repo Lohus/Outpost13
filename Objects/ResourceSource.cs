@@ -3,6 +3,9 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 using System.Collections;
+using UnityEngine.Localization;
+using UnityEngine.Localization.Tables;
+using JetBrains.Annotations;
 
 // Source of some resource
 public class ResourceSource : MonoBehaviour
@@ -10,6 +13,7 @@ public class ResourceSource : MonoBehaviour
     [SerializeField] float interval = 2; // Time extraction
     [SerializeField] int quantityResources; // Amount resource than can be extract from source
     [SerializeField] ResourceItem typeResource; // Rescource that extact from source
+    LocalizedString extractLocal = new LocalizedString { TableReference = "Text_UI", TableEntryReference = "ExtractButton_UI" };
     GameObject extractionButton; // Button that start extraction
     GameObject extractionUI; // Progressbar
     Coroutine extractionRoutine; // Corutine extraction
@@ -38,7 +42,15 @@ public class ResourceSource : MonoBehaviour
 
     }
     // Create button in canvas on scene
-    GameObject CreateButton() => Interface.instance.CreateButton("Extract", OnButtonClick);
+    GameObject CreateButton()
+    {
+        string localizedTextButton = null;
+        extractLocal.StringChanged += (localizedText) =>
+        {
+            localizedTextButton = localizedText;
+        };
+        return Interface.instance.CreateButton(localizedTextButton, OnButtonClick);
+    }
     // Rotate player to source
     void RotatePlayerTo() => PlayerController.instance.RotateTo(gameObject.transform);
     // Add amount resource to player inventory

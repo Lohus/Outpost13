@@ -1,12 +1,15 @@
 using UnityEngine;
 using System.Collections.Generic;
 using Unity.VisualScripting;
+using UnityEngine.Localization;
+using UnityEngine.Localization.Tables;
 
 // Interaction with Tower
 public class Tower : MonoBehaviour
 {
     [HideInInspector] public static Tower instance; // Singletone
     [SerializeField] GameObject prefabMenu; // Prefab menu tower
+    LocalizedString towerLocal = new LocalizedString { TableReference = "Text_UI", TableEntryReference = "OpenTerminalButton_UI" };
     GameObject buttonTower; // Button for open tower interface
     GameObject towerUI; // Tower interface 
 
@@ -44,7 +47,15 @@ public class Tower : MonoBehaviour
         CreateTowerUI();
     }
     // Create button that open tower interface
-    GameObject CreateTowerButton() => Interface.instance.CreateButton("Tower", OnButtonClick);
+    GameObject CreateTowerButton()
+    {
+        string localizedTextButton = null;
+        towerLocal.StringChanged += (localizedText) =>
+        {
+            localizedTextButton = localizedText;
+        };
+        return Interface.instance.CreateButton(localizedTextButton, OnButtonClick);
+    }
     // Open Tower Interface window in canvas on scene
     void CreateTowerUI()
     {
