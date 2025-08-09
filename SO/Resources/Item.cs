@@ -5,7 +5,7 @@ using UnityEngine.Localization;
 // Simple item
 public class Item : ScriptableObject
 {
-    public string nameItem;
+    public LocalizedString nameItem;
     public Sprite icon;
-    public string description;
+    public LocalizedString description;
 }

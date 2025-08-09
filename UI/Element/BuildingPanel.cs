@@ -3,6 +3,7 @@ using TMPro;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.Localization;
 
 public class BuildingPanel : MonoBehaviour
 {
@@ -41,11 +42,13 @@ public class BuildingPanel : MonoBehaviour
     }
     void FillBuildingRequire(LevelBuildings level)
     {
+        LocalizedString allBuilding = new LocalizedString("Text_UI", "AllBuilding_UI");
+        LocalizedString specificBuilding = new LocalizedString("Text_UI", "SpecificBuilding_UI");
         List<BuildingRequire> buildings = TowerStorage.instance.ReturnRequireBuildings(level.requireBuild);
         if (buildings.Count == 0)
         {
             buildingRequire.color = new Color32(81, 205, 81, 255);
-            buildingRequire.text = "All buildings is exist";
+            allBuilding.StringChanged += (text) => { buildingRequire.text = text;};
         }
         else
         {
@@ -53,8 +56,8 @@ public class BuildingPanel : MonoBehaviour
             buildingRequire.text = " ";
             foreach (BuildingRequire build in buildings)
             {
-                buildingRequire.text += $"{build.type.name} {build.level} level not exist!\n"; ;
-
+                specificBuilding.Arguments = new object[] { build.type.name, build.level };
+                specificBuilding.StringChanged += (text) => { buildingRequire.text += text + "\n"; };
             }
         }
     }

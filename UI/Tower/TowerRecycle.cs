@@ -5,6 +5,7 @@ using System.Security.Cryptography;
 using TMPro;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.Localization;
 using UnityEngine.UI;
 // Iterface where resource can be resycle
 public class TowerRecycle : MonoBehaviour
@@ -88,13 +89,16 @@ public class TowerRecycle : MonoBehaviour
     }
     void ShowBuildRequire(Item item)
     {
+        LocalizedString allBuilding = new LocalizedString("Text_UI", "AllBuilding_UI");
+        LocalizedString specificBuilding = new LocalizedString("Text_UI", "SpecificBuilding_UI");
         if (item is ResourceItem resource)
         {
+            buildRequire.text = " ";
             List<BuildingRequire> _list = TowerStorage.instance.ReturnRequireBuildings(resource.buildRequire);
             if (_list.Count == 0)
             {
                 buildRequire.color = new Color32(81, 205, 81, 255);
-                buildRequire.text = "All buildings is exist";
+                allBuilding.StringChanged += (text) => { buildRequire.text = text;};
                 buttonRecycle.interactable = true;
             }
             else
@@ -102,7 +106,8 @@ public class TowerRecycle : MonoBehaviour
                 buildRequire.color = new Color32(205, 81, 81, 255);
                 foreach (var build in _list)
                 {
-                    buildRequire.text = $"{build.type.name} {build.level} level is not exist!\n";
+                    specificBuilding.Arguments = new object[] { build.type.name, build.level };
+                    specificBuilding.StringChanged += (text) => { buildRequire.text += text + "\n"; };
                 }
                 buttonRecycle.interactable = false;
             }

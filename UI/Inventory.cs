@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 using Unity.VisualScripting;
+using UnityEngine.Localization;
 
 // Player inventory
 public class Inventory : MonoBehaviour
@@ -15,6 +16,7 @@ public class Inventory : MonoBehaviour
     [SerializeField] GameObject slotPrefab; // Prefab for slots
     [SerializeField] GameObject itemPrefab; // Prefab for items
     [SerializeField] TextMeshProUGUI description; // Description of items
+    LocalizedString amountOfResource = new LocalizedString ("Text_UI", "Amount_UI"); // Table and key
     void Awake()
     {
         if (instance == null)
@@ -51,8 +53,12 @@ public class Inventory : MonoBehaviour
         string descriptionString = "";
         if (playerInventory.inventory[res] >= 2)
         {
-            descriptionString += $"Amount of resource: {playerInventory.inventory[res]}\n";
+            amountOfResource.Arguments = new object[] { playerInventory.inventory[res] };
+            amountOfResource.StringChanged += (text) => { descriptionString += text + "\n"; };
         }
-        transform.Find("Description").GetComponentInChildren<TextMeshProUGUI>().text = descriptionString + res.description;
+        res.description.StringChanged += (text) =>
+        {
+            transform.Find("Description").GetComponentInChildren<TextMeshProUGUI>().text = descriptionString + text;
+        };
     }
 }

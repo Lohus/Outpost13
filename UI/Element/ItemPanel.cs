@@ -14,8 +14,8 @@ public class ItemPanel : MonoBehaviour
     public void SetItem(CraftItem item)
     {
         imageItem.sprite = item.icon;
-        itemName.text = item.name;
-        itemDescription.text = item.description;
+        item.nameItem.StringChanged += (text) => { itemName.text = text; };
+        item.description.StringChanged += (text) => { itemDescription.text = text; };
         buttonCraft.interactable = TowerStorage.instance.HashResources(item.requirements);
         buttonCraft.onClick.AddListener(() => PressButton(item));
         foreach (ResourceRequire res in item.requirements)
