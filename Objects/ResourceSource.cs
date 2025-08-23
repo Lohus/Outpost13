@@ -20,7 +20,7 @@ public class ResourceSource : MonoBehaviour
     // Show button extraction
     void OnTriggerEnter(Collider other)
     {
-        if (other.gameObject.name == "Player")
+        if (other.CompareTag("Player"))
         {
             extractionButton = CreateButton();
         }
@@ -28,7 +28,7 @@ public class ResourceSource : MonoBehaviour
     // Destroy button
     void OnTriggerExit(Collider other)
     {
-        if (other.gameObject.name == "Player")
+        if (other.CompareTag("Player"))
         {
             Destroy(extractionButton);
         }

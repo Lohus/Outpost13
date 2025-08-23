@@ -15,6 +15,9 @@ public class PlayerController : MonoBehaviour
     public List<Effect> activeEffects = new();
     public float maxHealth = 20;
     public float actualHealth = 20;
+    [SerializeField] float speed = 6;
+    [SerializeField] Animator animatorTest;
+    [SerializeField] public SkinnedMeshRenderer targetBody;
 
     void Awake()
     {
@@ -43,33 +46,38 @@ public class PlayerController : MonoBehaviour
     {
         if (Input.GetKey(KeyCode.A))
         {
-            forwardDirection.x = -1;
+            forwardDirection.x = 1;
         }
         if (Input.GetKey(KeyCode.D))
         {
-            forwardDirection.x = 1;
+            forwardDirection.x = -1;
         }
         if (Input.GetKey(KeyCode.W))
         {
-            forwardDirection.z = 1;
+            forwardDirection.z = -1;
         }
         if (Input.GetKey(KeyCode.S))
         {
-            forwardDirection.z = -1;
+            forwardDirection.z = 1;
         }
         if (Input.GetKey(KeyCode.A) || Input.GetKey(KeyCode.D) || Input.GetKey(KeyCode.W) || Input.GetKey(KeyCode.S))
         {
             forwardDirection = forwardDirection.normalized;
             if (forwardDirection != Vector3.zero)
                 transform.forward = forwardDirection;
-            playerRb.MovePosition(playerRb.position - forwardDirection * Time.deltaTime * 6);
+            playerRb.MovePosition(playerRb.position + forwardDirection * Time.deltaTime * speed);
             playerIsMove?.Invoke();
+            animatorTest.SetBool("Run", true);
+        }
+        else
+        {
+            animatorTest.SetBool("Run", false);
         }
     }
     // Rotate player to some object
     public void RotateTo(Transform objectTransform)
     {
-        Vector3 forwardToObj = (gameObject.transform.position - objectTransform.position);
+        Vector3 forwardToObj = (objectTransform.position - gameObject.transform.position);
         forwardToObj.y = 0f;
         gameObject.transform.forward = forwardToObj;
     }

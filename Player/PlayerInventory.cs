@@ -7,6 +7,7 @@ public class PlayerInventory : MonoBehaviour
     public static PlayerInventory instance; // Singletone
     // Inventory
     public Dictionary<Item, int> inventory = new Dictionary<Item, int> { };
+    public Dictionary<TypeClothes, GameObject> clothes = new Dictionary<TypeClothes, GameObject> { };
 
     void Awake()
     {
@@ -41,6 +42,7 @@ public class PlayerInventory : MonoBehaviour
         else
         {
             item.Apply(PlayerController.instance);
+            PutCloth(item);
             inventory.Add(item, 1);
             return true;
         }
@@ -49,5 +51,21 @@ public class PlayerInventory : MonoBehaviour
     public bool CheckItem(CraftItem item)
     {
         return inventory.ContainsKey(item);
+    }
+
+    // Pun on cloth on player
+    public void PutCloth(CraftItem item)
+    {
+        if (item.typeCloth == null || item.cloth == null) return;
+        if (clothes.ContainsKey(item.typeCloth))
+        {
+            Destroy(clothes[item.typeCloth]);
+            clothes[item.typeCloth] = Instantiate(item.cloth, PlayerController.instance.transform);
+        }
+        else
+        {
+            clothes.Add(item.typeCloth, Instantiate(item.cloth, PlayerController.instance.transform));
+        }
+        clothes[item.typeCloth].AddComponent<AttachClothToAvatar>();
     }
 }

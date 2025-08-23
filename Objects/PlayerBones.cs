@@ -1,13 +1,16 @@
 // Пересмотреть и исправить
+using UnityEditor.Localization.Plugins.XLIFF.V12;
 using UnityEngine;
 
 public class AttachClothToAvatar : MonoBehaviour
 {
-    public SkinnedMeshRenderer targetCloth; // одежда
-    public SkinnedMeshRenderer targetBody;  // тело персонажа
+    SkinnedMeshRenderer targetCloth; // одежда
+    SkinnedMeshRenderer targetBody;  // тело персонажа
 
     void Start()
     {
+        targetCloth = gameObject.GetComponent<SkinnedMeshRenderer>();
+        targetBody = PlayerController.instance.targetBody;
         if (targetCloth == null || targetBody == null) return;
 
         // Копируем кости и рут

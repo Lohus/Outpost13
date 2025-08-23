@@ -6,12 +6,20 @@ public class CraftItem : Item, IPlayerEffect
 {
     public ResourceRequire[] requirements; // Require of resource for craft
     public Effect typeEffect; // Type of effects
+    public TypeClothes typeCloth;
+    public GameObject cloth;
     public void Apply(PlayerController player) // Add effect to player
     {
-        player.activeEffects.Add(typeEffect);
+        if (typeEffect != null)
+        {
+           player.activeEffects.Add(typeEffect); 
+        }
     }
     public void Remove(PlayerController player) // Remove from player
     {
-        player.activeEffects.Remove(typeEffect);
+        if (player.activeEffects.Contains(typeEffect))
+        {
+            player.activeEffects.Remove(typeEffect);    
+        }
     }
 }

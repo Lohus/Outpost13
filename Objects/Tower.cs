@@ -27,7 +27,7 @@ public class Tower : MonoBehaviour
     // Show button of tower UI
     void OnTriggerEnter(Collider other)
     {
-        if (other.gameObject.name == "Player")
+        if (other.CompareTag("Player"))
         {
             buttonTower = CreateTowerButton();
         }
@@ -35,7 +35,7 @@ public class Tower : MonoBehaviour
     // Destroy button and destroy Tower Interface
     void OnTriggerExit(Collider other)
     {
-        if (other.gameObject.name == "Player")
+        if (other.CompareTag("Player"))
         {
             Destroy(buttonTower);
             Destroy(towerUI);
