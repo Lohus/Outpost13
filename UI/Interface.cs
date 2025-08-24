@@ -14,7 +14,6 @@ public class Interface : MonoBehaviour
     [SerializeField] GameObject prefabBasePanel; // Base panel
     [SerializeField] GameObject prefabPlayerInventory; // Player inventory
     [SerializeField] Image healthBar;
-    GameObject inventoryPanel;
     [SerializeField] LocalizedString inventoryLocalized;
 
     void Awake()
@@ -29,31 +28,7 @@ public class Interface : MonoBehaviour
         }
         mainUI = gameObject.transform;
     }
-    // Create inventory button
-    void Start()
-    {
-        CreateInventoryButton();
-    }
-    // Button player inventory
-    string CreateInventoryButton()
-    {
-        // Уместить в одну строчку без доп. переменных
-        GameObject button = Instantiate(buttonWindow, mainUI);
-        button.GetComponent<RectTransform>().anchorMin = new Vector2(0, 1);
-        button.GetComponent<RectTransform>().anchorMax = new Vector2(0, 1);
-        button.GetComponent<RectTransform>().anchoredPosition = new Vector2(100, -20);
-        TextMeshProUGUI buttonText = button.GetComponentInChildren<TextMeshProUGUI>();
-        inventoryLocalized.StringChanged += (localizedText) =>
-            {
-                buttonText.text = localizedText;
-            };
-        //buttonText.text = "Inventory";
-        Button buttonComponent = button.GetComponent<Button>();
-        buttonComponent.onClick.AddListener(() => CreateCustomWindow(prefabPlayerInventory));
-        button.name = "OpenInventory";
-        return button.name;
-    }
-    // Create base button with params
+        // Create base button with params
     public GameObject CreateButton(string textOnButton, Action OnButtonClick)
     {
         GameObject button = Instantiate(buttonWindow, mainUI);
@@ -80,6 +55,12 @@ public class Interface : MonoBehaviour
     }
     // Create custom window from other UI
     public GameObject CreateCustomWindow(GameObject prefab)
+    {
+        var _panel = CreateBaseWindow();
+        Instantiate(prefab, _panel.transform);
+        return _panel;
+    }
+    public GameObject CreateCustomWindow(GameObject prefab, Transform parent)
     {
         var _panel = CreateBaseWindow();
         Instantiate(prefab, _panel.transform);

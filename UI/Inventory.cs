@@ -1,9 +1,6 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
-using Unity.VisualScripting;
 using UnityEngine.Localization;
 
 // Player inventory
@@ -11,12 +8,12 @@ public class Inventory : MonoBehaviour
 {
     static Inventory instance; // Singletone
     PlayerInventory playerInventory; // Cache for player inventory
-    [SerializeField] GameObject gridSlots; // Grid for slots
     [SerializeField] GameObject gridItems; // Grid for items
-    [SerializeField] GameObject slotPrefab; // Prefab for slots
     [SerializeField] GameObject itemPrefab; // Prefab for items
     [SerializeField] TextMeshProUGUI description; // Description of items
-    LocalizedString amountOfResource = new LocalizedString ("Text_UI", "Amount_UI"); // Table and key
+    [SerializeField] Button inventoryButton;
+    [SerializeField] GameObject prefabPlayerInventory;
+    LocalizedString amountOfResource = new LocalizedString("Text_UI", "Amount_UI"); // Table and key
     void Awake()
     {
         if (instance == null)
@@ -32,6 +29,7 @@ public class Inventory : MonoBehaviour
     // Crate and fill slots
     void Start()
     {
+        
         FillSlots();
     }
     // Fill slots in grid
@@ -59,6 +57,12 @@ public class Inventory : MonoBehaviour
         res.description.StringChanged += (text) =>
         {
             transform.Find("Description").GetComponentInChildren<TextMeshProUGUI>().text = descriptionString + text;
+            // Сделать, когда будет компонет на кнопке description.text = descriptionString + text; 
         };
+    }
+    void OpenInventory()
+    {
+        inventoryButton.interactable = false;
+        Interface.instance.CreateCustomWindow(prefabPlayerInventory);
     }
 }
