@@ -1,5 +1,5 @@
 // Пересмотреть и исправить
-using UnityEditor.Localization.Plugins.XLIFF.V12;
+
 using UnityEngine;
 
 public class AttachClothToAvatar : MonoBehaviour

@@ -12,6 +12,7 @@ public class Chest : MonoBehaviour, IInteraction
     }
     public void EndInteract(PlayerController player)
     {
+        if (button != null) Destroy(button);
     }
     void PutOnClothes()
     {

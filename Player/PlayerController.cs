@@ -18,6 +18,7 @@ public class PlayerController : MonoBehaviour
     [SerializeField] float speed = 6;
     [SerializeField] Animator animatorTest;
     [SerializeField] public SkinnedMeshRenderer targetBody;
+    [SerializeField] VirtualJoystick joystick;
 
     void Awake()
     {
@@ -39,6 +40,7 @@ public class PlayerController : MonoBehaviour
     {
         MovePLayer();
         //CheckHealth();
+        StickControll();
     }
 
     // Movement player
@@ -98,6 +100,24 @@ public class PlayerController : MonoBehaviour
         }
     }
 
+    void StickControll()
+    {
+        float h = -joystick.Horizontal();
+        float v = -joystick.Vertical();
+        forwardDirection = new Vector3(h, 0, v);
+        if (forwardDirection != Vector3.zero)
+        {
+            transform.forward = forwardDirection;
+            playerRb.MovePosition(playerRb.position + forwardDirection * Time.deltaTime * speed);
+            playerIsMove?.Invoke();
+            animatorTest.SetBool("Run", true);
+        }
+        else
+        {
+            animatorTest.SetBool("Run", false);
+        }
+        
+    }
     void CheckHealth()
     {
         if (actualHealth <= 0)
