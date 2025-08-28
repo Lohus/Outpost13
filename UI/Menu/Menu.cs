@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
@@ -14,10 +15,15 @@ public class Menu : MonoBehaviour
         {
             canvas = transform.parent;
         }
-        returnGame.onClick.AddListener(CloseMenu);
-        settings.onClick.AddListener(OpenSettings);
+        //returnGame.onClick.AddListener(CloseMenu);
+        AddClick(returnGame, CloseMenu);
+        //settings.onClick.AddListener(OpenSettings);
+        AddClick(settings, OpenSettings);
+        //mainMenu.onClick.AddListener(OpenStartMenu);
+        AddClick(mainMenu, OpenStartMenu);
+        AddClick(newGame, OpenMainLevel);
     }
-    public void OpenScene()
+    public void OpenMainLevel()
     {
         SceneManager.LoadScene("MainLevel");
     }
@@ -30,5 +36,14 @@ public class Menu : MonoBehaviour
     void CloseMenu()
     {
         Destroy(gameObject);
+    }
+    void OpenStartMenu()
+    {
+        SceneManager.LoadScene("StartMenu");
+    }
+    void AddClick(Button button, Action buttonClick)
+    {
+        if (button == null) return;
+        button.onClick.AddListener(() => buttonClick());
     }
 }
