@@ -14,7 +14,9 @@ public class Interface : MonoBehaviour
     [SerializeField] GameObject prefabBasePanel; // Base panel
     [SerializeField] GameObject prefabPlayerInventory; // Player inventory
     [SerializeField] Image healthBar;
-    [SerializeField] LocalizedString inventoryLocalized;
+    [SerializeField] SettingsGame settings;
+    [SerializeField] public GameObject joystick;
+
 
     void Awake()
     {
@@ -28,7 +30,11 @@ public class Interface : MonoBehaviour
         }
         mainUI = gameObject.transform;
     }
-        // Create base button with params
+    void Start()
+    {
+        joystick.SetActive(!settings.keyboardControl);
+    }
+    // Create base button with params
     public GameObject CreateButton(string textOnButton, Action OnButtonClick)
     {
         GameObject button = Instantiate(buttonWindow, mainUI);
@@ -69,5 +75,9 @@ public class Interface : MonoBehaviour
     public void UpdateHealthBar()
     {
         healthBar.fillAmount = PlayerController.instance.actualHealth / PlayerController.instance.maxHealth;
+    }
+    public void SetJoystick(bool status)
+    {
+        joystick.SetActive(status);
     }
 }

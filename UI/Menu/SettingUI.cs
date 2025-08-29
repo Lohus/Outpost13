@@ -10,6 +10,8 @@ public class SettingsUI : MonoBehaviour
 {
     [SerializeField] TMP_Dropdown choseLanguage;
     [SerializeField] Button apply;
+    [SerializeField] Toggle keyboardToggle, joystickToggle; 
+    [SerializeField] SettingsGame settings;
 
     void Start()
     {
@@ -24,9 +26,13 @@ public class SettingsUI : MonoBehaviour
         int index = LocalizationSettings.AvailableLocales.Locales.IndexOf(currentLocale);
         choseLanguage.value = index;
         choseLanguage.RefreshShownValue();
+        keyboardToggle.isOn = settings.keyboardControl;
+        joystickToggle.isOn = !settings.keyboardControl;
     }
     void ApplySettings()
     {
         LocalizationSettings.SelectedLocale = LocalizationSettings.AvailableLocales.Locales[choseLanguage.value];
+        settings.keyboardControl = keyboardToggle.isOn;
+        if (Interface.instance != null) Interface.instance.SetJoystick(joystickToggle.isOn);
     }
 }

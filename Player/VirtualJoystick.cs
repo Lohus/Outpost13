@@ -3,32 +3,31 @@ using UnityEngine.EventSystems;
 
 public class VirtualJoystick : MonoBehaviour, IDragHandler, IPointerUpHandler, IPointerDownHandler
 {
-    [SerializeField] private RectTransform bg;      // фон стика
-    [SerializeField] private RectTransform handle;  // сам стик
+    [SerializeField] private RectTransform background;   // фон стика
+    [SerializeField] private RectTransform stick;  // сам стик
     private Vector2 inputVector;   // куда двигаем палец
 
     void Start()
     {
-        bg = GetComponent<RectTransform>();
-        handle = transform.GetChild(0).GetComponent<RectTransform>();
+        background = GetComponent<RectTransform>();
+        stick = transform.GetChild(0).GetComponent<RectTransform>();
     }
-
     public void OnDrag(PointerEventData eventData)
     {
         Vector2 pos;
         if (RectTransformUtility.ScreenPointToLocalPointInRectangle(
-            bg, eventData.position, eventData.pressEventCamera, out pos))
+            background, eventData.position, eventData.pressEventCamera, out pos))
         {
-            pos.x = (pos.x / bg.sizeDelta.x);
-            pos.y = (pos.y / bg.sizeDelta.y);
+            pos.x = (pos.x / background.sizeDelta.x);
+            pos.y = (pos.y / background.sizeDelta.y);
 
             inputVector = new Vector2(pos.x * 2, pos.y * 2);
             inputVector = (inputVector.magnitude > 1.0f) ? inputVector.normalized : inputVector;
 
             // двигаем ручку стика
-            handle.anchoredPosition = new Vector2(
-                inputVector.x * (bg.sizeDelta.x / 3),
-                inputVector.y * (bg.sizeDelta.y / 3));
+            stick.anchoredPosition = new Vector2(
+                inputVector.x * (background.sizeDelta.x / 3),
+                inputVector.y * (background.sizeDelta.y / 3));
         }
     }
 
@@ -40,7 +39,7 @@ public class VirtualJoystick : MonoBehaviour, IDragHandler, IPointerUpHandler, I
     public void OnPointerUp(PointerEventData eventData)
     {
         inputVector = Vector2.zero;
-        handle.anchoredPosition = Vector2.zero;
+        stick.anchoredPosition = Vector2.zero;
     }
 
     public float Horizontal() => inputVector.x;

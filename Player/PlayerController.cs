@@ -19,6 +19,7 @@ public class PlayerController : MonoBehaviour
     [SerializeField] Animator animatorTest;
     [SerializeField] public SkinnedMeshRenderer targetBody;
     [SerializeField] VirtualJoystick joystick;
+    [SerializeField] SettingsGame settings;
 
     void Awake()
     {
@@ -38,9 +39,15 @@ public class PlayerController : MonoBehaviour
     }
     void Update()
     {
-        MovePLayer();
         //CheckHealth();
-        StickControll();
+        if (settings.keyboardControl)
+        {
+            MovePLayer();
+        }
+        else
+        {
+            StickControll();
+        }
     }
 
     // Movement player
