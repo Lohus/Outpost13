@@ -1,6 +1,7 @@
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.UI;
+using UnityEngine.Localization;
 
 public class Altar : MonoBehaviour, IInteraction
 {
@@ -9,8 +10,10 @@ public class Altar : MonoBehaviour, IInteraction
     [SerializeField] GameObject goldenPaws; // Item that shows on altar
     [SerializeField] CraftItem goldenPawsItem; // Craft item
     [SerializeField] Database database;
-    GameObject buttonUse;
-    bool altarIsActive = false;
+    private LocalizedString activateLocal = new LocalizedString { TableReference = "Text_UI", TableEntryReference = "Activate_UI" };
+    private GameObject buttonUse;
+    private string buttonTitle;
+    private bool altarIsActive = false;
     void Awake()
     {
         if (instance == null)
@@ -40,7 +43,7 @@ public class Altar : MonoBehaviour, IInteraction
 
     void ShowButton()
     {
-        buttonUse = Interface.instance.CreateButton("activate", PressButton);
+        buttonUse = Interface.instance.CreateButton(buttonTitle, PressButton);
         buttonUse.GetComponent<Button>().interactable = PlayerInventory.instance.CheckItem(goldenPawsItem);
     }
 
@@ -51,5 +54,17 @@ public class Altar : MonoBehaviour, IInteraction
         altarIsActive = true;
         altarActivaded?.Invoke();
         Destroy(buttonUse);
+    }
+    void OnEnable()
+    {
+        activateLocal.StringChanged += LocalizeTitle;
+    }
+    void OnDisable()
+    {
+        activateLocal.StringChanged -= LocalizeTitle;
+    }
+    void LocalizeTitle(string localizedText)
+    {
+        buttonTitle = localizedText;
     }
 }

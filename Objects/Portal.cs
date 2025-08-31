@@ -1,8 +1,10 @@
 using UnityEngine;
+using UnityEngine.VFX;
 
 public class Portal : MonoBehaviour
 {
     [SerializeField] Renderer portalRenderer;
+    [SerializeField] ParticleSystem[] portalEffects;
 
 
     void Start()
@@ -16,6 +18,10 @@ public class Portal : MonoBehaviour
 
     void EnableEffects()
     {
-       portalRenderer.material.SetFloat("_Enable", 1);
+        portalRenderer.material.SetFloat("_Enable", 1);
+        foreach (var effect in portalEffects)
+        {
+            effect.Play();
+        }
     }
 }
