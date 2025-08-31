@@ -4,6 +4,7 @@ using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.Localization;
+using System;
 
 public class BuildingPanel : MonoBehaviour
 {
@@ -18,7 +19,8 @@ public class BuildingPanel : MonoBehaviour
     {
         levelBuildings = level;
         imageBuilding.sprite = level.icon;
-        buildingName.text = $"{building.actualLevel.type.name} {level.level}";
+        building.actualLevel.type.typeBuildings.StringChanged += (text) => buildingName.text = $"{text} {level.level}";
+        //buildingName.text = $"{building.actualLevel.type.typeBuildings} {level.level}";
         FillBuildingRequire(level);
         SetButtonStatus(level);
         buttonUpgrade.onClick.AddListener(() => PressButton(building, level));
@@ -48,16 +50,21 @@ public class BuildingPanel : MonoBehaviour
         if (buildings.Count == 0)
         {
             buildingRequire.color = new Color32(81, 205, 81, 255);
-            allBuilding.StringChanged += (text) => { buildingRequire.text = text;};
+            allBuilding.StringChanged += (text) => { buildingRequire.text = text; };
         }
         else
         {
             buildingRequire.color = new Color32(205, 81, 81, 255);
-            buildingRequire.text = " ";
+            buildingRequire.text = "";
+            string nameBuilding = "";
             foreach (BuildingRequire build in buildings)
             {
-                specificBuilding.Arguments = new object[] { build.type.name, build.level };
-                specificBuilding.StringChanged += (text) => { buildingRequire.text += text + "\n"; };
+                build.type.typeBuildings.StringChanged += (text) =>
+                {
+                    nameBuilding = text;
+                    specificBuilding.Arguments = new object[] { nameBuilding, build.level };
+                    specificBuilding.StringChanged += (text) => { buildingRequire.text += text + "\n"; };
+                };
             }
         }
     }
