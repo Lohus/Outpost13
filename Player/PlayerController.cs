@@ -16,7 +16,7 @@ public class PlayerController : MonoBehaviour
     public float maxHealth = 20;
     public float actualHealth = 20;
     [SerializeField] float speed = 6;
-    [SerializeField] Animator animatorTest;
+    [SerializeField] public Animator animatorPlayer;
     [SerializeField] public SkinnedMeshRenderer targetBody;
     [SerializeField] VirtualJoystick joystick;
     [SerializeField] SettingsGame settings;
@@ -76,11 +76,11 @@ public class PlayerController : MonoBehaviour
                 transform.forward = forwardDirection;
             playerRb.MovePosition(playerRb.position + forwardDirection * Time.deltaTime * speed);
             playerIsMove?.Invoke();
-            animatorTest.SetBool("Run", true);
+            animatorPlayer.SetBool("Run", true);
         }
         else
         {
-            animatorTest.SetBool("Run", false);
+            animatorPlayer.SetBool("Run", false);
         }
     }
     // Rotate player to some object
@@ -117,11 +117,11 @@ public class PlayerController : MonoBehaviour
             transform.forward = forwardDirection;
             playerRb.MovePosition(playerRb.position + forwardDirection * Time.deltaTime * speed);
             playerIsMove?.Invoke();
-            animatorTest.SetBool("Run", true);
+            animatorPlayer.SetBool("Run", true);
         }
         else
         {
-            animatorTest.SetBool("Run", false);
+            animatorPlayer.SetBool("Run", false);
         }
         
     }

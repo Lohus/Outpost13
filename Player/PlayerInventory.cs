@@ -5,8 +5,10 @@ using UnityEngine;
 public class PlayerInventory : MonoBehaviour
 {
     public static PlayerInventory instance; // Singletone
+    public bool tools = false;
     // Inventory
     public Dictionary<Item, int> inventory = new Dictionary<Item, int> { };
+    // Clothes
     public Dictionary<TypeClothes, GameObject> clothes = new Dictionary<TypeClothes, GameObject> { };
 
     void Awake()

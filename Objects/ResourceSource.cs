@@ -36,10 +36,11 @@ public class ResourceSource : MonoBehaviour
     // Start extraction and show progressbar
     public void OnButtonClick()
     {
+        if (Tools.instance.tools == false) return;
         Destroy(extractionButton);
+        typeResource.nameItem.StringChanged += (name) => Tools.instance.nameRes = name;
         RotatePlayerTo();
         StartExtraction();
-
     }
     // Create button in canvas on scene
     GameObject CreateButton()
@@ -76,6 +77,7 @@ public class ResourceSource : MonoBehaviour
     {
         extractionRoutine = StartCoroutine(ExtractionResource());
         extractionUI = Interface.instance.CreateProgressBar(interval);
+        PlayerController.instance.animatorPlayer.SetBool("Extraction", true);
         PlayerController.instance.playerIsMove.AddListener(() => StopExtraction(extractionRoutine));
     }
     // Stop coroutine, destroy progressbar
@@ -83,6 +85,7 @@ public class ResourceSource : MonoBehaviour
     {
         StopCoroutine(cor);
         Destroy(extractionUI);
+        PlayerController.instance.animatorPlayer.SetBool("Extraction", false);
         PlayerController.instance.playerIsMove.RemoveListener(() => StopExtraction(extractionRoutine));
     }
 }

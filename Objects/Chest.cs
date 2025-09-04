@@ -6,6 +6,7 @@ using UnityEngine.UI;
 public class Chest : MonoBehaviour, IInteraction
 {
     [SerializeField] List<CraftItem> clothes;
+    [SerializeField] List<GameObject> tools;
     private LocalizedString putonLocal = new LocalizedString { TableReference = "Text_UI", TableEntryReference = "PutOnClothes_UI" };
     private GameObject button;
     private string buttonTitle;
@@ -24,6 +25,7 @@ public class Chest : MonoBehaviour, IInteraction
         {
             PlayerInventory.instance.PutCloth(cloth);
         }
+        PutOnTools();
         Destroy(GetComponent<Chest>());
     }
     void OnEnable()
@@ -37,5 +39,13 @@ public class Chest : MonoBehaviour, IInteraction
     void LocalizeTitle(string localizedText)
     {
         buttonTitle = localizedText;
+    }
+    void PutOnTools()
+    {
+        Tools.instance.tools = true;
+        foreach (var tool in tools)
+        {
+            tool.SetActive(true);
+        }
     }
 }
