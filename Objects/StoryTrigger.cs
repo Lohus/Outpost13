@@ -7,7 +7,7 @@ public class StoryTrigger : MonoBehaviour
     public enum TypeMessage { OnlyMessage, ItemExist, ItemNotExist }
     [SerializeField] bool destroyObject = false;
     [SerializeField] CaitMessage caitMessage;
-    [SerializeField] CraftItem item;
+    [SerializeField] Item item;
     [SerializeField] TriggerType triggerType = TriggerType.OnTriggerEnter;
     [SerializeField] TypeMessage typeMessage = TypeMessage.OnlyMessage;
     delegate bool TriggerMessage();

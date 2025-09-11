@@ -50,7 +50,7 @@ public class PlayerInventory : MonoBehaviour
         }
     }
     // Check if item in inventory
-    public bool CheckItem(CraftItem item)
+    public bool CheckItem(Item item)
     {
         return inventory.ContainsKey(item);
     }
