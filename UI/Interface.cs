@@ -3,6 +3,8 @@ using TMPro;
 using UnityEngine.UI;
 using System;
 using UnityEngine.Localization;
+using Unity.VisualScripting;
+using UnityEngine.AI;
 
 // General interface to create UI element
 public class Interface : MonoBehaviour
@@ -12,9 +14,9 @@ public class Interface : MonoBehaviour
     [SerializeField] GameObject buttonWindow; // Base Button
     [SerializeField] GameObject prefabProgressBar; // Progressbar
     [SerializeField] GameObject prefabBasePanel; // Base panel
-    [SerializeField] GameObject prefabPlayerInventory; // Player inventory
     [SerializeField] Image healthBar;
     [SerializeField] SettingsGame settings;
+    [SerializeField] GameObject caitUI;
     [SerializeField] public GameObject joystick;
 
 
@@ -79,5 +81,9 @@ public class Interface : MonoBehaviour
     public void SetJoystick(bool status)
     {
         joystick.SetActive(status);
+    }
+    public void CreateMessage(CaitMessage message)
+    {
+        Instantiate(caitUI, mainUI).GetComponent<CaitUI>().Init(message.icon, message.message);
     }
 }
