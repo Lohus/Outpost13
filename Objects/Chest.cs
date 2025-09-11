@@ -7,12 +7,14 @@ public class Chest : MonoBehaviour, IInteraction
 {
     [SerializeField] List<CraftItem> clothes;
     [SerializeField] List<GameObject> tools;
+    [SerializeField] CaitMessage caitMessage;
     private LocalizedString putonLocal = new LocalizedString { TableReference = "Text_UI", TableEntryReference = "PutOnClothes_UI" };
     private GameObject button;
     private string buttonTitle;
     public void Interact(PlayerController player)
     {
         button = Interface.instance.CreateButton(buttonTitle, PutOnClothes);
+        button.GetComponent<Button>().onClick.AddListener(() => Interface.instance.CreateMessage(caitMessage)); // Instantita CAIT message
     }
     public void EndInteract(PlayerController player)
     {

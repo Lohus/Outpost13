@@ -3,26 +3,78 @@ using UnityEngine.Events;
 
 public class StoryTrigger : MonoBehaviour
 {
-    [SerializeField] CaitMessage caitMessage;
+    public enum TriggerType { OnTriggerEnter, OnTriggerExit }
+    public enum TypeMessage { OnlyMessage, ItemExist, ItemNotExist }
     [SerializeField] bool destroyObject = false;
-    [SerializeField] UnityEvent triggerIvent = new UnityEvent();
-    [SerializeField] CraftItem requireIitem;
+    [SerializeField] CaitMessage caitMessage;
+    [SerializeField] CraftItem item;
+    [SerializeField] TriggerType triggerType = TriggerType.OnTriggerEnter;
+    [SerializeField] TypeMessage typeMessage = TypeMessage.OnlyMessage;
+    delegate bool TriggerMessage();
+    TriggerMessage triggerMessage;
+    void Start()
+    {
+        switch (typeMessage)
+        {
+            case TypeMessage.OnlyMessage:
+                triggerMessage = CreateMessage;
+                break;
+            case TypeMessage.ItemExist:
+                triggerMessage = ItemExist;
+                break;
+            case TypeMessage.ItemNotExist:
+                triggerMessage = ItemNotExist;
+                break;
+        }
+    }
 
     void OnTriggerEnter(Collider other)
     {
+        if (triggerType == TriggerType.OnTriggerEnter)
+        {
+            InvokeMessage(other);
+        }
+    }
+    void OnTriggerExit(Collider other)
+    {
+        if (triggerType == TriggerType.OnTriggerExit)
+        {
+            InvokeMessage(other);
+        }
+    }
+    void InvokeMessage(Collider other)
+    {
         if (other.CompareTag("Player"))
         {
-            triggerIvent?.Invoke();
-            Destroy(destroyObject ? gameObject : this);
+            if(triggerMessage()) Destroy(destroyObject ? gameObject : this);
         }
     }
 
-    public void CheckItem(CraftItem item)
+    bool ItemExist()
     {
         if (PlayerInventory.instance.CheckItem(item))
         {
-            CreateMessage(caitMessage);
+            return CreateMessage();
+        }
+        else
+        {
+            return false;
         }
     }
-    public void CreateMessage(CaitMessage message) => Interface.instance.CreateMessage(message);
+    bool ItemNotExist()
+    {
+        if (!PlayerInventory.instance.CheckItem(item))
+        {
+            return CreateMessage();
+        }
+        else
+        {
+            return true;
+        }
+    }
+    bool CreateMessage()
+    {
+        Interface.instance.CreateMessage(caitMessage);
+        return true;
+    }
 }
