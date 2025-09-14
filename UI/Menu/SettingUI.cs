@@ -12,6 +12,7 @@ public class SettingsUI : MonoBehaviour
     [SerializeField] Button apply;
     [SerializeField] Toggle keyboardToggle, joystickToggle; 
     [SerializeField] SettingsGame settings;
+    [SerializeField] Slider volumeSlider;
 
     void Start()
     {
@@ -28,11 +29,14 @@ public class SettingsUI : MonoBehaviour
         choseLanguage.RefreshShownValue();
         keyboardToggle.isOn = settings.keyboardControl;
         joystickToggle.isOn = !settings.keyboardControl;
+        volumeSlider.value = settings.volume;
     }
     void ApplySettings()
     {
         LocalizationSettings.SelectedLocale = LocalizationSettings.AvailableLocales.Locales[choseLanguage.value];
         settings.keyboardControl = keyboardToggle.isOn;
+        settings.volume = volumeSlider.value;
         if (Interface.instance != null) Interface.instance.SetJoystick(joystickToggle.isOn);
+        if (PlayerController.instance != null) AudioListener.volume = volumeSlider.value;
     }
 }

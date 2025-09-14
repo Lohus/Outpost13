@@ -20,6 +20,8 @@ public class PlayerController : MonoBehaviour
     [SerializeField] public SkinnedMeshRenderer targetBody;
     [SerializeField] VirtualJoystick joystick;
     [SerializeField] SettingsGame settings;
+    [SerializeField] CaitMessage[] caitMessages;
+    [SerializeField] AudioSource audioSource;
 
     void Awake()
     {
@@ -32,6 +34,7 @@ public class PlayerController : MonoBehaviour
             Destroy(gameObject);
         }
         playerRb = gameObject.GetComponent<Rigidbody>();
+        AudioListener.volume = settings.volume;
     }
     void Start()
     {
@@ -77,9 +80,11 @@ public class PlayerController : MonoBehaviour
             playerRb.MovePosition(playerRb.position + forwardDirection * Time.deltaTime * speed);
             playerIsMove?.Invoke();
             animatorPlayer.SetBool("Run", true);
+            if (!audioSource.isPlaying) audioSource.Play();
         }
         else
         {
+            audioSource.Stop();
             animatorPlayer.SetBool("Run", false);
         }
     }
@@ -129,6 +134,7 @@ public class PlayerController : MonoBehaviour
     {
         if (actualHealth <= 0)
         {
+            Interface.instance.CreateMessage(caitMessages[Random.Range(0, caitMessages.Length)]);
             playerRb.position = new Vector3(6, 0, -4);
             actualHealth = maxHealth;
         }

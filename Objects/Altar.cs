@@ -9,7 +9,7 @@ public class Altar : MonoBehaviour, IInteraction
     public UnityEvent altarActivaded;
     [SerializeField] GameObject goldenPaws; // Item that shows on altar
     [SerializeField] CraftItem goldenPawsItem; // Craft item
-    [SerializeField] Database database;
+    [SerializeField] CaitMessage caitMessage;
     private LocalizedString activateLocal = new LocalizedString { TableReference = "Text_UI", TableEntryReference = "Activate_UI" };
     private GameObject buttonUse;
     private string buttonTitle;
@@ -29,10 +29,6 @@ public class Altar : MonoBehaviour, IInteraction
     {
         if (altarIsActive == false)
         {
-            if (!database.allCraftItems.Contains(goldenPawsItem))
-            {
-                database.allCraftItems.Add(goldenPawsItem);
-            }
             ShowButton();
         }
     }
@@ -53,6 +49,7 @@ public class Altar : MonoBehaviour, IInteraction
         PlayerInventory.instance.inventory.Remove(goldenPawsItem);
         altarIsActive = true;
         altarActivaded?.Invoke();
+        Interface.instance.CreateMessage(caitMessage);
         Destroy(buttonUse);
     }
     void OnEnable()

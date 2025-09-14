@@ -4,4 +4,5 @@ using UnityEngine;
 public class SettingsGame : ScriptableObject
 {
     public bool keyboardControl = true;
+    public float volume = 1;
 }
