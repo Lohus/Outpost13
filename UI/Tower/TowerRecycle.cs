@@ -94,8 +94,8 @@ public class TowerRecycle : MonoBehaviour
         if (item is ResourceItem resource)
         {
             buildRequire.text = " ";
-            List<BuildingRequire> _list = TowerStorage.instance.ReturnRequireBuildings(resource.buildRequire);
-            if (_list.Count == 0)
+            List<BuildingRequire> _buildings = TowerStorage.instance.ReturnRequireBuildings(resource.buildRequire);
+            if (_buildings.Count == 0)
             {
                 buildRequire.color = new Color32(81, 205, 81, 255);
                 allBuilding.StringChanged += (text) => { buildRequire.text = text;};
@@ -104,12 +104,17 @@ public class TowerRecycle : MonoBehaviour
             else
             {
                 buildRequire.color = new Color32(205, 81, 81, 255);
-                foreach (var build in _list)
+                buildRequire.text = "";
+                string nameBuilding = "";
+                foreach (BuildingRequire build in _buildings)
                 {
-                    specificBuilding.Arguments = new object[] { build.type.name, build.level };
-                    specificBuilding.StringChanged += (text) => { buildRequire.text += text + "\n"; };
+                    build.type.typeBuildings.StringChanged += (text) =>
+                    {
+                        nameBuilding = text;
+                        specificBuilding.Arguments = new object[] { nameBuilding, build.level };
+                        specificBuilding.StringChanged += (text) => { buildRequire.text += text + "\n"; };
+                    };
                 }
-                buttonRecycle.interactable = false;
             }
         }
     }
