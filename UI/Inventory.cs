@@ -56,8 +56,7 @@ public class Inventory : MonoBehaviour
         }
         res.description.StringChanged += (text) =>
         {
-            transform.Find("Description").GetComponentInChildren<TextMeshProUGUI>().text = descriptionString + text;
-            // Сделать, когда будет компонет на кнопке description.text = descriptionString + text; 
+            description.text = descriptionString + text; 
         };
     }
     void OpenInventory()
