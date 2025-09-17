@@ -5,11 +5,11 @@ using UnityEngine;
 public class CameraControll : MonoBehaviour
 {
     float offset = 15; // Offset from player
-    Transform target; // Player on scene
+    [SerializeField] Transform target; // Player on scene
     // Find player on scene
     void Start()
     {
-        target = PlayerController.instance.GetComponent<Transform>();
+        if (target == null) target = PlayerController.instance.GetComponent<Transform>();
     }
     // Change camera position
     void LateUpdate()

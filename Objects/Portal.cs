@@ -1,5 +1,5 @@
 using UnityEngine;
-using UnityEngine.VFX;
+using UnityEngine.SceneManagement;
 
 public class Portal : MonoBehaviour
 {
@@ -25,5 +25,10 @@ public class Portal : MonoBehaviour
         {
             effect.Play();
         }
+        gameObject.GetComponent<BoxCollider>().enabled = true;
+    }
+    void OnTriggerEnter(Collider other)
+    {
+        SceneManager.LoadScene("Final");
     }
 }
