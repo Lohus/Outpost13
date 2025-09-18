@@ -62,10 +62,10 @@ This project focuses on:
 | Basic gameplay loop    | ✅ Done      |
 | Crafting system        | ✅ Done      |
 | Building upgrades      | ✅ Done      |
-| Story logic & triggers | ✅ In progress |
-| Visual polish (models) | ✅ In progress |
-| Sound and VFX          | ✅ Planned   |
-| Release & feedback     | 🔄 Planned   |
+| Story logic & triggers | ✅ Done |
+| Visual polish (models) | ✅ Done |
+| Sound and VFX          | ✅ Done     |
+| Release & feedback     | 🔄 In progress   |
 
 ---
 
