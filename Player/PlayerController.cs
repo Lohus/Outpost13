@@ -42,7 +42,7 @@ public class PlayerController : MonoBehaviour
     }
     void Update()
     {
-        //CheckHealth();
+        CheckHealth();
         if (settings.keyboardControl)
         {
             MovePLayer();
