@@ -25,7 +25,7 @@ This project focuses on:
 > As you restore systems and gather resources, you uncover the fate of the previous explorer...
 
 - Isometric exploration with survival mechanics
-- Upgrade structures (Generators, Antennas, Refineries)
+- Upgrade structures (Generators, Recyclers)
 - Craft items from gathered resources
 - Survive in dangerous zones (radiation, gas, cold, heat)
 - Story events unfold based on player progress
@@ -51,7 +51,7 @@ This project focuses on:
 - ✅ Environmental zones (radiation, temperature, gas)
 - ✅ Story event triggers and choice-based progression
 - ✅ UI system with tabs (Craft / Upgrade / Resycle / Inventory)
-- 🔄 In Progress: animation, VFX, sounds, final story logic
+- ✅ In Progress: animation, VFX, sounds, final story logic
 
 ---
 
@@ -62,10 +62,10 @@ This project focuses on:
 | Basic gameplay loop    | ✅ Done      |
 | Crafting system        | ✅ Done      |
 | Building upgrades      | ✅ Done      |
-| Story logic & triggers | 🔄 In progress |
-| Visual polish (models) | 🔄 In progress |
-| Sound and VFX          | 🔜 Planned   |
-| Release & feedback     | 🔜 Planned   |
+| Story logic & triggers | ✅ In progress |
+| Visual polish (models) | ✅ In progress |
+| Sound and VFX          | ✅ Planned   |
+| Release & feedback     | 🔄 Planned   |
 
 ---
 
