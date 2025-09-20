@@ -24,7 +24,6 @@ public class DangerZone : MonoBehaviour, IInteraction
         while (true)
         {
             player.actualHealth -= typeEffect.damage;
-            Interface.instance.UpdateHealthBar();
             yield return new WaitForSeconds(1);
         }
     }

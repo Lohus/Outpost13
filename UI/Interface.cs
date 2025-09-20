@@ -2,9 +2,6 @@ using UnityEngine;
 using TMPro;
 using UnityEngine.UI;
 using System;
-using UnityEngine.Localization;
-using Unity.VisualScripting;
-using UnityEngine.AI;
 
 // General interface to create UI element
 public class Interface : MonoBehaviour
@@ -14,7 +11,6 @@ public class Interface : MonoBehaviour
     [SerializeField] GameObject buttonWindow; // Base Button
     [SerializeField] GameObject prefabProgressBar; // Progressbar
     [SerializeField] GameObject prefabBasePanel; // Base panel
-    [SerializeField] Image healthBar;
     [SerializeField] SettingsGame settings;
     [SerializeField] GameObject caitUI;
     [SerializeField] public GameObject joystick;
@@ -73,10 +69,6 @@ public class Interface : MonoBehaviour
         var _panel = CreateBaseWindow();
         Instantiate(prefab, _panel.transform);
         return _panel;
-    }
-    public void UpdateHealthBar()
-    {
-        healthBar.fillAmount = PlayerController.instance.actualHealth / PlayerController.instance.maxHealth;
     }
     public void SetJoystick(bool status)
     {
