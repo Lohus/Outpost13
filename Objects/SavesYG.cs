@@ -6,11 +6,12 @@ namespace YG
     public partial class SavesYG
     {
         public Vector3 position;
-        public Dictionary<Item, int> inventory;
-        public List<ResourceAmount> storage;
-        public Dictionary<TypeClothes, GameObject> clothes;
+        public Dictionary<Item, int> inventory = new();
+        public List<ResourceAmount> storage = new();
+        public Dictionary<TypeClothes, GameObject> clothes = new();
         public Dictionary<TypeBuilding, BuildingRequire> buildings = new();
-        public List<Effect> activeEffects;
-        public bool chest;
+        public List<Effect> activeEffects = new();
+        public List<string> triggerNameID = new();
+        public bool chest = false;
     }
 }

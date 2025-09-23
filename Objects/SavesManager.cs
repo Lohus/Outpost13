@@ -31,14 +31,29 @@ public class SavesManager : MonoBehaviour
             }
             BuildingBase[] buildings = FindObjectsOfType<BuildingBase>();
 
-                foreach (BuildingBase build in buildings)
+            foreach (BuildingBase build in buildings)
+            {
+                if (YG2.saves.buildings.ContainsKey(build.type)) build.actualLevel = YG2.saves.buildings[build.type];
+            }
+            StoryTrigger[] triggers = FindObjectsOfType<StoryTrigger>();
+            Debug.Log("Amount triggers: " + triggers.Length + " Amount names: " + YG2.saves.triggerNameID.Count);
+            foreach (StoryTrigger trigger in triggers)
+            {
+                if (YG2.saves.triggerNameID.Contains(trigger.nameID))
                 {
-                    build.actualLevel = YG2.saves.buildings[build.type];
+                    Destroy(trigger);
                 }
+            }
+
+        }
+        else
+        {
+            YG2.SetDefaultSaves();
         }
     }
     public void Save()
     {
+        Debug.Log("Game Saved");
         YG2.saves.storage = TowerStorage.instance.storage;
         YG2.saves.inventory = PlayerInventory.instance.inventory;
         YG2.saves.position = PlayerController.instance.GetComponent<Transform>().position;

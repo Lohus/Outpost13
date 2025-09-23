@@ -6,10 +6,12 @@ using System.Collections;
 
 public class YGlocalization : MonoBehaviour
 {
+    [SerializeField] GameObject image;
     IEnumerator Start()
     {
         yield return LocalizationSettings.InitializationOperation;
         if (YG2.isSDKEnabled)
+        {
             switch (YG2.envir.language)
             {
                 case "ru":
@@ -21,6 +23,13 @@ public class YGlocalization : MonoBehaviour
                 default:
                     LocalizationSettings.SelectedLocale = LocalizationSettings.AvailableLocales.Locales[0];
                     break;
+
             }
+        //yield return locale.PreloadOperation;
+
+        // 6. Скрываем экран загрузки
+        if (image!= null)
+            image.SetActive(false);
+        }
     }
 }

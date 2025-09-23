@@ -1,10 +1,13 @@
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Events;
+using YG;
 
 public class StoryTrigger : MonoBehaviour
 {
     public enum TriggerType { OnTriggerEnter, OnTriggerExit }
     public enum TypeMessage { OnlyMessage, ItemExist, ItemNotExist }
+    public string nameID;
     [SerializeField] bool destroyObject = false;
     [SerializeField] CaitMessage caitMessage;
     [SerializeField] Item item;
@@ -12,7 +15,7 @@ public class StoryTrigger : MonoBehaviour
     [SerializeField] TypeMessage typeMessage = TypeMessage.OnlyMessage;
     delegate bool TriggerMessage();
     TriggerMessage triggerMessage;
-    void Start()
+    void Awake()
     {
         switch (typeMessage)
         {
@@ -46,7 +49,18 @@ public class StoryTrigger : MonoBehaviour
     {
         if (other.CompareTag("Player"))
         {
-            if(triggerMessage()) Destroy(destroyObject ? gameObject : this);
+            if (triggerMessage())
+            {
+                Debug.Log("Before save");
+                if (!YG2.saves.triggerNameID.Contains(this.nameID))
+                {
+                    YG2.saves.triggerNameID.Add(this.nameID);
+                    Debug.Log("Save trigger: " + this.nameID);
+                    SavesManager.instance.Save();
+                }
+                Destroy(destroyObject ? gameObject : this);
+            }
+
         }
     }
 
