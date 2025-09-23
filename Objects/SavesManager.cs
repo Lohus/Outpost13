@@ -24,10 +24,16 @@ public class SavesManager : MonoBehaviour
             PlayerController.instance.GetComponent<Transform>().position = YG2.saves.position;
             if (YG2.saves.chest == true) Chest.instance.PutOnClothes(false);
             Debug.Log(YG2.saves.inventory);
-                foreach (var item in YG2.saves.inventory)
+            foreach (var item in YG2.saves.inventory)
+            {
+                if (item.Key is CraftItem craftItem) PlayerInventory.instance.AddItem(craftItem, false);
+                if (item.Key is ResourceItem resourceItem) PlayerInventory.instance.AddResourcesToInvetory(resourceItem, item.Value, false);
+            }
+            BuildingBase[] buildings = FindObjectsOfType<BuildingBase>();
+
+                foreach (BuildingBase build in buildings)
                 {
-                    if (item.Key is CraftItem craftItem) PlayerInventory.instance.AddItem(craftItem, false);
-                    if (item.Key is ResourceItem resourceItem) PlayerInventory.instance.AddResourcesToInvetory(resourceItem, item.Value, false);
+                    build.actualLevel = YG2.saves.buildings[build.type];
                 }
         }
     }

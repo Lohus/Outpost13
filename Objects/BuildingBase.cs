@@ -2,9 +2,11 @@ using System.Collections.Generic;
 using UnityEngine;
 using System.Linq;
 using UnityEngine.Events;
+using YG;
 // Building that can be upgrade
 public class BuildingBase : MonoBehaviour
 {
+    public TypeBuilding type;
     public BuildingRequire actualLevel;
     public List<LevelBuildings> chainUpgrade;
     public void LevelUP(LevelBuildings building)
@@ -17,6 +19,15 @@ public class BuildingBase : MonoBehaviour
             {
                 gameObject.GetComponent<MeshFilter>().mesh = building.model;
             }
+            if (YG2.saves.buildings.ContainsKey(type))
+            {
+                YG2.saves.buildings[type] = actualLevel;
+            }
+            else
+            {
+                YG2.saves.buildings[type] = actualLevel;
+            }
+            YG2.SaveProgress();
         }
     }
 }
