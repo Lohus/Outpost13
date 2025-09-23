@@ -2,6 +2,9 @@ using UnityEngine;
 using TMPro;
 using UnityEngine.UI;
 using System;
+using UnityEngine.SocialPlatforms.Impl;
+using YG;
+using System.Collections;
 
 // General interface to create UI element
 public class Interface : MonoBehaviour
@@ -14,8 +17,6 @@ public class Interface : MonoBehaviour
     [SerializeField] SettingsGame settings;
     [SerializeField] GameObject caitUI;
     [SerializeField] public GameObject joystick;
-
-
     void Awake()
     {
         if (instance == null)

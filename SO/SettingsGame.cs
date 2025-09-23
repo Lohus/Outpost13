@@ -5,4 +5,5 @@ public class SettingsGame : ScriptableObject
 {
     public bool keyboardControl = true;
     public float volume = 1;
+    public bool save = false;
 }

@@ -1,6 +1,7 @@
 
 using System.Collections.Generic;
 using UnityEngine;
+using YG;
 // Player inventory
 public class PlayerInventory : MonoBehaviour
 {
@@ -10,6 +11,7 @@ public class PlayerInventory : MonoBehaviour
     public Dictionary<Item, int> inventory = new Dictionary<Item, int> { };
     // Clothes
     public Dictionary<TypeClothes, GameObject> clothes = new Dictionary<TypeClothes, GameObject> { };
+    [SerializeField] SettingsGame settings;
 
     void Awake()
     {
@@ -23,7 +25,7 @@ public class PlayerInventory : MonoBehaviour
         }
     }
     // Add resource and amount to inventory
-    public void AddResourcesToInvetory(ResourceItem resource, int amount)
+    public void AddResourcesToInvetory(ResourceItem resource, int amount, bool saves = true)
     {
         if (inventory.ContainsKey(resource))
         {
@@ -33,9 +35,10 @@ public class PlayerInventory : MonoBehaviour
         {
             inventory.Add(resource, amount);
         }
+        if (saves)SavesManager.instance.Save();
     }
     // Add item to inventory
-    public bool AddItem(CraftItem item)
+    public bool AddItem(CraftItem item, bool saves = true)
     {
         if (inventory.ContainsKey(item))
         {
@@ -46,6 +49,7 @@ public class PlayerInventory : MonoBehaviour
             item.Apply(PlayerController.instance);
             PutCloth(item);
             inventory.Add(item, 1);
+            if (saves)SavesManager.instance.Save();
             return true;
         }
     }

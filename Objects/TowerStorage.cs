@@ -1,6 +1,6 @@
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UI;
+using YG;
 using TMPro;
 using System.Linq;
 using System;
@@ -30,6 +30,7 @@ public class TowerStorage : MonoBehaviour
         {
             storage.Find(res => res.resource == resource.resycleRes).amount += resource.multiplie * PlayerInventory.instance.inventory[resource];
             PlayerInventory.instance.inventory.Remove(resource);
+            SavesManager.instance.Save();
         }
     }
     // Сhecks if there are enough resources to create item
@@ -52,6 +53,7 @@ public class TowerStorage : MonoBehaviour
             storage.Find(res => res.resource == require.resource).amount -= require.amount;
         }
         changeRes?.Invoke();
+        SavesManager.instance.Save();
     }
     // Return actual resourcce quantity
     public float AmountOfResource(RecycleResource resycleResource)

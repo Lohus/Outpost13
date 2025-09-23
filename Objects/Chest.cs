@@ -5,22 +5,34 @@ using UnityEngine.UI;
 
 public class Chest : MonoBehaviour, IInteraction
 {
+    public static Chest instance;
     [SerializeField] List<CraftItem> clothes;
     [SerializeField] List<GameObject> tools;
     [SerializeField] CaitMessage caitMessage;
     private LocalizedString putonLocal = new LocalizedString { TableReference = "Text_UI", TableEntryReference = "PutOnClothes_UI" };
     private GameObject button;
     private string buttonTitle;
+    void Awake()
+    {
+        if (instance == null)
+        {
+            instance = this;
+        }
+        else
+        {
+            Destroy(gameObject);
+        }
+    }
     public void Interact(PlayerController player)
     {
-        button = Interface.instance.CreateButton(buttonTitle, PutOnClothes);
+        button = Interface.instance.CreateButton(buttonTitle, () => PutOnClothes());
         button.GetComponent<Button>().onClick.AddListener(() => Interface.instance.CreateMessage(caitMessage)); // Instantita CAIT message
     }
     public void EndInteract(PlayerController player)
     {
         if (button != null) Destroy(button);
     }
-    void PutOnClothes()
+    public void PutOnClothes(bool saves = true)
     {
         Destroy(button);
         foreach (var cloth in clothes)
@@ -29,6 +41,7 @@ public class Chest : MonoBehaviour, IInteraction
         }
         PutOnTools();
         Destroy(GetComponent<Chest>());
+        if (saves) SavesManager.instance.Save();
     }
     void OnEnable()
     {

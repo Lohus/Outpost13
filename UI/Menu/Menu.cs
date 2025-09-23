@@ -7,8 +7,9 @@ public class Menu : MonoBehaviour
 {
     [SerializeField] GameObject basePanel;
     [SerializeField] GameObject settingsPrefab;
-    [SerializeField] Button settings, returnGame, mainMenu, newGame;
+    [SerializeField] Button settings, returnGame, mainMenu, newGame, loadGame;
     [SerializeField] Transform canvas;
+    [SerializeField] SettingsGame settingsGame;
     void Start()
     {
         if (canvas == null)
@@ -22,9 +23,11 @@ public class Menu : MonoBehaviour
         //mainMenu.onClick.AddListener(OpenStartMenu);
         AddClick(mainMenu, OpenStartMenu);
         AddClick(newGame, OpenMainLevel);
+        AddClick(loadGame, LoadGame);
     }
     public void OpenMainLevel()
     {
+        settingsGame.save = false;
         SceneManager.LoadScene("MainLevel");
     }
     public void OpenSettings()
@@ -45,5 +48,10 @@ public class Menu : MonoBehaviour
     {
         if (button == null) return;
         button.onClick.AddListener(() => buttonClick());
+    }
+    void LoadGame()
+    {
+        settingsGame.save = true;
+        SceneManager.LoadScene("MainLevel");
     }
 }
