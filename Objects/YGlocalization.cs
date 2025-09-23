@@ -25,11 +25,12 @@ public class YGlocalization : MonoBehaviour
                     break;
 
             }
-        //yield return locale.PreloadOperation;
-
-        // 6. Скрываем экран загрузки
-        if (image!= null)
-            image.SetActive(false);
+            Invoke("OnLocaleChanged", 0.5f);
         }
     }
+    void OnLocaleChanged()
+            {
+                if (image != null)
+                    image.SetActive(false);
+            }
 }

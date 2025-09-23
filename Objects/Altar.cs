@@ -36,7 +36,6 @@ public class Altar : MonoBehaviour, IInteraction
     {
         if (buttonUse != null) Destroy(buttonUse);
     }
-
     void ShowButton()
     {
         buttonUse = Interface.instance.CreateButton(buttonTitle, PressButton);

@@ -59,7 +59,6 @@ public class SavesManager : MonoBehaviour
         YG2.saves.position = PlayerController.instance.GetComponent<Transform>().position;
         YG2.saves.clothes = PlayerInventory.instance.clothes;
         YG2.saves.activeEffects = PlayerController.instance.activeEffects;
-        YG2.saves.chest = true;
     }
     
 }

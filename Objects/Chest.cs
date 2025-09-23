@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Localization;
 using UnityEngine.UI;
+using YG;
 
 public class Chest : MonoBehaviour, IInteraction
 {
@@ -25,8 +26,11 @@ public class Chest : MonoBehaviour, IInteraction
     }
     public void Interact(PlayerController player)
     {
-        button = Interface.instance.CreateButton(buttonTitle, () => PutOnClothes());
-        button.GetComponent<Button>().onClick.AddListener(() => Interface.instance.CreateMessage(caitMessage)); // Instantita CAIT message
+        if (!YG2.saves.chest)
+        {
+            button = Interface.instance.CreateButton(buttonTitle, () => PutOnClothes());
+            button.GetComponent<Button>().onClick.AddListener(() => Interface.instance.CreateMessage(caitMessage)); // Instantita CAIT message
+        }
     }
     public void EndInteract(PlayerController player)
     {
@@ -41,7 +45,7 @@ public class Chest : MonoBehaviour, IInteraction
         }
         PutOnTools();
         Destroy(GetComponent<Chest>());
-        if (saves) SavesManager.instance.Save();
+        if (saves) YG2.saves.chest = true;
     }
     void OnEnable()
     {
