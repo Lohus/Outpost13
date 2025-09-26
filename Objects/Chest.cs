@@ -45,7 +45,11 @@ public class Chest : MonoBehaviour, IInteraction
         }
         PutOnTools();
         Destroy(GetComponent<Chest>());
-        if (saves) YG2.saves.chest = true;
+        if (saves)
+        {
+            YG2.saves.chest = true;
+            YG2.SaveProgress();
+        }
     }
     void OnEnable()
     {
