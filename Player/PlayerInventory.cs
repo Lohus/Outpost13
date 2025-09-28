@@ -35,7 +35,7 @@ public class PlayerInventory : MonoBehaviour
         {
             inventory.Add(resource, amount);
         }
-        if (saves)SavesManager.instance.Save();
+        if (saves) SavesManager.instance.AddItemToSave(resource, amount);
     }
     // Add item to inventory
     public bool AddItem(CraftItem item, bool saves = true)
@@ -49,7 +49,7 @@ public class PlayerInventory : MonoBehaviour
             item.Apply(PlayerController.instance);
             PutCloth(item);
             inventory.Add(item, 1);
-            if (saves)SavesManager.instance.Save();
+            if (saves) SavesManager.instance.AddItemToSave(item, 1);
             return true;
         }
     }

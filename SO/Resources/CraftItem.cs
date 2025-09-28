@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using UnityEngine;
 // Item that can be craft
 [CreateAssetMenu(fileName = "NewCraftItem", menuName = "Data/CraftItem")]
+[System.Serializable]
 public class CraftItem : Item, IPlayerEffect
 {
     public ResourceRequire[] requirements; // Require of resource for craft

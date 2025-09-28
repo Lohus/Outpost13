@@ -23,17 +23,52 @@ public class SavesManager : MonoBehaviour
             TowerStorage.instance.storage = YG2.saves.storage;
             PlayerController.instance.GetComponent<Transform>().position = YG2.saves.position;
             if (YG2.saves.chest == true) Chest.instance.PutOnClothes(false);
-            Debug.Log(YG2.saves.inventory);
-            foreach (var item in YG2.saves.inventory)
+            Debug.Log("Amount items saved: " + YG2.saves.inventory.Count);
+
+            try
             {
-                if (item.Key is CraftItem craftItem) PlayerInventory.instance.AddItem(craftItem, false);
-                if (item.Key is ResourceItem resourceItem) PlayerInventory.instance.AddResourcesToInvetory(resourceItem, item.Value, false);
+                for (int i = 0; i < YG2.saves.inventory.Count; i++)
+                {
+                    try
+                    {
+                        Debug.Log("Save for " + YG2.saves.inventory[i].item.name);
+                        if (YG2.saves.inventory[i].item is ResourceItem resourceItem)
+                        {
+                            PlayerInventory.instance.AddResourcesToInvetory(resourceItem, YG2.saves.inventory[i].amount, false);
+                        }
+                        else
+                        {
+                            CraftItem cloth = YG2.saves.inventory[i].item as CraftItem;
+                            PlayerInventory.instance.AddItem(cloth, false);
+                        }
+                        Debug.Log("Load item: " + YG2.saves.inventory[i].item.name);
+
+                    }
+                    catch
+                    {
+                        Debug.Log("Сouldn't add item to inventory: " + YG2.saves.inventory[i].item.name);
+                    }
+                }
+            }
+            catch
+            {
+                Debug.Log("Сouldn't add item to inventory: ");
             }
             BuildingBase[] buildings = FindObjectsOfType<BuildingBase>();
-
-            foreach (BuildingBase build in buildings)
+            Debug.Log("Find builds: " + buildings.Length);
+            Debug.Log("Amount buildings saved: " + YG2.saves.buildings.Count);
+            for (int i = 0; i < YG2.saves.buildings.Count; i++)
             {
-                if (YG2.saves.buildings.ContainsKey(build.type)) build.actualLevel = YG2.saves.buildings[build.type];
+                Debug.Log("Save for " + YG2.saves.buildings[i].typeBuildingName);
+                foreach (BuildingBase build in buildings)
+                {
+                    Debug.Log("Build " + build.type.name);
+                    if (YG2.saves.buildings[i].typeBuildingName == build.type.name)
+                    {
+                        build.actualLevel.level = YG2.saves.buildings[i].level;
+                        Debug.Log("Load build: " + YG2.saves.buildings[i].typeBuildingName);
+                    }
+                }
             }
             StoryTrigger[] triggers = FindObjectsOfType<StoryTrigger>();
             Debug.Log("Amount triggers: " + triggers.Length + " Amount names: " + YG2.saves.triggerNameID.Count);
@@ -53,13 +88,37 @@ public class SavesManager : MonoBehaviour
     }
     public void Save()
     {
-        Debug.Log("Game Saved");
         YG2.saves.storage = TowerStorage.instance.storage;
-        YG2.saves.inventory = PlayerInventory.instance.inventory;
         YG2.saves.position = PlayerController.instance.GetComponent<Transform>().position;
-        YG2.saves.clothes = PlayerInventory.instance.clothes;
-        YG2.saves.activeEffects = PlayerController.instance.activeEffects;
+        Debug.Log("Game Saved");
+        Debug.Log("Amount items saved: " + YG2.saves.inventory.Count);
+        Debug.Log("Amount buildings saved: " + YG2.saves.buildings.Count);
         YG2.SaveProgress();
     }
-    
+    public void AddBuildToSave(string typeBuildingName, int level)
+    {
+        int index = YG2.saves.buildings.FindIndex(save => save.typeBuildingName == typeBuildingName);
+        if (index != -1)
+        {
+            YG2.saves.buildings[index] = new BuildSave(typeBuildingName, level);
+        }
+        else
+        {
+            YG2.saves.buildings.Add(new BuildSave(typeBuildingName, level));
+        }
+        Save();
+    }
+        public void AddItemToSave(Item item, int amount)
+    {
+        int index = YG2.saves.inventory.FindIndex(save => save.item == item);
+        if (index != -1)
+        {
+            YG2.saves.inventory[index] = new ItemSave(item, amount);
+        }
+        else
+        {
+            YG2.saves.inventory.Add(new ItemSave(item, amount));
+        }
+        Save();
+    }
 }

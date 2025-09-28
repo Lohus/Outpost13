@@ -19,15 +19,7 @@ public class BuildingBase : MonoBehaviour
             {
                 gameObject.GetComponent<MeshFilter>().mesh = building.model;
             }
-            if (YG2.saves.buildings.ContainsKey(type))
-            {
-                YG2.saves.buildings[type] = actualLevel;
-            }
-            else
-            {
-                YG2.saves.buildings[type] = actualLevel;
-            }
-            YG2.SaveProgress();
+            SavesManager.instance.AddBuildToSave(type.name, actualLevel.level);
         }
     }
 }
