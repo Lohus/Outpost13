@@ -5,6 +5,7 @@ public class SavesManager : MonoBehaviour
 {
     public static SavesManager instance;
     [SerializeField] SettingsGame settings;
+    [SerializeField] Database allItems;
     void Awake()
     {
         if (instance == null)
@@ -27,26 +28,22 @@ public class SavesManager : MonoBehaviour
 
             try
             {
-                for (int i = 0; i < YG2.saves.inventory.Count; i++)
+                foreach (ItemSave itemSave in YG2.saves.inventory)
                 {
-                    try
+                    foreach (Item item in allItems.allCraftItems)
                     {
-                        Debug.Log("Save for " + YG2.saves.inventory[i].item.name);
-                        if (YG2.saves.inventory[i].item is ResourceItem resourceItem)
+                        if (itemSave.itemName == item.name)
                         {
-                            PlayerInventory.instance.AddResourcesToInvetory(resourceItem, YG2.saves.inventory[i].amount, false);
+                            if (item is ResourceItem resourceItem)
+                            {
+                                PlayerInventory.instance.AddResourcesToInvetory(resourceItem, itemSave.amount, false);
+                            }
+                            else
+                            {
+                                CraftItem craftItem = item as CraftItem;
+                                PlayerInventory.instance.AddItem(craftItem, false);
+                            }
                         }
-                        else
-                        {
-                            CraftItem cloth = YG2.saves.inventory[i].item as CraftItem;
-                            PlayerInventory.instance.AddItem(cloth, false);
-                        }
-                        Debug.Log("Load item: " + YG2.saves.inventory[i].item.name);
-
-                    }
-                    catch
-                    {
-                        Debug.Log("Сouldn't add item to inventory: " + YG2.saves.inventory[i].item.name);
                     }
                 }
             }
@@ -108,16 +105,16 @@ public class SavesManager : MonoBehaviour
         }
         Save();
     }
-        public void AddItemToSave(Item item, int amount)
+    public void AddItemToSave(string itemName, int amount)
     {
-        int index = YG2.saves.inventory.FindIndex(save => save.item == item);
+        int index = YG2.saves.inventory.FindIndex(save => save.itemName == itemName);
         if (index != -1)
         {
-            YG2.saves.inventory[index] = new ItemSave(item, amount);
+            YG2.saves.inventory[index] = new ItemSave(itemName, amount);
         }
         else
         {
-            YG2.saves.inventory.Add(new ItemSave(item, amount));
+            YG2.saves.inventory.Add(new ItemSave(itemName, amount));
         }
         Save();
     }

@@ -4,5 +4,5 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "Database", menuName = "Data/Database")]
 public class Database : ScriptableObject
 {
-    public List<CraftItem> allCraftItems;
+    public List<Item> allCraftItems;
 }

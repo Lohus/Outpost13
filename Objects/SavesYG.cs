@@ -19,11 +19,11 @@ namespace YG
 [Serializable]
 public struct ItemSave
 {
-    public Item item;
+    public string itemName;
     public int amount;
-    public ItemSave(Item item, int amount)
+    public ItemSave(string itemName, int amount)
     {
-        this.item = item;
+        this.itemName = itemName;
         this.amount = amount;
     }
 }
