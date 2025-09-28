@@ -56,7 +56,7 @@ public class StoryTrigger : MonoBehaviour
                 {
                     YG2.saves.triggerNameID.Add(this.nameID);
                     Debug.Log("Save trigger: " + this.nameID);
-                    YG2.SaveProgress();
+                    SavesManager.instance.Save();
                 }
                 Destroy(destroyObject ? gameObject : this);
             }

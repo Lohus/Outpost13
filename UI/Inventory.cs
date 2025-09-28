@@ -51,8 +51,8 @@ public class Inventory : MonoBehaviour
         string descriptionString = "";
         if (playerInventory.inventory[res] >= 2)
         {
-            amountOfResource.Arguments = new object[] { playerInventory.inventory[res] };
-            amountOfResource.StringChanged += (text) => { descriptionString += text + "\n"; };
+            //amountOfResource.Arguments = new object[] { playerInventory.inventory[res] };
+            amountOfResource.StringChanged += (text) => { descriptionString += text + playerInventory.inventory[res] + "\n"; };
         }
         res.description.StringChanged += (text) =>
         {

@@ -30,7 +30,7 @@ public class TowerStorage : MonoBehaviour
         {
             storage.Find(res => res.resource == resource.resycleRes).amount += resource.multiplie * PlayerInventory.instance.inventory[resource];
             PlayerInventory.instance.inventory.Remove(resource);
-            SavesManager.instance.Save();
+            SavesManager.instance.RemoveItemToSave(resource.name);
         }
     }
     // Сhecks if there are enough resources to create item

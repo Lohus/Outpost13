@@ -1,4 +1,5 @@
 using UnityEngine;
+using YG;
 
 public class AddToDatabase : MonoBehaviour
 {
@@ -10,6 +11,8 @@ public class AddToDatabase : MonoBehaviour
         if (!database.allCraftItems.Contains(item))
         {
             database.allCraftItems.Add(item);
+            YG2.saves.craftItems.Add(item.name);
+            SavesManager.instance.Save();
             Destroy(this);
         }
     }

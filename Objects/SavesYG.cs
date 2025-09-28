@@ -11,6 +11,7 @@ namespace YG
         public List<ResourceAmount> storage = new();
         public List<BuildSave> buildings = new();
         public List<string> triggerNameID = new();
+        public List<string> craftItems = new();
         public bool chest = false;
     }
 }

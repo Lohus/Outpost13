@@ -6,6 +6,7 @@ public class SavesManager : MonoBehaviour
     public static SavesManager instance;
     [SerializeField] SettingsGame settings;
     [SerializeField] Database allItems;
+    [SerializeField] Database craftItems;
     void Awake()
     {
         if (instance == null)
@@ -24,6 +25,15 @@ public class SavesManager : MonoBehaviour
             TowerStorage.instance.storage = YG2.saves.storage;
             PlayerController.instance.GetComponent<Transform>().position = YG2.saves.position;
             if (YG2.saves.chest == true) Chest.instance.PutOnClothes(false);
+            foreach (string itemName in YG2.saves.craftItems)
+            {
+                int index = allItems.allCraftItems.FindIndex(item => item.name == itemName);
+                int indexBase = craftItems.allCraftItems.FindIndex(item => item.name == itemName);
+                if (index != -1 && indexBase == -1)
+                {
+                    craftItems.allCraftItems.Add(allItems.allCraftItems[index]);
+                }
+            }
             Debug.Log("Amount items saved: " + YG2.saves.inventory.Count);
 
             try
@@ -115,6 +125,15 @@ public class SavesManager : MonoBehaviour
         else
         {
             YG2.saves.inventory.Add(new ItemSave(itemName, amount));
+        }
+        Save();
+    }
+    public void RemoveItemToSave(string itemName)
+    {
+        int index = YG2.saves.inventory.FindIndex(save => save.itemName == itemName);
+        if (index != -1)
+        {
+            YG2.saves.inventory.RemoveAt(index);
         }
         Save();
     }
