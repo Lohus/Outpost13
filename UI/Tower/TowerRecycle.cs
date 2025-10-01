@@ -1,9 +1,5 @@
-using System.Collections;
 using System.Collections.Generic;
-using System.Linq;
-using System.Security.Cryptography;
 using TMPro;
-using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Localization;
 using UnityEngine.UI;
@@ -87,6 +83,7 @@ public class TowerRecycle : MonoBehaviour
             selectItem = resource;
         }
     }
+    // Check all build is exist
     void ShowBuildRequire(Item item)
     {
         LocalizedString allBuilding = new LocalizedString("Text_UI", "AllBuilding_UI");

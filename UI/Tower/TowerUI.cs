@@ -1,6 +1,3 @@
-using System.Collections.Generic;
-using System.ComponentModel;
-using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
 // General interface of Tower

@@ -1,4 +1,4 @@
-using System;
+// CAIT message
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;

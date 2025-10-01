@@ -1,3 +1,4 @@
+// Main menu
 using System;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -17,11 +18,8 @@ public class Menu : MonoBehaviour
         {
             canvas = transform.parent;
         }
-        //returnGame.onClick.AddListener(CloseMenu);
         AddClick(returnGame, CloseMenu);
-        //settings.onClick.AddListener(OpenSettings);
         AddClick(settings, OpenSettings);
-        //mainMenu.onClick.AddListener(OpenStartMenu);
         AddClick(mainMenu, OpenStartMenu);
         AddClick(newGame, OpenMainLevel);
         AddClick(loadGame, LoadGame);

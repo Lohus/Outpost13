@@ -1,8 +1,7 @@
+// Settings window
 using UnityEngine;
 using UnityEngine.UI;
-using UnityEngine.Localization;
 using UnityEngine.Localization.Settings;
-using Unity.VisualScripting;
 using TMPro;
 
 
@@ -10,7 +9,7 @@ public class SettingsUI : MonoBehaviour
 {
     [SerializeField] TMP_Dropdown choseLanguage;
     [SerializeField] Button apply;
-    [SerializeField] Toggle keyboardToggle, joystickToggle; 
+    [SerializeField] Toggle keyboardToggle, joystickToggle; // Control
     [SerializeField] SettingsGame settings;
     [SerializeField] Slider volumeSlider;
 
