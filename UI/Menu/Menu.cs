@@ -2,6 +2,7 @@ using System;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
+using YG;
 
 public class Menu : MonoBehaviour
 {
@@ -24,6 +25,14 @@ public class Menu : MonoBehaviour
         AddClick(mainMenu, OpenStartMenu);
         AddClick(newGame, OpenMainLevel);
         AddClick(loadGame, LoadGame);
+        if (YG2.envir.deviceType == "mobile")
+        {
+            settingsGame.keyboardControl = false;
+        }
+        else
+        {
+            settingsGame.keyboardControl = true;
+        }
     }
     public void OpenMainLevel()
     {
