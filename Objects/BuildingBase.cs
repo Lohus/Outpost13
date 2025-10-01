@@ -1,14 +1,13 @@
+// Building that can be upgrade
 using System.Collections.Generic;
 using UnityEngine;
-using System.Linq;
-using UnityEngine.Events;
-using YG;
-// Building that can be upgrade
+
 public class BuildingBase : MonoBehaviour
 {
     public TypeBuilding type;
     public BuildingRequire actualLevel;
     public List<LevelBuildings> chainUpgrade;
+    // Upgrade build
     public void LevelUP(LevelBuildings building)
     {
         if (TowerStorage.instance.HashResources(building.requireRes) && TowerStorage.instance.CheckRequireBuilding(building.requireBuild))
@@ -19,7 +18,7 @@ public class BuildingBase : MonoBehaviour
             {
                 gameObject.GetComponent<MeshFilter>().mesh = building.model;
             }
-            SavesManager.instance.AddBuildToSave(type.name, actualLevel.level);
+            SavesManager.instance.AddBuildToSave(type.name, actualLevel.level); // Save level
         }
     }
 }

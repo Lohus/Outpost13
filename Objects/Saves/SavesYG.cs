@@ -1,3 +1,4 @@
+// PluginYG Saves
 using System;
 using System.Collections.Generic;
 using UnityEngine;
@@ -6,13 +7,13 @@ namespace YG
 {
     public partial class SavesYG
     {
-        public Vector3 position;
-        public List<ItemSave> inventory = new();
-        public List<ResourceAmount> storage = new();
-        public List<BuildSave> buildings = new();
-        public List<string> triggerNameID = new();
-        public List<string> craftItems = new();
-        public bool chest = false;
+        public Vector3 position; // Position player
+        public List<ItemSave> inventory = new(); // Player inventory
+        public List<ResourceAmount> storage = new(); // Tower storage
+        public List<BuildSave> buildings = new(); // Level buildings
+        public List<string> triggerNameID = new(); // Triggers
+        public List<string> craftItems = new(); // Craft items opened
+        public bool chest = false; // Uses chest
     }
 }
 

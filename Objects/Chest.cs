@@ -1,3 +1,4 @@
+// Blue chest on scene
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Localization;
@@ -6,13 +7,13 @@ using YG;
 
 public class Chest : MonoBehaviour, IInteraction
 {
-    public static Chest instance;
-    [SerializeField] List<CraftItem> clothes;
-    [SerializeField] List<GameObject> tools;
-    [SerializeField] CaitMessage caitMessage;
-    private LocalizedString putonLocal = new LocalizedString { TableReference = "Text_UI", TableEntryReference = "PutOnClothes_UI" };
-    private GameObject button;
-    private string buttonTitle;
+    public static Chest instance; // Singletone
+    [SerializeField] List<CraftItem> clothes; // List of clothes that put on plater
+    [SerializeField] List<GameObject> tools; // List tool that put on player
+    [SerializeField] CaitMessage caitMessage; // CAIT message
+    private LocalizedString putonLocal = new LocalizedString { TableReference = "Text_UI", TableEntryReference = "PutOnClothes_UI" }; // Set localize
+    private GameObject button; // Put on
+    private string buttonTitle; // Text on button
     void Awake()
     {
         if (instance == null)
@@ -24,6 +25,7 @@ public class Chest : MonoBehaviour, IInteraction
             Destroy(gameObject);
         }
     }
+    // Player enterned zone
     public void Interact(PlayerController player)
     {
         if (!YG2.saves.chest)
@@ -32,10 +34,12 @@ public class Chest : MonoBehaviour, IInteraction
             button.GetComponent<Button>().onClick.AddListener(() => Interface.instance.CreateMessage(caitMessage)); // Instantita CAIT message
         }
     }
+    // Player left zone
     public void EndInteract(PlayerController player)
     {
         if (button != null) Destroy(button);
     }
+    // Put on clothes on player
     public void PutOnClothes(bool saves = true)
     {
         Destroy(button);
@@ -47,7 +51,7 @@ public class Chest : MonoBehaviour, IInteraction
         Destroy(GetComponent<Chest>());
         if (saves)
         {
-            YG2.saves.chest = true;
+            YG2.saves.chest = true; // Save progress
             YG2.SaveProgress();
         }
     }
@@ -63,6 +67,7 @@ public class Chest : MonoBehaviour, IInteraction
     {
         buttonTitle = localizedText;
     }
+    // Put on tools
     void PutOnTools()
     {
         Tools.instance.tools = true;

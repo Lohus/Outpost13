@@ -1,16 +1,15 @@
-using Unity.VisualScripting;
+// Cait message
 using UnityEngine;
-using UnityEngine.Events;
 using YG;
 
 public class StoryTrigger : MonoBehaviour
 {
     public enum TriggerType { OnTriggerEnter, OnTriggerExit }
     public enum TypeMessage { OnlyMessage, ItemExist, ItemNotExist }
-    public string nameID;
+    public string nameID; // Unique name 
     [SerializeField] bool destroyObject = false;
-    [SerializeField] CaitMessage caitMessage;
-    [SerializeField] Item item;
+    [SerializeField] CaitMessage caitMessage; // Message
+    [SerializeField] Item item; // Item for activate trigger
     [SerializeField] TriggerType triggerType = TriggerType.OnTriggerEnter;
     [SerializeField] TypeMessage typeMessage = TypeMessage.OnlyMessage;
     delegate bool TriggerMessage();
@@ -63,7 +62,7 @@ public class StoryTrigger : MonoBehaviour
 
         }
     }
-
+    // If item in player inventory
     bool ItemExist()
     {
         if (PlayerInventory.instance.CheckItem(item))
@@ -75,6 +74,7 @@ public class StoryTrigger : MonoBehaviour
             return false;
         }
     }
+    // If item not in player inventory
     bool ItemNotExist()
     {
         if (!PlayerInventory.instance.CheckItem(item))

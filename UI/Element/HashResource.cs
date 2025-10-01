@@ -1,5 +1,5 @@
+// Show require resource for update
 using TMPro;
-using UnityEditor.Rendering;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -8,14 +8,14 @@ public class HashResources : MonoBehaviour
     [SerializeField] Image icon;
     [SerializeField] TextMeshProUGUI hash;
     ResourceRequire resource;
-
+    // Fill parameters of resource amount and icon
     public void SetParams(ResourceRequire res)
     {
         resource = res;
         icon.sprite = res.resource.icon;
         UpdateHash(res);
     }
-
+    // Check resource
     void UpdateHash(ResourceRequire res)
     {
         float _amount = TowerStorage.instance.AmountOfResource(res.resource);

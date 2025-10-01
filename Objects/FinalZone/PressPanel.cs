@@ -1,3 +1,4 @@
+// Zone for activation torch
 using System.Collections.Generic;
 using UnityEngine;
 

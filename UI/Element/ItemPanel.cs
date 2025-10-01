@@ -1,5 +1,5 @@
+// Item crad in craft
 using TMPro;
-using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -11,6 +11,7 @@ public class ItemPanel : MonoBehaviour
     [SerializeField] GameObject hashResource; // Prefab
     [SerializeField] TextMeshProUGUI itemDescription; // Item description
     [SerializeField] Button buttonCraft; // Button for craft item
+    // Fill item parameters
     public void SetItem(CraftItem item)
     {
         imageItem.sprite = item.icon;

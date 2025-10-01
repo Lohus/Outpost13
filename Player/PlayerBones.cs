@@ -1,11 +1,11 @@
-// Пересмотреть и исправить
+// Change bones on clothes
 
 using UnityEngine;
 
 public class AttachClothToAvatar : MonoBehaviour
 {
-    SkinnedMeshRenderer targetCloth; // одежда
-    SkinnedMeshRenderer targetBody;  // тело персонажа
+    SkinnedMeshRenderer targetCloth; // Clothes
+    SkinnedMeshRenderer targetBody;  // Body of player
 
     void Start()
     {
@@ -13,7 +13,7 @@ public class AttachClothToAvatar : MonoBehaviour
         targetBody = PlayerController.instance.targetBody;
         if (targetCloth == null || targetBody == null) return;
 
-        // Копируем кости и рут
+        // Copy bones and root bone
         targetCloth.rootBone = targetBody.rootBone;
         targetCloth.bones = targetBody.bones;
     }

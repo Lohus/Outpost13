@@ -1,3 +1,4 @@
+// Database for Item SO
 using System.Collections.Generic;
 using UnityEngine;
 [System.Serializable]

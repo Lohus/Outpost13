@@ -1,17 +1,19 @@
+// Joystick
 using UnityEngine;
 using UnityEngine.EventSystems;
 
 public class VirtualJoystick : MonoBehaviour, IDragHandler, IPointerUpHandler, IPointerDownHandler
 {
-    [SerializeField] private RectTransform background;   // фон стика
-    [SerializeField] private RectTransform stick;  // сам стик
-    private Vector2 inputVector;   // куда двигаем палец
+    [SerializeField] private RectTransform background; 
+    [SerializeField] private RectTransform stick;
+    private Vector2 inputVector; 
 
     void Start()
     {
         background = GetComponent<RectTransform>();
         stick = transform.GetChild(0).GetComponent<RectTransform>();
     }
+    // Drag stick
     public void OnDrag(PointerEventData eventData)
     {
         Vector2 pos;
@@ -24,7 +26,6 @@ public class VirtualJoystick : MonoBehaviour, IDragHandler, IPointerUpHandler, I
             inputVector = new Vector2(pos.x * 2, pos.y * 2);
             inputVector = (inputVector.magnitude > 1.0f) ? inputVector.normalized : inputVector;
 
-            // двигаем ручку стика
             stick.anchoredPosition = new Vector2(
                 inputVector.x * (background.sizeDelta.x / 3),
                 inputVector.y * (background.sizeDelta.y / 3));

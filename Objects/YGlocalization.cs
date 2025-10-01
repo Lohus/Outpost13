@@ -1,3 +1,4 @@
+// YG set localization
 using UnityEngine.Localization.Settings;
 using UnityEngine;
 using YG;
@@ -12,7 +13,7 @@ public class YGlocalization : MonoBehaviour
         yield return LocalizationSettings.InitializationOperation;
         if (YG2.isSDKEnabled)
         {
-            switch (YG2.envir.language)
+            switch (YG2.envir.language) // Get localization
             {
                 case "ru":
                     LocalizationSettings.SelectedLocale = LocalizationSettings.AvailableLocales.Locales[1];

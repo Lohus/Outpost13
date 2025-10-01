@@ -53,7 +53,7 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    // Movement player
+    // WASDE control
     void MovePLayer()
     {
         if (Input.GetKey(KeyCode.A))
@@ -111,7 +111,7 @@ public class PlayerController : MonoBehaviour
             objectInteraction.EndInteract(this);
         }
     }
-
+    // Joystick control
     void StickControll()
     {
         float h = -joystick.Horizontal();

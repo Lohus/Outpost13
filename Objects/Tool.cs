@@ -1,3 +1,4 @@
+// If tool touches resource source
 using UnityEngine;
 
 public class Tool : MonoBehaviour

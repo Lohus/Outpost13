@@ -1,11 +1,8 @@
 
+// Source of some resource
 using UnityEngine;
-using UnityEngine.UI;
-using TMPro;
 using System.Collections;
 using UnityEngine.Localization;
-using UnityEngine.Localization.Tables;
-using JetBrains.Annotations;
 
 // Source of some resource
 public class ResourceSource : MonoBehaviour

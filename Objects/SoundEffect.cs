@@ -1,10 +1,10 @@
-using Unity.VisualScripting;
+// Custom audio source
 using UnityEngine;
 
 [RequireComponent(typeof(AudioSource))]
 public class SoundEffect : MonoBehaviour
 {
-    private Transform listener;
+    private Transform listener; // Player position
     [SerializeField] float maxDistance = 50f;
     [SerializeField] AnimationCurve volumeCurve = AnimationCurve.Linear(0, 1, 50, 0);
     private AudioSource audioSource;
@@ -18,7 +18,7 @@ public class SoundEffect : MonoBehaviour
         audioSource.minDistance = 0f;
         audioSource.maxDistance = maxDistance;
     }
-
+    // Change volume from distance to player
     void Update()
     {
         if (listener == null) return;

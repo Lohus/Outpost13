@@ -1,10 +1,11 @@
+// Interaction with Portal
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
 public class Portal : MonoBehaviour
 {
-    [SerializeField] Renderer portalRenderer;
-    [SerializeField] ParticleSystem[] portalEffects;
+    [SerializeField] Renderer portalRenderer; // Shader graph
+    [SerializeField] ParticleSystem[] portalEffects; 
     [SerializeField] AudioSource audioSource;
 
 
@@ -17,6 +18,7 @@ public class Portal : MonoBehaviour
         Altar.instance.altarActivaded.RemoveListener(EnableEffects);
     }
 
+    // Activate sound and particle
     void EnableEffects()
     {
         audioSource.Play();
@@ -27,6 +29,7 @@ public class Portal : MonoBehaviour
         }
         gameObject.GetComponent<BoxCollider>().enabled = true;
     }
+    // Load final scene
     void OnTriggerEnter(Collider other)
     {
         SceneManager.LoadScene("Final");

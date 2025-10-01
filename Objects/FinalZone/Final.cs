@@ -1,3 +1,4 @@
+// Final scene play sound and show CAIT message
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;

@@ -1,10 +1,9 @@
+// Build card in update 
 using System.Collections.Generic;
 using TMPro;
-using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.Localization;
-using System;
 
 public class BuildingPanel : MonoBehaviour
 {
@@ -15,12 +14,12 @@ public class BuildingPanel : MonoBehaviour
     [SerializeField] TextMeshProUGUI buildingRequire; // BuildingRequire
     [SerializeField] Button buttonUpgrade; // Button for craft item
     LevelBuildings levelBuildings;
+    // Fill build card
     public void SetBuild(BuildingBase building, LevelBuildings level)
     {
         levelBuildings = level;
         imageBuilding.sprite = level.icon;
         building.actualLevel.type.typeBuildings.StringChanged += (text) => buildingName.text = $"{text} {level.level}";
-        //buildingName.text = $"{building.actualLevel.type.typeBuildings} {level.level}";
         FillBuildingRequire(level);
         SetButtonStatus(level);
         buttonUpgrade.onClick.AddListener(() => PressButton(building, level));
@@ -33,6 +32,7 @@ public class BuildingPanel : MonoBehaviour
 
         }
     }
+    // Set status active or not
     void SetButtonStatus(LevelBuildings level)
     {
         buttonUpgrade.interactable = TowerStorage.instance.HashResources(level.requireRes) && TowerStorage.instance.CheckRequireBuilding(level.requireBuild);
@@ -42,6 +42,7 @@ public class BuildingPanel : MonoBehaviour
         building.LevelUP(level);
         Destroy(gameObject);
     }
+    // Check all builds is exist
     void FillBuildingRequire(LevelBuildings level)
     {
         LocalizedString allBuilding = new LocalizedString("Text_UI", "AllBuilding_UI");

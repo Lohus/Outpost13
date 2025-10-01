@@ -1,3 +1,4 @@
+// Interaction with Altar
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.UI;
@@ -5,15 +6,15 @@ using UnityEngine.Localization;
 
 public class Altar : MonoBehaviour, IInteraction
 {
-    [HideInInspector] public static Altar instance;
-    public UnityEvent altarActivaded;
+    [HideInInspector] public static Altar instance; // Singletone
+    public UnityEvent altarActivaded; // Event if altar has been activated
     [SerializeField] GameObject goldenPaws; // Item that shows on altar
     [SerializeField] CraftItem goldenPawsItem; // Craft item
-    [SerializeField] CaitMessage caitMessage;
-    private LocalizedString activateLocal = new LocalizedString { TableReference = "Text_UI", TableEntryReference = "Activate_UI" };
-    private GameObject buttonUse;
-    private string buttonTitle;
-    private bool altarIsActive = false;
+    [SerializeField] CaitMessage caitMessage; // CAIT message
+    private LocalizedString activateLocal = new LocalizedString { TableReference = "Text_UI", TableEntryReference = "Activate_UI" }; // Set localization
+    private GameObject buttonUse; // Button to activate the altar
+    private string buttonTitle; // Text on button 
+    private bool altarIsActive = false; // Altar is active
     void Awake()
     {
         if (instance == null)
@@ -25,6 +26,7 @@ public class Altar : MonoBehaviour, IInteraction
             Destroy(gameObject);
         }
     }
+    // If player stay in zone actvation
     public void Interact(PlayerController player)
     {
         if (altarIsActive == false)
@@ -32,16 +34,19 @@ public class Altar : MonoBehaviour, IInteraction
             ShowButton();
         }
     }
+    // If player left zone activation
     public void EndInteract(PlayerController player)
     {
         if (buttonUse != null) Destroy(buttonUse);
     }
+    // Create button for activation
     void ShowButton()
     {
         buttonUse = Interface.instance.CreateButton(buttonTitle, PressButton);
         buttonUse.GetComponent<Button>().interactable = PlayerInventory.instance.CheckItem(goldenPawsItem);
     }
 
+    // Function for button press
     void PressButton()
     {
         goldenPaws.SetActive(true);

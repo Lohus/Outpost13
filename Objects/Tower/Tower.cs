@@ -1,15 +1,12 @@
+// Interaction with tower
 using UnityEngine;
-using System.Collections.Generic;
-using Unity.VisualScripting;
 using UnityEngine.Localization;
-using UnityEngine.Localization.Tables;
 
-// Interaction with Tower
 public class Tower : MonoBehaviour
 {
     [HideInInspector] public static Tower instance; // Singletone
     [SerializeField] GameObject prefabMenu; // Prefab menu tower
-    LocalizedString towerLocal = new LocalizedString { TableReference = "Text_UI", TableEntryReference = "OpenTerminalButton_UI" };
+    LocalizedString towerLocal = new LocalizedString { TableReference = "Text_UI", TableEntryReference = "OpenTerminalButton_UI" }; // Set localization
     GameObject buttonTower; // Button for open tower interface
     GameObject towerUI; // Tower interface 
 
@@ -41,7 +38,7 @@ public class Tower : MonoBehaviour
             Destroy(towerUI);
         }
     }
-    // Open Tower Interface
+    // Function for button 
     public void OnButtonClick()
     {
         CreateTowerUI();

@@ -1,16 +1,13 @@
+// Main storage of Tower
 using System.Collections.Generic;
 using UnityEngine;
-using YG;
-using TMPro;
 using System.Linq;
-using System;
 using UnityEngine.Events;
 
-// Tower Storage
 public class TowerStorage : MonoBehaviour
 {
     [HideInInspector] public static TowerStorage instance; // Singletone
-    public UnityEvent changeRes;
+    public UnityEvent changeRes; // Event if resources have changed
     public List<ResourceAmount> storage; // Resource quantity
     void Awake()
     {
