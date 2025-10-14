@@ -26,12 +26,14 @@ public class YGlocalization : MonoBehaviour
                     break;
 
             }
-            Invoke("OnLocaleChanged", 0.5f);
+            Invoke("OnLocaleChanged", 1f);
         }
     }
     void OnLocaleChanged()
-            {
-                if (image != null)
-                    image.SetActive(false);
-            }
+    {
+        if (image != null)
+            image.SetActive(false);
+        YG2.GameReadyAPI();
+    }
+
 }
