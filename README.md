@@ -35,7 +35,7 @@ This project focuses on:
 
 ## 🛠️ Technologies Used
 
-- **Unity 2022.x (URP)**
+- **Unity 2022.3 (URP)**
 - **C#**
 - **Blender** for low-poly modeling
 - **Krita** and **Figma** for UI and texture design
@@ -51,7 +51,7 @@ This project focuses on:
 - ✅ Environmental zones (radiation, temperature, gas)
 - ✅ Story event triggers and choice-based progression
 - ✅ UI system with tabs (Craft / Upgrade / Resycle / Inventory)
-- ✅ In Progress: animation, VFX, sounds, final story logic
+- ✅ Animation, VFX, sounds, final story logic
 
 ---
 
@@ -65,7 +65,17 @@ This project focuses on:
 | Story logic & triggers | ✅ Done |
 | Visual polish (models) | ✅ Done |
 | Sound and VFX          | ✅ Done     |
-| Release & feedback     | 🔄 In progress   |
+| Release & feedback     | ✅ Done    |
+
+---
+
+## 🎥 Media
+
+![Компьютер](Media/DEN3.jpg)
+![Компьютер](Media/DEN4.jpg)
+<video width="320" height="240" controls>
+  <source src="Media/DEN5.mp4" type="video/mp4">
+</video>
 
 ---
 
@@ -82,7 +92,7 @@ This project focuses on:
 
 ## 🧪 Play the Prototype
 
-▶️ [Unity WebGL Build](https://play.unity.com/en/games/85de9152-0b54-4462-ae20-7396c6dcc561/outpost13)
+▶️ [Yandex Games](https://yandex.ru/games/app/467735?lang=en)
 
 ---
 
