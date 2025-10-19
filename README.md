@@ -71,11 +71,9 @@ This project focuses on:
 
 ## 🎥 Media
 
-![Компьютер](Media/DEN3.jpg)
-![Компьютер](Media/DEN4.jpg)
-<video width="320" height="240" controls>
-  <source src="Media/DEN5.mp4" type="video/mp4">
-</video>
+![Image1](Media/DEN3.jpg)
+![Image2](Media/DEN4.jpg)
+![Gif1](Media/DEN5.gif)
 
 ---
 
