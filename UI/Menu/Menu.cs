@@ -18,6 +18,17 @@ public class Menu : MonoBehaviour
         {
             canvas = transform.parent;
         }
+        if (loadGame != null)
+        {
+            if (YG2.saves.triggerNameID.Count > 0)
+            {
+                loadGame.interactable = true;
+            }
+            else
+            {
+                loadGame.interactable = false;
+            }
+        }
         AddClick(returnGame, CloseMenu);
         AddClick(settings, OpenSettings);
         AddClick(mainMenu, OpenStartMenu);
@@ -35,6 +46,7 @@ public class Menu : MonoBehaviour
     public void OpenMainLevel()
     {
         settingsGame.save = false;
+        YG2.InterstitialAdvShow();
         SceneManager.LoadScene("MainLevel");
     }
     public void OpenSettings()
@@ -49,6 +61,7 @@ public class Menu : MonoBehaviour
     }
     void OpenStartMenu()
     {
+        YG2.InterstitialAdvShow();
         SceneManager.LoadScene("StartMenu");
     }
     void AddClick(Button button, Action buttonClick)
@@ -59,6 +72,7 @@ public class Menu : MonoBehaviour
     void LoadGame()
     {
         settingsGame.save = true;
+        YG2.InterstitialAdvShow();
         SceneManager.LoadScene("MainLevel");
     }
 }
