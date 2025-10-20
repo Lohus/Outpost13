@@ -42,8 +42,11 @@ public class Altar : MonoBehaviour, IInteraction
     // Create button for activation
     void ShowButton()
     {
-        buttonUse = Interface.instance.CreateButton(buttonTitle, PressButton);
-        buttonUse.GetComponent<Button>().interactable = PlayerInventory.instance.CheckItem(goldenPawsItem);
+        if (buttonUse == null)
+        {
+            buttonUse = Interface.instance.CreateButton(buttonTitle, PressButton);
+            buttonUse.GetComponent<Button>().interactable = PlayerInventory.instance.CheckItem(goldenPawsItem);
+        }
     }
 
     // Function for button press

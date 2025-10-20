@@ -32,6 +32,10 @@ public class Portal : MonoBehaviour
     // Load final scene
     void OnTriggerEnter(Collider other)
     {
-        SceneManager.LoadScene("Final");
+        if (other.CompareTag("Player"))
+        {
+            Debug.Log(other.name);
+            SceneManager.LoadScene("Final");
+        }
     }
 }
