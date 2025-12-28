@@ -88,12 +88,6 @@ This project focuses on:
 
 ---
 
-## 🧪 Play the Prototype
-
-▶️ [Yandex Games](https://yandex.ru/games/app/467735?lang=en)
-
----
-
 ## 📌 License
 
 MIT License. You may explore the code and architecture for learning purposes.
