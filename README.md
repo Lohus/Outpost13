@@ -2,7 +2,6 @@
 
 🛰️ **Isometric sci-fi survival game** with crafting, modular buildings, story events and environmental hazards.  
 Developed solo as a portfolio project using Unity, C# and Blender.
-🔗 [Play the prototype](https://play.unity.com/en/games/85de9152-0b54-4462-ae20-7396c6dcc561/outpost13)
 
 ---
 
